@@ -61,6 +61,20 @@
     font-weight: 700; padding: 2px 6px; border-radius: 99px; min-width: 18px; text-align: center;
   }
   .nav-badge.amber { background: var(--amber); color: #000; }
+  .nav-assistant {
+    display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 7px;
+    cursor: pointer; font-size: 13.5px; font-weight: 500; margin: 0 0 4px;
+    color: var(--text-dim); background: transparent;
+    border: 1px solid var(--card-border); transition: all 0.15s;
+  }
+  .nav-assistant:hover { background: rgba(255,255,255,0.05); color: var(--text); border-color: rgba(255,255,255,0.12); }
+  .nav-assistant svg { flex-shrink: 0; opacity: 0.6; }
+  .nav-assistant:hover svg { opacity: 0.9; }
+  .nav-assistant kbd {
+    margin-left: auto; font-size: 9px; padding: 1px 5px; border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04);
+    color: var(--text-muted); font-family: inherit; font-weight: 500;
+  }
   .sidebar-footer { padding: 14px 10px; border-top: 1px solid var(--navy-border); }
   .org-info { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 7px; cursor: pointer; }
   .org-avatar { width: 32px; height: 32px; background: linear-gradient(135deg,#6366f1,#8b5cf6); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; flex-shrink: 0; }
@@ -73,7 +87,7 @@
     padding: 0 24px; height: 56px; border-bottom: 1px solid var(--card-border);
     display: flex; align-items: center; gap: 12px; background: var(--card); flex-shrink: 0;
   }
-  .topbar-title { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .topbar-title { font-size: 20px; font-weight: 800; color: var(--text); flex: 1; letter-spacing: -0.02em; }
   .search-box {
     display: flex; align-items: center; gap: 8px; background: var(--navy);
     border: 1px solid var(--navy-border); border-radius: 8px; padding: 7px 12px;
@@ -101,15 +115,37 @@
   /* CARDS */
   .card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); }
   .card-header { padding: 16px 20px; border-bottom: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
-  .card-title { font-size: 13.5px; font-weight: 700; color: var(--text); }
+  .card-title { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
   .card-body { padding: 20px; }
 
   /* STATS GRID */
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-  .stat-card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 18px 20px; }
-  .stat-label { font-size: 11.5px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
-  .stat-value { font-size: 28px; font-weight: 800; color: var(--text); line-height: 1; }
-  .stat-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; }
+  /* Alert bar */
+  .dash-alert {
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: var(--radius);
+    padding: 14px 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .dash-alert-icon { font-size: 18px; flex-shrink: 0; }
+  .dash-alert-text { font-size: 13.5px; color: var(--text); flex: 1; font-weight: 500; }
+  .dash-alert-text strong { color: var(--red); font-weight: 700; }
+  .dash-alert-items { display: flex; gap: 8px; flex-wrap: wrap; }
+  .dash-alert-item {
+    font-size: 12px; padding: 4px 10px; border-radius: 6px; cursor: pointer;
+    background: rgba(239,68,68,0.1); color: #fca5a5; border: 1px solid rgba(239,68,68,0.15);
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .dash-alert-item:hover { background: rgba(239,68,68,0.18); color: white; }
+  .dash-alert-item.warn { background: rgba(245,158,11,0.1); color: #fcd34d; border-color: rgba(245,158,11,0.15); }
+  .dash-alert-item.warn:hover { background: rgba(245,158,11,0.18); color: white; }
+  /* Stats grid */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .stat-card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 18px 20px; border-left: 3px solid var(--card-border); }
+  .stat-card.stat-highlight { border-left-color: var(--green); background: linear-gradient(135deg, rgba(16,185,129,0.04) 0%, var(--card) 60%); }
+  .stat-card.stat-hl-amber { border-left-color: var(--amber); background: linear-gradient(135deg, rgba(245,158,11,0.04) 0%, var(--card) 60%); }
+  .stat-card.stat-hl-teal { border-left-color: var(--teal); background: linear-gradient(135deg, rgba(14,165,233,0.04) 0%, var(--card) 60%); }
+  .stat-card.stat-hl-red { border-left-color: var(--red); background: linear-gradient(135deg, rgba(239,68,68,0.04) 0%, var(--card) 60%); }
+  .stat-label { font-size: 10.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .stat-value { font-size: 32px; font-weight: 800; color: var(--text); line-height: 1; letter-spacing: -0.02em; }
+  .stat-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 6px; }
   .stat-good { color: var(--green); }
   .stat-warn { color: var(--amber); }
   .stat-danger { color: var(--red); }
@@ -121,7 +157,7 @@
   /* TABLE */
   .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; }
-  thead th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--card-border); }
+  thead th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--card-border); }
   tbody td { padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13.5px; color: var(--text); vertical-align: middle; }
   tbody tr:hover { background: rgba(255,255,255,0.02); }
   tbody tr:last-child td { border-bottom: none; }
@@ -153,6 +189,27 @@
   .filter-btn { padding: 6px 12px; border-radius: 6px; font-size: 12.5px; font-weight: 500; cursor: pointer; border: 1px solid var(--navy-border); background: transparent; color: var(--text-dim); transition: all 0.15s; }
   .filter-btn.active { background: var(--teal-dim); color: var(--teal); border-color: var(--teal); }
   .filter-btn:hover:not(.active) { background: rgba(255,255,255,0.05); color: var(--text); }
+  /* Document filters */
+  .doc-filters {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .doc-search {
+    display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 8px; padding: 7px 12px; flex: 1; min-width: 200px; max-width: 320px;
+  }
+  .doc-search svg { color: var(--text-muted); flex-shrink: 0; }
+  .doc-search input {
+    background: none; border: none; color: var(--text); font-size: 13px; outline: none; width: 100%;
+  }
+  .doc-search input::placeholder { color: var(--text-muted); }
+  .doc-filter-select {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 7px 10px; color: var(--text); font-size: 12.5px; outline: none; cursor: pointer;
+    min-width: 120px;
+  }
+  .doc-filter-select:focus { border-color: var(--teal); }
+  .doc-type-chips { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .doc-count { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
 
   /* ORG CHART */
   .oc-toolbar { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 16px; gap: 16px; flex-wrap: wrap; }
@@ -227,7 +284,7 @@
   .order-progress-fill { height: 100%; border-radius: 99px; background: var(--teal); }
 
   /* MODAL */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 400; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
   .modal-overlay.open { opacity: 1; pointer-events: all; }
   .modal { background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; width: 540px; max-width: 95vw; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.2s; }
   .modal-overlay.open .modal { transform: translateY(0); }
@@ -291,14 +348,7 @@
   .toast-icon { font-size: 20px; }
 
   /* AI CHAT */
-  .chat-toggle {
-    position: fixed; bottom: 24px; right: 24px; width: 52px; height: 52px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--teal), #6366f1); border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; z-index: 300;
-    box-shadow: 0 4px 20px rgba(14,165,233,0.3); transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(14,165,233,0.4); }
-  .chat-toggle svg { width: 24px; height: 24px; fill: white; }
+  .chat-toggle { display: none; }
   .chat-panel {
     position: fixed; top: 0; right: -420px; width: 420px; height: 100vh; background: var(--bg);
     border-left: 1px solid var(--card-border); z-index: 310; display: flex; flex-direction: column;
@@ -351,14 +401,31 @@
   .chat-confirm .cc-yes:hover { background: var(--teal-dark); }
   .chat-confirm .cc-no { background: transparent; color: var(--text-muted); }
   .chat-confirm .cc-no:hover { color: var(--text); }
+  .cc-inline-btn { display:inline; background:rgba(99,102,241,0.15); border:1px solid rgba(99,102,241,0.3); color:var(--primary); padding:2px 8px; border-radius:4px; font-size:10px; cursor:pointer; font-family:inherit; margin-left:6px; transition:all 0.15s; }
+  .cc-inline-btn:hover { background:rgba(99,102,241,0.3); }
+  .chat-suggestions-label, .chat-recent-label {
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-muted); margin: 12px 0 6px;
+  }
   .chat-suggestions {
-    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
+    display: flex; flex-wrap: wrap; gap: 6px;
   }
   .chat-suggestions button {
     background: var(--navy-light); border: 1px solid var(--card-border); color: var(--text-dim);
     padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.15s;
   }
   .chat-suggestions button:hover { border-color: var(--teal); color: var(--teal); }
+  .chat-recent-list {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .chat-recent-btn {
+    display: flex; align-items: center; gap: 8px; width: 100%; text-align: left;
+    background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.12);
+    color: var(--text-dim); padding: 7px 12px; border-radius: 8px; font-size: 12px;
+    cursor: pointer; transition: all 0.15s; font-family: inherit;
+  }
+  .chat-recent-btn:hover { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.25); color: var(--text); }
+  .chat-recent-icon { color: var(--text-muted); font-size: 11px; flex-shrink: 0; }
   .chat-input-wrap {
     padding: 14px 16px; border-top: 1px solid var(--card-border); display: flex; gap: 8px;
   }
@@ -379,48 +446,262 @@
   .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes chatTyping { 0%,60%,100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
   /* Dashboard AI card */
-  .ai-hero {
-    background: linear-gradient(135deg, rgba(14,165,233,0.08), rgba(99,102,241,0.08));
-    border: 1px solid rgba(14,165,233,0.2); border-radius: var(--radius);
-    padding: 24px 28px; margin-bottom: 16px; display: flex; align-items: center; gap: 24px;
+  /* AI assistant dashboard card */
+  .ai-bar {
+    position: relative; border-radius: var(--radius); overflow: hidden;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e3a5f 100%);
+    border: 1px solid rgba(129,140,248,0.2);
+    box-shadow: 0 4px 24px rgba(30,27,75,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+    display: flex; flex-direction: column;
   }
-  .ai-hero-icon {
-    width: 56px; height: 56px; border-radius: 16px; flex-shrink: 0;
+  .ai-bar::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(14,165,233,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .ai-bar-inner {
+    position: relative; z-index: 1; display: flex; flex-direction: column; padding: 22px 20px 18px; gap: 14px;
+    height: 100%; box-sizing: border-box;
+  }
+  .ai-bar-header { display: flex; align-items: center; gap: 12px; }
+  .ai-bar-icon {
+    width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+    background: rgba(129,140,248,0.15); border: 1px solid rgba(129,140,248,0.25);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ai-bar-icon svg { width: 16px; height: 16px; stroke: #a5b4fc; fill: none; }
+  .ai-bar-text { flex: 1; }
+  .ai-bar-title { font-size: 16px; font-weight: 800; color: #e0e7ff; letter-spacing: -0.02em; }
+  .ai-bar-sub { font-size: 11.5px; color: #9ca3c4; margin-top: 1px; }
+  .ai-bar kbd {
+    font-size: 10px; padding: 3px 7px; border-radius: 4px;
+    border: 1px solid rgba(129,140,248,0.2); background: rgba(129,140,248,0.08);
+    color: #a5b4fc; font-family: inherit; white-space: nowrap;
+  }
+  .ai-bar-input-wrap {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .ai-bar-input {
+    flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e0e7ff;
+    outline: none; font-family: inherit; transition: border-color 0.15s;
+  }
+  .ai-bar-input::placeholder { color: #7b85a3; }
+  .ai-bar-input:focus { border-color: rgba(129,140,248,0.4); background: rgba(255,255,255,0.08); }
+  .ai-bar-send {
+    width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;
+    background: rgba(129,140,248,0.2); color: #a5b4fc; display: flex; align-items: center;
+    justify-content: center; transition: all 0.15s; flex-shrink: 0;
+  }
+  .ai-bar-send:hover { background: rgba(129,140,248,0.35); color: #e0e7ff; }
+  .ai-bar-send svg { width: 16px; height: 16px; fill: currentColor; }
+  .ai-bar-section { display: flex; flex-direction: column; gap: 6px; }
+  .ai-bar-section-label {
+    font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    color: #7b85a3; margin-bottom: 2px;
+  }
+  .ai-bar-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .ai-bar-recent-btn {
+    display: flex; align-items: center; gap: 6px; width: 100%; text-align: left;
+    background: rgba(129,140,248,0.06); border: 1px solid rgba(129,140,248,0.12);
+    color: #b8c2db; padding: 6px 10px; border-radius: 6px; font-size: 11.5px;
+    cursor: pointer; transition: all 0.15s; font-family: inherit;
+  }
+  .ai-bar-recent-btn:hover { background: rgba(129,140,248,0.15); border-color: rgba(129,140,248,0.3); color: #e0e7ff; }
+  .ai-bar-recent-icon { color: #7b85a3; font-size: 10px; flex-shrink: 0; }
+  .ai-bar-btn {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: #b8c2db; padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 500;
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+  }
+  .ai-bar-btn:hover { background: rgba(129,140,248,0.2); border-color: rgba(129,140,248,0.35); color: #e0e7ff; }
+
+  /* ENTITY EDIT MODE */
+  .ed-edit-bar {
+    position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--card-border);
+    padding: 16px 28px; display: flex; justify-content: flex-end; gap: 10px; z-index: 2;
+  }
+  .ed-field-readonly {
+    background: var(--navy); border-radius: 8px; padding: 12px 14px; position: relative;
+  }
+  .ed-field-readonly .ed-lock {
+    position: absolute; top: 10px; right: 10px; font-size: 10px; color: var(--text-muted); opacity: 0.5;
+  }
+  .ed-field-label {
+    font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+  .ed-field-value { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .ed-field-editable { background: var(--navy); border-radius: 8px; padding: 12px 14px; }
+  .ed-field-editable input, .ed-field-editable select {
+    width: 100%; background: var(--bg); border: 1px solid var(--card-border); border-radius: 6px;
+    padding: 7px 10px; color: var(--text); font-size: 13px; outline: none; transition: border-color 0.15s;
+    margin-top: 2px;
+  }
+  .ed-field-editable input:focus, .ed-field-editable select:focus { border-color: var(--teal); }
+  .ed-field-editable textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--card-border); border-radius: 6px;
+    padding: 7px 10px; color: var(--text); font-size: 13px; outline: none; transition: border-color 0.15s;
+    margin-top: 2px; resize: vertical; font-family: inherit; min-height: 48px;
+  }
+  .ed-field-editable textarea:focus { border-color: var(--teal); }
+  .ed-officer-edit {
+    display: flex; align-items: center; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .ed-officer-edit .ed-officer-avatar {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
     background: linear-gradient(135deg, var(--teal), #6366f1);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 16px rgba(14,165,233,0.25);
+    font-size: 11px; font-weight: 700; color: white;
   }
-  .ai-hero-icon svg { width: 28px; height: 28px; fill: white; }
-  .ai-hero-body { flex: 1; }
-  .ai-hero-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-  .ai-hero-sub { font-size: 13px; color: var(--text-dim); line-height: 1.45; margin-bottom: 12px; }
-  .ai-hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .ai-hero-actions button {
-    background: var(--card); border: 1px solid var(--card-border); color: var(--text-dim);
-    padding: 7px 14px; border-radius: 8px; font-size: 12.5px; cursor: pointer; transition: all 0.15s;
+  .ed-officer-edit .ed-officer-fields { flex: 1; display: flex; gap: 8px; }
+  .ed-officer-edit .ed-officer-fields input,
+  .ed-officer-edit .ed-officer-fields select {
+    background: var(--bg); border: 1px solid var(--card-border); border-radius: 6px;
+    padding: 6px 8px; color: var(--text); font-size: 12.5px; outline: none; transition: border-color 0.15s;
   }
-  .ai-hero-actions button:hover { border-color: var(--teal); color: var(--teal); }
-  .ai-hero-input {
-    display: flex; gap: 8px; margin-top: 12px;
+  .ed-officer-edit .ed-officer-fields input:focus,
+  .ed-officer-edit .ed-officer-fields select:focus { border-color: var(--teal); }
+  .ed-officer-edit .ed-officer-fields input.name-input { flex: 2; }
+  .ed-officer-edit .ed-officer-fields select.role-input { flex: 1.5; }
+  .ed-officer-edit .ed-officer-fields input.pct-input { width: 60px; flex: none; text-align: right; }
+  .ed-officer-remove {
+    width: 26px; height: 26px; border-radius: 6px; border: none; flex-shrink: 0;
+    background: rgba(239,68,68,0.08); color: var(--red); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.15s;
   }
-  .ai-hero-input input {
-    flex: 1; background: var(--card); border: 1px solid var(--card-border); border-radius: 8px;
-    padding: 10px 14px; color: var(--text); font-size: 13.5px; outline: none;
+  .ed-officer-remove:hover { background: rgba(239,68,68,0.18); }
+  .ed-add-officer {
+    display: flex; align-items: center; gap: 8px; padding: 12px 0; cursor: pointer;
+    color: var(--teal); font-size: 13px; font-weight: 600; border: none; background: none;
+    transition: opacity 0.15s; width: 100%;
   }
-  .ai-hero-input input:focus { border-color: var(--teal); }
-  .ai-hero-input input::placeholder { color: var(--text-muted); }
-  .ai-hero-input button {
-    background: var(--teal); border: none; border-radius: 8px; padding: 0 16px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
+  .ed-add-officer:hover { opacity: 0.8; }
+  .ed-pct-total {
+    font-size: 11.5px; color: var(--text-muted); padding: 8px 0; text-align: right;
   }
-  .ai-hero-input button svg { width: 18px; height: 18px; fill: white; }
+  .ed-pct-total.over { color: var(--red); }
+  .ed-pct-total.exact { color: var(--green); }
+
+  /* ENTITY DETAIL SIDEBAR */
+  .ed-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 299;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .ed-overlay.open { opacity: 1; pointer-events: all; }
+  .ed-panel {
+    position: fixed; top: 0; right: -660px; width: 660px; height: 100vh; background: var(--bg);
+    border-left: 1px solid var(--card-border); z-index: 300; display: flex; flex-direction: column;
+    transition: right 0.3s ease; box-shadow: -8px 0 30px rgba(0,0,0,0.3);
+  }
+  .ed-panel.open { right: 0; }
+  .ed-panel-header {
+    padding: 24px 28px 16px; display: flex; align-items: flex-start; justify-content: space-between;
+  }
+  .ed-panel-name { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+  .ed-panel-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 4px; }
+  .ed-panel-close {
+    width: 32px; height: 32px; border-radius: 8px; border: none; background: rgba(255,255,255,0.04);
+    color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .ed-panel-close:hover { color: var(--text); background: rgba(255,255,255,0.08); }
+  .ed-panel-actions { padding: 0 28px 16px; display: flex; gap: 8px; }
+  .ed-panel-body { flex: 1; overflow-y: auto; padding: 20px 28px; }
+  .ed-panel .tabs { padding: 0 28px; }
+
+  /* FORMATION WIZARD SIDEBAR */
+  .wizard-panel {
+    position: fixed; top: 0; right: -480px; width: 480px; height: 100vh; background: var(--bg);
+    border-left: 1px solid var(--card-border); z-index: 320; display: flex; flex-direction: column;
+    transition: right 0.3s ease;
+  }
+  .wizard-panel.open { right: 0; }
+  .wizard-header {
+    padding: 20px 24px; border-bottom: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .wizard-header-left { display: flex; align-items: center; gap: 12px; }
+  .wizard-header-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--teal), #6366f1);
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .wizard-header h3 { font-size: 15px; font-weight: 700; margin: 0; }
+  .wizard-header p { font-size: 11px; color: var(--text-muted); margin: 2px 0 0; }
+  .wizard-header button { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; padding: 4px; }
+  .wizard-header button:hover { color: var(--text); }
+  .wizard-steps {
+    display: flex; padding: 16px 24px; gap: 4px; border-bottom: 1px solid var(--card-border);
+  }
+  .wizard-step-dot {
+    flex: 1; height: 4px; border-radius: 2px; background: var(--navy-border); transition: background 0.3s;
+  }
+  .wizard-step-dot.done { background: var(--teal); }
+  .wizard-step-dot.active { background: var(--teal); opacity: 0.5; }
+  .wizard-body {
+    flex: 1; overflow-y: auto; padding: 24px;
+  }
+  .wizard-body .wiz-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-muted); margin-bottom: 10px;
+  }
+  .wizard-body .wiz-title {
+    font-size: 18px; font-weight: 700; margin-bottom: 6px;
+  }
+  .wizard-body .wiz-sub {
+    font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 20px;
+  }
+  .wiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .wiz-option {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 10px;
+    padding: 14px 16px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 12px;
+  }
+  .wiz-option:hover { border-color: var(--teal); background: rgba(14,165,233,0.04); }
+  .wiz-option.selected { border-color: var(--teal); background: var(--teal-dim); }
+  .wiz-option-icon { font-size: 20px; width: 36px; height: 36px; border-radius: 8px; background: var(--navy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .wiz-option-text { flex: 1; }
+  .wiz-option-text strong { font-size: 13.5px; display: block; margin-bottom: 2px; }
+  .wiz-option-text span { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; }
+  .wiz-option .wiz-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--card-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+  .wiz-option.selected .wiz-check { border-color: var(--teal); background: var(--teal); }
+  .wiz-option.selected .wiz-check::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
+  .wiz-input {
+    width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 12px 14px; color: var(--text); font-size: 14px; outline: none; margin-bottom: 12px;
+  }
+  .wiz-input:focus { border-color: var(--teal); }
+  .wiz-input::placeholder { color: var(--text-muted); }
+  .wiz-hint {
+    display: flex; align-items: flex-start; gap: 8px; background: rgba(14,165,233,0.06);
+    border: 1px solid rgba(14,165,233,0.12); border-radius: 8px; padding: 10px 12px;
+    font-size: 12px; color: var(--text-dim); line-height: 1.45; margin-top: 12px;
+  }
+  .wiz-hint-icon { flex-shrink: 0; font-size: 14px; }
+  .wiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .wizard-footer {
+    padding: 16px 24px; border-top: 1px solid var(--card-border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .wizard-footer .wiz-back {
+    background: none; border: 1px solid var(--card-border); color: var(--text-dim);
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 500;
+  }
+  .wizard-footer .wiz-back:hover { color: var(--text); border-color: var(--text-muted); }
+  .wizard-footer .wiz-next {
+    background: var(--teal); border: none; color: white;
+    padding: 10px 24px; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600;
+  }
+  .wizard-footer .wiz-next:hover { background: var(--teal-dark); }
+  .wizard-footer .wiz-next:disabled { opacity: 0.4; cursor: not-allowed; }
+  .wiz-summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13.5px; }
+  .wiz-summary-row:last-child { border-bottom: none; }
+  .wiz-summary-row .wiz-s-label { color: var(--text-muted); }
+  .wiz-summary-row .wiz-s-value { color: var(--text); font-weight: 500; }
 
   /* DASHBOARD ACTIVITY */
-  .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .activity-item:last-child { border-bottom: none; }
-  .activity-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-  .activity-text { flex: 1; font-size: 13px; color: var(--text); line-height: 1.45; }
-  .activity-time { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+  /* activity styles removed — widget replaced */
 
   .progress-ring-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
   .progress-ring-label { position: absolute; text-align: center; }
@@ -479,6 +760,13 @@
       </div>
     </div>
     <div class="nav-section">
+      <div class="nav-assistant" onclick="toggleChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Assistant
+        <kbd>⌘K</kbd>
+      </div>
+    </div>
+    <div class="nav-section">
       <div class="nav-label">Account</div>
       <div class="nav-item" onclick="navigate('billing')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
@@ -517,51 +805,66 @@
 
     <!-- DASHBOARD VIEW -->
     <div id="view-dashboard" class="view active">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Total Entities</div>
-          <div class="stat-value">47</div>
-          <div class="stat-sub"><span class="stat-good">+3</span> this quarter</div>
+      <!-- Alert bar -->
+      <div class="dash-alert">
+        <div class="dash-alert-icon">⚠</div>
+        <div class="dash-alert-text"><strong>3 items need attention</strong></div>
+        <div class="dash-alert-items">
+          <span class="dash-alert-item" onclick="navigate('compliance')">Maple Holdco — Overdue</span>
+          <span class="dash-alert-item" onclick="navigate('compliance')">Atlas Ventures — Overdue</span>
+          <span class="dash-alert-item warn" onclick="navigate('compliance')">Redwood Fund II — Apr 14</span>
         </div>
-        <div class="stat-card">
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card stat-highlight">
           <div class="stat-label">Compliance Health</div>
           <div class="stat-value stat-good">94%</div>
-          <div class="stat-sub">3 items need attention</div>
+          <div class="stat-sub">44 of 47 entities in good standing</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Active States</div>
-          <div class="stat-value">12</div>
-          <div class="stat-sub">All RA coverage active</div>
+        <div class="stat-card stat-hl-teal">
+          <div class="stat-label">Portfolio</div>
+          <div class="stat-value">47</div>
+          <div class="stat-sub"><span class="stat-good">+3</span> this quarter · 12 states</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card stat-hl-amber">
           <div class="stat-label">Upcoming Deadlines</div>
           <div class="stat-value stat-warn">5</div>
-          <div class="stat-sub">Next 30 days</div>
+          <div class="stat-sub">Next 30 days · $670 in fees</div>
         </div>
       </div>
 
-      <!-- AI Assistant Hero -->
-      <div class="ai-hero">
-        <div class="ai-hero-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 1 4.35L2 22l5.65-1C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14h-1.5v-1.5H11V16zm2.07-4.75l-.9.92C11.45 12.9 11 13.5 11 15h-1.5v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
-        </div>
-        <div class="ai-hero-body">
-          <div class="ai-hero-title">AlcoveIQ Assistant</div>
-          <div class="ai-hero-sub">Ask questions about your entities, check compliance status, or file orders — all through conversation.</div>
-          <div class="ai-hero-actions">
-            <button onclick="toggleChat();setTimeout(()=>chatSend('What needs my attention today?'),300)">What needs attention?</button>
-            <button onclick="toggleChat();setTimeout(()=>chatSend('Show all upcoming filings'),300)">Upcoming filings</button>
-            <button onclick="toggleChat();setTimeout(()=>chatSend('How much in fees this quarter?'),300)">Fee breakdown</button>
-            <button onclick="toggleChat();setTimeout(()=>chatSend('Who does Rafael Moreno manage?'),300)">Officer lookup</button>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px;margin-bottom:16px;align-items:stretch;">
+        <!-- AI Assistant card -->
+        <div class="ai-bar" style="margin-bottom:0;">
+          <div class="ai-bar-inner">
+            <div class="ai-bar-header">
+              <div class="ai-bar-icon">
+                <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="ai-bar-text">
+                <div class="ai-bar-title">Ask the assistant</div>
+                <div class="ai-bar-sub">Compliance, filings, orders & more</div>
+              </div>
+              <kbd class="ai-bar kbd">⌘K</kbd>
+            </div>
+            <div id="ai-bar-recent" class="ai-bar-section"></div>
+            <div class="ai-bar-section">
+              <div class="ai-bar-section-label">Suggestions</div>
+              <div class="ai-bar-actions">
+                <button class="ai-bar-btn" onclick="toggleChat();setTimeout(()=>chatSend('What needs my attention today?'),300)">⚡ What needs attention?</button>
+                <button class="ai-bar-btn" onclick="toggleChat();setTimeout(()=>chatSend('Show all upcoming filings'),300)">📅 Upcoming filings</button>
+                <button class="ai-bar-btn" onclick="toggleChat();setTimeout(()=>chatSend('File an order'),300)">📋 File an order</button>
+              </div>
+            </div>
+            <div class="ai-bar-input-wrap">
+              <input class="ai-bar-input" type="text" placeholder="Ask about your portfolio..." id="ai-bar-prompt" onkeydown="if(event.key==='Enter')sendBarPrompt()">
+              <button class="ai-bar-send" onclick="sendBarPrompt()">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              </button>
+            </div>
           </div>
-          <div class="ai-hero-input">
-            <input type="text" id="ai-hero-input" placeholder="Ask anything about your entities…" onkeydown="if(event.key==='Enter'){toggleChat();setTimeout(()=>chatSend(document.getElementById('ai-hero-input').value),300);this.value='';}">
-            <button onclick="toggleChat();setTimeout(()=>chatSend(document.getElementById('ai-hero-input').value),300);document.getElementById('ai-hero-input').value='';"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
-          </div>
         </div>
-      </div>
-
-      <div class="grid-2" style="gap:16px; margin-bottom:16px;">
         <!-- Upcoming deadlines -->
         <div class="card">
           <div class="card-header">
@@ -604,34 +907,6 @@
           </div>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Recent Activity</div>
-          </div>
-          <div class="card-body" style="padding: 8px 16px;">
-            <div class="activity-item">
-              <div class="activity-icon" style="background: var(--green-dim);">✅</div>
-              <div class="activity-text"><strong>Order #10043 completed</strong><br>Delaware Annual Report — Redwood Fund II LP. Docs uploaded to vault.</div>
-              <div class="activity-time">2h ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background: var(--teal-dim);">🏢</div>
-              <div class="activity-text"><strong>Entity formed</strong><br>Sequoia SPV 14 LLC formed in Delaware. EIN obtained.</div>
-              <div class="activity-time">Yesterday</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background: var(--amber-dim);">⚠️</div>
-              <div class="activity-text"><strong>Compliance alert</strong><br>Maple Holdco LLC — CA Good Standing cert expired Apr 1.</div>
-              <div class="activity-time">3 days ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background: var(--teal-dim);">📋</div>
-              <div class="activity-text"><strong>Documents signed</strong><br>Board resolution executed for Redwood GP LLC via e-signature.</div>
-              <div class="activity-time">5 days ago</div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- Entities by type -->
@@ -696,7 +971,7 @@
         <button class="filter-btn" onclick="filterEntities(this,'holdco')">HoldCos (11)</button>
         <div style="margin-left:auto; display:flex; gap:8px;">
           <button class="btn btn-ghost btn-sm">Export CSV</button>
-          <button class="btn btn-primary btn-sm" onclick="openModal('new-order')">+ Form Entity</button>
+          <button class="btn btn-primary btn-sm" onclick="openWizard()">+ Form Entity</button>
         </div>
       </div>
       <div class="card">
@@ -752,28 +1027,53 @@
 
     <!-- COMPLIANCE VIEW -->
     <div id="view-compliance" class="view">
-      <div class="stats-grid" style="margin-bottom:20px;">
-        <div class="stat-card">
+      <div class="stats-grid" style="margin-bottom:20px;grid-template-columns:1fr 1fr 1fr 1fr;">
+        <div class="stat-card stat-hl-red">
           <div class="stat-label">Overdue</div>
           <div class="stat-value stat-danger">2</div>
           <div class="stat-sub">Require immediate action</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card stat-hl-amber">
           <div class="stat-label">Due in 30 Days</div>
           <div class="stat-value stat-warn">5</div>
           <div class="stat-sub">Being auto-prepared</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card stat-highlight">
           <div class="stat-label">Auto-Filed YTD</div>
           <div class="stat-value stat-good">38</div>
           <div class="stat-sub">Zero misses this year</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card stat-hl-teal">
           <div class="stat-label">States Covered</div>
           <div class="stat-value">12</div>
           <div class="stat-sub">All RA active</div>
         </div>
       </div>
+      <!-- Compliance filters -->
+      <div class="doc-filters" style="margin-bottom:10px;">
+        <div class="doc-search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search filings…" id="comp-search-input" oninput="applyCompFilters()">
+        </div>
+        <select class="doc-filter-select" id="comp-filter-entity" onchange="applyCompFilters()">
+          <option value="">All Entities</option>
+        </select>
+        <select class="doc-filter-select" id="comp-filter-state" onchange="applyCompFilters()">
+          <option value="">All States</option>
+          <option>CA</option><option>DE</option><option>FL</option><option>NV</option><option>NY</option><option>TX</option><option>WY</option>
+        </select>
+        <span id="comp-count" style="font-size:12px;color:var(--text-muted);white-space:nowrap;"></span>
+      </div>
+      <div class="doc-type-chips" id="comp-status-chips" style="margin-bottom:16px;">
+        <button class="filter-btn active" onclick="setCompStatus(this,'all')">All</button>
+        <button class="filter-btn" onclick="setCompStatus(this,'red')">Overdue</button>
+        <button class="filter-btn" onclick="setCompStatus(this,'amber')">Due Soon</button>
+        <button class="filter-btn" onclick="setCompStatus(this,'blue')">Prepared</button>
+        <button class="filter-btn" onclick="setCompStatus(this,'gray')">Upcoming</button>
+        <button class="filter-btn" onclick="setCompStatus(this,'green')">Auto-Filed</button>
+        <button class="btn btn-ghost btn-sm" id="comp-clear-filters" style="display:none;margin-left:auto;" onclick="clearCompFilters()">Clear filters</button>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <div class="card-title">Compliance Calendar — Q2 2026</div>
@@ -790,28 +1090,86 @@
 
     <!-- DOCUMENTS VIEW -->
     <div id="view-documents" class="view">
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterDocs(this,'all')">All Documents</button>
-        <button class="filter-btn" onclick="filterDocs(this,'formation')">Formation</button>
-        <button class="filter-btn" onclick="filterDocs(this,'compliance')">Compliance</button>
-        <button class="filter-btn" onclick="filterDocs(this,'consents')">Consents</button>
-        <button class="filter-btn" onclick="filterDocs(this,'certs')">Certificates</button>
-        <div style="margin-left:auto;"><button class="btn btn-primary btn-sm">Upload Document</button></div>
+      <!-- Search + filters row -->
+      <div class="doc-filters">
+        <div class="doc-search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search documents…" id="doc-search-input" oninput="applyDocFilters()">
+        </div>
+        <select class="doc-filter-select" id="doc-filter-entity" onchange="applyDocFilters()">
+          <option value="">All Entities</option>
+        </select>
+        <select class="doc-filter-select" id="doc-filter-state" onchange="applyDocFilters()">
+          <option value="">All States</option>
+          <option>CA</option><option>DE</option><option>FL</option><option>NV</option><option>NY</option><option>TX</option><option>WY</option>
+        </select>
+        <select class="doc-filter-select" id="doc-filter-date" onchange="applyDocFilters()">
+          <option value="">Any Date</option>
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="180">Last 6 months</option>
+          <option value="365">Last year</option>
+        </select>
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+          <span class="doc-count" id="doc-count">18 documents</span>
+          <button class="btn btn-primary btn-sm">Upload Document</button>
+        </div>
+      </div>
+      <!-- Type chips -->
+      <div class="doc-type-chips">
+        <button class="filter-btn active" onclick="setDocType(this,'all')">All</button>
+        <button class="filter-btn" onclick="setDocType(this,'formation')">Formation</button>
+        <button class="filter-btn" onclick="setDocType(this,'compliance')">Compliance</button>
+        <button class="filter-btn" onclick="setDocType(this,'consents')">Consents</button>
+        <button class="filter-btn" onclick="setDocType(this,'certs')">Certificates</button>
+        <button class="filter-btn" onclick="setDocType(this,'tax')">Tax</button>
+        <button class="btn btn-ghost btn-sm" id="doc-clear-filters" onclick="clearDocFilters()" style="display:none;margin-left:auto;">Clear filters</button>
       </div>
       <div class="card">
-        <div id="doc-list">
-          <!-- Injected by JS -->
+        <div id="doc-list"></div>
+        <div id="doc-empty" class="empty-state" style="display:none;padding:40px;">
+          <div class="es-icon">📂</div>
+          <div class="es-title">No documents match your filters</div>
+          <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px;">Try adjusting your search or filters</div>
         </div>
       </div>
     </div>
 
     <!-- ORDERS VIEW -->
     <div id="view-orders" class="view">
-      <div class="filter-bar">
-        <button class="filter-btn active">All Orders</button>
-        <button class="filter-btn">In Progress</button>
-        <button class="filter-btn">Completed</button>
-        <div style="margin-left:auto;"><button class="btn btn-primary btn-sm" onclick="openModal('new-order')">+ New Order</button></div>
+      <div class="doc-filters">
+        <div class="doc-search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search orders…" id="ord-search-input" oninput="applyOrderFilters()">
+        </div>
+        <select class="doc-filter-select" id="ord-filter-entity" onchange="applyOrderFilters()">
+          <option value="">All Entities</option>
+        </select>
+        <select class="doc-filter-select" id="ord-filter-status" onchange="applyOrderFilters()">
+          <option value="">All Statuses</option>
+          <option>Completed</option><option>In Progress</option><option>Sent to RA</option><option>Under Review</option><option>Pending</option>
+        </select>
+        <select class="doc-filter-select" id="ord-filter-date" onchange="applyOrderFilters()">
+          <option value="">Any Date</option>
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="180">Last 6 months</option>
+          <option value="365">Last year</option>
+        </select>
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+          <span class="doc-count" id="ord-count">0 orders</span>
+          <button class="btn btn-primary btn-sm" onclick="openModal('new-order')">+ New Order</button>
+        </div>
+      </div>
+      <div class="doc-type-chips" id="ord-service-chips">
+        <button class="filter-btn active" onclick="setOrdService(this,'all')">All</button>
+        <button class="filter-btn" onclick="setOrdService(this,'formation')">Formation</button>
+        <button class="filter-btn" onclick="setOrdService(this,'annual-report')">Annual Report</button>
+        <button class="filter-btn" onclick="setOrdService(this,'foreign-qual')">Foreign Qual</button>
+        <button class="filter-btn" onclick="setOrdService(this,'good-standing')">Good Standing</button>
+        <button class="filter-btn" onclick="setOrdService(this,'amendment')">Amendment</button>
+        <button class="filter-btn" onclick="setOrdService(this,'other')">Other</button>
+        <button class="btn btn-ghost btn-sm" id="ord-clear-filters" onclick="clearOrderFilters()" style="display:none;margin-left:auto;">Clear filters</button>
       </div>
       <div class="card">
         <div class="table-wrap">
@@ -819,59 +1177,13 @@
             <thead>
               <tr><th>Order ID</th><th>Service</th><th>Entity</th><th>State</th><th>Priority</th><th>Status</th><th>Progress</th><th>Filed</th></tr>
             </thead>
-            <tbody>
-              <tr>
-                <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">ORDER-10043</td>
-                <td>Annual Report</td>
-                <td>Redwood Fund II LP</td>
-                <td>DE</td>
-                <td><span class="badge badge-amber">Rush</span></td>
-                <td><span class="badge badge-green">Completed</span></td>
-                <td><div class="order-progress"><div class="order-progress-fill" style="width:100%;background:var(--green);"></div></div></td>
-                <td style="color:var(--text-muted);font-size:12px;">Apr 5, 2026</td>
-              </tr>
-              <tr>
-                <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">ORDER-10044</td>
-                <td>LLC Formation</td>
-                <td>Sequoia SPV 14 LLC</td>
-                <td>DE</td>
-                <td><span class="badge badge-gray">Standard</span></td>
-                <td><span class="badge badge-blue">In Progress</span></td>
-                <td><div class="order-progress"><div class="order-progress-fill" style="width:60%;"></div></div></td>
-                <td style="color:var(--text-muted);font-size:12px;">—</td>
-              </tr>
-              <tr>
-                <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">ORDER-10045</td>
-                <td>Good Standing Cert</td>
-                <td>Maple Holdco LLC</td>
-                <td>CA</td>
-                <td><span class="badge badge-red">Urgent</span></td>
-                <td><span class="badge badge-amber">Sent to RA</span></td>
-                <td><div class="order-progress"><div class="order-progress-fill" style="width:35%;"></div></div></td>
-                <td style="color:var(--text-muted);font-size:12px;">—</td>
-              </tr>
-              <tr>
-                <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">ORDER-10041</td>
-                <td>Foreign Qualification</td>
-                <td>Redwood GP LLC</td>
-                <td>NY</td>
-                <td><span class="badge badge-gray">Standard</span></td>
-                <td><span class="badge badge-green">Completed</span></td>
-                <td><div class="order-progress"><div class="order-progress-fill" style="width:100%;background:var(--green);"></div></div></td>
-                <td style="color:var(--text-muted);font-size:12px;">Mar 28, 2026</td>
-              </tr>
-              <tr>
-                <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">ORDER-10040</td>
-                <td>EIN Application</td>
-                <td>Oakwood SPV III</td>
-                <td>—</td>
-                <td><span class="badge badge-gray">Standard</span></td>
-                <td><span class="badge badge-green">Completed</span></td>
-                <td><div class="order-progress"><div class="order-progress-fill" style="width:100%;background:var(--green);"></div></div></td>
-                <td style="color:var(--text-muted);font-size:12px;">Mar 15, 2026</td>
-              </tr>
-            </tbody>
+            <tbody id="ord-table-body"></tbody>
           </table>
+        </div>
+        <div id="ord-empty" class="empty-state" style="display:none;padding:40px;">
+          <div class="es-icon">📋</div>
+          <div class="es-title">No orders match your filters</div>
+          <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px;">Try adjusting your search or filters</div>
         </div>
       </div>
     </div>
@@ -937,11 +1249,13 @@
         <div class="service-card" onclick="selectService(this, 'ein')"><div class="svc-icon">🔑</div><div class="svc-name">EIN / Tax ID</div><div class="svc-price">Included</div></div>
         <div class="service-card" onclick="selectService(this, 'amend')"><div class="svc-icon">✏️</div><div class="svc-name">Amendment</div><div class="svc-price">+ state fee</div></div>
         <div class="service-card" onclick="selectService(this, 'diss')"><div class="svc-icon">❌</div><div class="svc-name">Dissolution</div><div class="svc-price">+ state fee</div></div>
+        <div class="service-card" onclick="selectService(this, 'ra')"><div class="svc-icon">🛡️</div><div class="svc-name">RA Reinstatement</div><div class="svc-price">+ state fee</div></div>
       </div>
       <div class="form-grid">
         <div class="form-group">
           <label class="form-label">Entity Name</label>
-          <input class="form-control" type="text" placeholder="e.g. Sequoia SPV 15 LLC" id="order-entity-name">
+          <input class="form-control" type="text" placeholder="e.g. Sequoia SPV 15 LLC" id="order-entity-name" list="entity-name-options" oninput="onOrderEntityChange(this.value)" autocomplete="off">
+          <datalist id="entity-name-options"></datalist>
         </div>
         <div class="form-group">
           <label class="form-label">State</label>
@@ -969,7 +1283,8 @@
       </div>
       <div class="form-group">
         <label class="form-label">Member / Manager Name</label>
-        <input class="form-control" type="text" placeholder="Full legal name of managing member">
+        <input class="form-control" type="text" placeholder="Select or type a name" id="order-manager-name" list="officer-options" autocomplete="off">
+        <datalist id="officer-options"></datalist>
       </div>
       <div class="form-group">
         <label class="form-label">Notes / Special Instructions</label>
@@ -990,53 +1305,88 @@
 </div>
 
 <!-- ENTITY DETAIL MODAL -->
-<div class="modal-overlay" id="modal-entity-detail">
-  <div class="modal" style="width:620px;">
-    <div class="modal-header">
-      <div>
-        <div class="modal-title" id="ed-name">Entity Name</div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:3px;" id="ed-subtitle">LLC · Delaware</div>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span id="ed-status-badge"></span>
-        <button class="modal-close" onclick="closeModal('entity-detail')">✕</button>
-      </div>
+<!-- Entity Detail Sidebar -->
+<div class="ed-overlay" id="ed-overlay" onclick="closeEntityPanel()"></div>
+<div class="ed-panel" id="ed-panel">
+  <div class="ed-panel-header">
+    <div>
+      <div class="ed-panel-name" id="ed-name">Entity Name</div>
+      <div class="ed-panel-sub" id="ed-subtitle">LLC · Delaware</div>
     </div>
-    <div class="modal-body" style="padding:0;">
-      <div class="tabs" style="padding:0 24px;margin-bottom:0;">
-        <div class="tab active" onclick="edTab(this,'overview')">Overview</div>
-        <div class="tab" onclick="edTab(this,'states')">States & RA</div>
-        <div class="tab" onclick="edTab(this,'docs')">Documents</div>
-        <div class="tab" onclick="edTab(this,'history')">History</div>
-      </div>
-
-      <!-- Overview tab -->
-      <div id="ed-tab-overview" style="padding:20px 24px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;" id="ed-fields"></div>
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:10px;">Officers & Members</div>
-        <div id="ed-officers"></div>
-      </div>
-
-      <!-- States tab -->
-      <div id="ed-tab-states" style="padding:20px 24px;display:none;">
-        <div id="ed-states-list"></div>
-      </div>
-
-      <!-- Docs tab -->
-      <div id="ed-tab-docs" style="padding:20px 24px;display:none;">
-        <div id="ed-docs-list"></div>
-      </div>
-
-      <!-- History tab -->
-      <div id="ed-tab-history" style="padding:20px 24px;display:none;">
-        <div class="timeline" id="ed-history"></div>
-      </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span id="ed-status-badge"></span>
+      <button class="ed-panel-close" onclick="closeEntityPanel()">✕</button>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('entity-detail')">Close</button>
-      <button class="btn btn-ghost" onclick="closeModal('entity-detail');openModal('new-order')">+ New Order</button>
-      <button class="btn btn-primary">Edit Entity</button>
+  </div>
+  <div class="ed-panel-actions">
+    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New Order</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>
+  </div>
+  <div class="tabs" style="padding:0 24px;margin-bottom:0;">
+    <div class="tab active" onclick="edTab(this,'overview')">Overview</div>
+    <div class="tab" onclick="edTab(this,'states')">States & RA</div>
+    <div class="tab" onclick="edTab(this,'docs')">Documents</div>
+    <div class="tab" onclick="edTab(this,'history')">History</div>
+  </div>
+  <div class="ed-panel-body">
+    <!-- Overview tab -->
+    <div id="ed-tab-overview">
+      <div id="ed-outstanding" style="margin-bottom:20px;display:none;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;" id="ed-fields"></div>
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:10px;">Officers & Members</div>
+      <div id="ed-officers"></div>
     </div>
+
+    <!-- States tab -->
+    <div id="ed-tab-states" style="display:none;">
+      <div id="ed-states-list"></div>
+    </div>
+
+    <!-- Docs tab -->
+    <div id="ed-tab-docs" style="display:none;">
+      <div id="ed-docs-list"></div>
+    </div>
+
+    <!-- History tab -->
+    <div id="ed-tab-history" style="display:none;">
+      <div class="timeline" id="ed-history"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Order Detail Sidebar -->
+<div class="ed-overlay" id="ord-overlay" onclick="closeOrderPanel()"></div>
+<div class="ed-panel" id="ord-panel">
+  <div class="ed-panel-header">
+    <div>
+      <div class="ed-panel-name" id="ord-detail-id">ORDER-10043</div>
+      <div class="ed-panel-sub" id="ord-detail-sub">Annual Report · Redwood Fund II LP</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span id="ord-detail-status"></span>
+      <button class="ed-panel-close" onclick="closeOrderPanel()">✕</button>
+    </div>
+  </div>
+  <div class="ed-panel-body">
+    <div id="ord-detail-content"></div>
+  </div>
+</div>
+
+<!-- COMPLIANCE DETAIL PANEL -->
+<div class="ed-overlay" id="comp-overlay" onclick="closeCompPanel()"></div>
+<div class="ed-panel" id="comp-panel">
+  <div class="ed-panel-header">
+    <div>
+      <div class="ed-panel-name" id="comp-detail-title">Annual Report</div>
+      <div class="ed-panel-sub" id="comp-detail-sub">Redwood Fund II LP · Delaware</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span id="comp-detail-badge"></span>
+      <button class="ed-panel-close" onclick="closeCompPanel()">✕</button>
+    </div>
+  </div>
+  <div class="ed-panel-body">
+    <div id="comp-detail-content"></div>
   </div>
 </div>
 
@@ -1076,14 +1426,90 @@ const complianceItems = [
 ];
 
 const documents = [
-  { name: 'DE_Articles_of_Organization_Redwood_GP_LLC.pdf', type: 'pdf', entity: 'Redwood GP LLC', date: 'Jan 12, 2024', category: 'formation', size: '248 KB' },
-  { name: 'Certificate_of_Formation_Redwood_Fund_II_LP.pdf', type: 'pdf', entity: 'Redwood Fund II LP', date: 'Mar 3, 2024', category: 'formation', size: '184 KB' },
-  { name: 'Limited_Partnership_Agreement_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', date: 'Mar 3, 2024', category: 'formation', size: '1.2 MB' },
-  { name: 'Board_Resolution_Officer_Appointment_2026.pdf', type: 'pdf', entity: 'Redwood Capital Mgmt LLC', date: 'Jan 5, 2026', category: 'consents', size: '92 KB' },
-  { name: 'Annual_Report_Filed_DE_2025_Redwood_GP.pdf', type: 'pdf', entity: 'Redwood GP LLC', date: 'Feb 28, 2025', category: 'compliance', size: '156 KB' },
-  { name: 'Certificate_of_Good_Standing_DE_2025.pdf', type: 'pdf', entity: 'Redwood Fund II LP', date: 'Dec 10, 2025', category: 'certs', size: '68 KB' },
-  { name: 'RA_Acceptance_Letter_Oakwood_SPV_III.pdf', type: 'pdf', entity: 'Oakwood Ventures SPV III', date: 'Apr 4, 2025', category: 'formation', size: '44 KB' },
-  { name: 'Written_Consent_Maple_Holdco_LLC.docx', type: 'docx', entity: 'Maple Holdco LLC', date: 'Nov 20, 2025', category: 'consents', size: '110 KB' },
+  // Redwood Fund II LP — DE domestic, foreign in NY, CA, TX
+  { name: 'Certificate_of_Formation_Redwood_Fund_II_LP.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Mar 3, 2024', category: 'formation', size: '184 KB' },
+  { name: 'Limited_Partnership_Agreement_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Mar 3, 2024', category: 'formation', size: '1.2 MB' },
+  { name: 'EIN_Confirmation_84-1234567.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Mar 18, 2024', category: 'formation', size: '32 KB' },
+  { name: 'Foreign_Qualification_NY_Redwood_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'NY', date: 'Jun 15, 2024', category: 'formation', size: '132 KB' },
+  { name: 'Foreign_Qualification_CA_Redwood_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'CA', date: 'Aug 22, 2024', category: 'formation', size: '118 KB' },
+  { name: 'Foreign_Qualification_TX_Redwood_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'TX', date: 'Mar 28, 2026', category: 'formation', size: '98 KB' },
+  { name: 'Annual_Report_DE_2025_Redwood_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Mar 12, 2025', category: 'compliance', size: '138 KB' },
+  { name: 'Annual_Report_DE_2026_Redwood_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Apr 5, 2026', category: 'compliance', size: '142 KB' },
+  { name: 'Certificate_of_Good_Standing_DE_2025.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Dec 10, 2025', category: 'certs', size: '68 KB' },
+  { name: 'K-1_Schedule_2024_Redwood_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Mar 15, 2025', category: 'tax', size: '420 KB' },
+  { name: 'Subscription_Agreement_Template_Fund_II.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Mar 3, 2024', category: 'formation', size: '890 KB' },
+  { name: 'Written_Consent_Capital_Call_Q1_2026.pdf', type: 'pdf', entity: 'Redwood Fund II LP', state: 'DE', date: 'Jan 8, 2026', category: 'consents', size: '76 KB' },
+
+  // Redwood Fund III LP — DE domestic, foreign in NY, CA
+  { name: 'Certificate_of_Formation_Redwood_Fund_III.pdf', type: 'pdf', entity: 'Redwood Fund III LP', state: 'DE', date: 'Mar 3, 2024', category: 'formation', size: '178 KB' },
+  { name: 'Limited_Partnership_Agreement_Fund_III.pdf', type: 'pdf', entity: 'Redwood Fund III LP', state: 'DE', date: 'Mar 3, 2024', category: 'formation', size: '1.4 MB' },
+  { name: 'Foreign_Qualification_NY_Redwood_Fund_III.pdf', type: 'pdf', entity: 'Redwood Fund III LP', state: 'NY', date: 'Sep 10, 2024', category: 'formation', size: '126 KB' },
+  { name: 'Foreign_Qualification_CA_Redwood_Fund_III.pdf', type: 'pdf', entity: 'Redwood Fund III LP', state: 'CA', date: 'Nov 5, 2024', category: 'formation', size: '114 KB' },
+  { name: 'Annual_Report_DE_2025_Redwood_Fund_III.pdf', type: 'pdf', entity: 'Redwood Fund III LP', state: 'DE', date: 'Mar 14, 2025', category: 'compliance', size: '134 KB' },
+
+  // Redwood GP LLC — DE domestic, foreign in NY
+  { name: 'DE_Articles_of_Organization_Redwood_GP_LLC.pdf', type: 'pdf', entity: 'Redwood GP LLC', state: 'DE', date: 'Jan 12, 2024', category: 'formation', size: '248 KB' },
+  { name: 'Operating_Agreement_Redwood_GP_LLC.pdf', type: 'pdf', entity: 'Redwood GP LLC', state: 'DE', date: 'Jan 12, 2024', category: 'formation', size: '560 KB' },
+  { name: 'Foreign_Qualification_NY_Redwood_GP.pdf', type: 'pdf', entity: 'Redwood GP LLC', state: 'NY', date: 'Mar 28, 2026', category: 'formation', size: '102 KB' },
+  { name: 'Annual_Report_DE_2025_Redwood_GP.pdf', type: 'pdf', entity: 'Redwood GP LLC', state: 'DE', date: 'Feb 28, 2025', category: 'compliance', size: '156 KB' },
+  { name: 'Franchise_Tax_Payment_DE_2025_Redwood_GP.pdf', type: 'pdf', entity: 'Redwood GP LLC', state: 'DE', date: 'Jun 1, 2025', category: 'tax', size: '44 KB' },
+  { name: 'Certificate_of_Good_Standing_DE_Redwood_GP.pdf', type: 'pdf', entity: 'Redwood GP LLC', state: 'DE', date: 'Jul 15, 2025', category: 'certs', size: '52 KB' },
+
+  // Redwood Capital Mgmt LLC — DE only
+  { name: 'Articles_of_Organization_Redwood_Capital_Mgmt.pdf', type: 'pdf', entity: 'Redwood Capital Mgmt LLC', state: 'DE', date: 'Jan 10, 2024', category: 'formation', size: '220 KB' },
+  { name: 'Board_Resolution_Officer_Appointment_2026.pdf', type: 'pdf', entity: 'Redwood Capital Mgmt LLC', state: 'DE', date: 'Jan 5, 2026', category: 'consents', size: '92 KB' },
+  { name: 'Management_Services_Agreement_2024.pdf', type: 'pdf', entity: 'Redwood Capital Mgmt LLC', state: 'DE', date: 'Feb 1, 2024', category: 'consents', size: '380 KB' },
+  { name: 'Tax_Return_Form_1065_2024.pdf', type: 'pdf', entity: 'Redwood Capital Mgmt LLC', state: 'DE', date: 'Apr 15, 2025', category: 'tax', size: '1.8 MB' },
+
+  // Oakwood Ventures SPV III — WY only
+  { name: 'Certificate_of_Formation_Oakwood_SPV_III.pdf', type: 'pdf', entity: 'Oakwood Ventures SPV III', state: 'WY', date: 'Apr 4, 2025', category: 'formation', size: '76 KB' },
+  { name: 'RA_Acceptance_Letter_Oakwood_SPV_III.pdf', type: 'pdf', entity: 'Oakwood Ventures SPV III', state: 'WY', date: 'Apr 4, 2025', category: 'formation', size: '44 KB' },
+  { name: 'Operating_Agreement_Oakwood_SPV_III.pdf', type: 'pdf', entity: 'Oakwood Ventures SPV III', state: 'WY', date: 'Apr 4, 2025', category: 'formation', size: '290 KB' },
+  { name: 'EIN_Confirmation_83-5678901.pdf', type: 'pdf', entity: 'Oakwood Ventures SPV III', state: 'WY', date: 'Mar 15, 2026', category: 'formation', size: '28 KB' },
+  { name: 'Annual_Report_WY_2026_Oakwood_SPV_III.pdf', type: 'pdf', entity: 'Oakwood Ventures SPV III', state: 'WY', date: 'Mar 20, 2026', category: 'compliance', size: '72 KB' },
+
+  // Sequoia SPV 14 LLC — DE, pending formation
+  { name: 'EIN_Confirmation_Letter_Sequoia_SPV_14.pdf', type: 'pdf', entity: 'Sequoia SPV 14 LLC', state: 'DE', date: 'Apr 7, 2026', category: 'formation', size: '28 KB' },
+  { name: 'Formation_Order_Receipt_Sequoia_SPV_14.pdf', type: 'pdf', entity: 'Sequoia SPV 14 LLC', state: 'DE', date: 'Apr 6, 2026', category: 'formation', size: '18 KB' },
+
+  // Maple Holdco LLC — CA domestic, foreign in NV
+  { name: 'Articles_of_Organization_Maple_Holdco.pdf', type: 'pdf', entity: 'Maple Holdco LLC', state: 'CA', date: 'Jun 1, 2023', category: 'formation', size: '196 KB' },
+  { name: 'Operating_Agreement_Maple_Holdco.pdf', type: 'pdf', entity: 'Maple Holdco LLC', state: 'CA', date: 'Jun 1, 2023', category: 'formation', size: '480 KB' },
+  { name: 'Foreign_Qualification_NV_Maple_Holdco.pdf', type: 'pdf', entity: 'Maple Holdco LLC', state: 'NV', date: 'Oct 15, 2023', category: 'formation', size: '108 KB' },
+  { name: 'Certificate_of_Good_Standing_CA_2024.pdf', type: 'pdf', entity: 'Maple Holdco LLC', state: 'CA', date: 'Apr 10, 2024', category: 'certs', size: '48 KB' },
+  { name: 'Certificate_of_Good_Standing_CA_2025.pdf', type: 'pdf', entity: 'Maple Holdco LLC', state: 'CA', date: 'Mar 15, 2025', category: 'certs', size: '54 KB' },
+  { name: 'Written_Consent_Maple_Holdco_LLC.docx', type: 'docx', entity: 'Maple Holdco LLC', state: 'CA', date: 'Nov 20, 2025', category: 'consents', size: '110 KB' },
+  { name: 'Annual_Statement_CA_2025_Maple_Holdco.pdf', type: 'pdf', entity: 'Maple Holdco LLC', state: 'CA', date: 'Apr 1, 2025', category: 'compliance', size: '96 KB' },
+  { name: 'Tax_Return_Form_1065_2024_Maple_Holdco.pdf', type: 'pdf', entity: 'Maple Holdco LLC', state: 'CA', date: 'Apr 15, 2025', category: 'tax', size: '2.1 MB' },
+
+  // Cedar Street Partners LP — DE domestic, foreign in FL
+  { name: 'Certificate_of_Formation_Cedar_Street.pdf', type: 'pdf', entity: 'Cedar Street Partners LP', state: 'DE', date: 'Feb 14, 2023', category: 'formation', size: '172 KB' },
+  { name: 'Limited_Partnership_Agreement_Cedar_Street.pdf', type: 'pdf', entity: 'Cedar Street Partners LP', state: 'DE', date: 'Feb 14, 2023', category: 'formation', size: '1.1 MB' },
+  { name: 'Foreign_Qualification_FL_Cedar_Street.pdf', type: 'pdf', entity: 'Cedar Street Partners LP', state: 'FL', date: 'May 22, 2023', category: 'formation', size: '124 KB' },
+  { name: 'Annual_Report_DE_2025_Cedar_Street.pdf', type: 'pdf', entity: 'Cedar Street Partners LP', state: 'DE', date: 'Mar 1, 2025', category: 'compliance', size: '128 KB' },
+  { name: 'Annual_Report_FL_2025_Cedar_Street.pdf', type: 'pdf', entity: 'Cedar Street Partners LP', state: 'FL', date: 'May 1, 2025', category: 'compliance', size: '136 KB' },
+
+  // Atlas Ventures GP LLC — DE only
+  { name: 'Articles_of_Organization_Atlas_Ventures_GP.pdf', type: 'pdf', entity: 'Atlas Ventures GP LLC', state: 'DE', date: 'Mar 5, 2023', category: 'formation', size: '198 KB' },
+  { name: 'Operating_Agreement_Atlas_Ventures_GP.pdf', type: 'pdf', entity: 'Atlas Ventures GP LLC', state: 'DE', date: 'Mar 5, 2023', category: 'formation', size: '410 KB' },
+  { name: 'Annual_Report_DE_2025_Atlas_Ventures.pdf', type: 'pdf', entity: 'Atlas Ventures GP LLC', state: 'DE', date: 'Feb 20, 2025', category: 'compliance', size: '118 KB' },
+
+  // Pioneer SPV 7 LLC — DE only
+  { name: 'Certificate_of_Formation_Pioneer_SPV_7.pdf', type: 'pdf', entity: 'Pioneer SPV 7 LLC', state: 'DE', date: 'Sep 22, 2025', category: 'formation', size: '168 KB' },
+  { name: 'Operating_Agreement_Pioneer_SPV_7.pdf', type: 'pdf', entity: 'Pioneer SPV 7 LLC', state: 'DE', date: 'Sep 22, 2025', category: 'formation', size: '340 KB' },
+  { name: 'EIN_Confirmation_88-9012345.pdf', type: 'pdf', entity: 'Pioneer SPV 7 LLC', state: 'DE', date: 'Oct 5, 2025', category: 'formation', size: '26 KB' },
+
+  // Summit HoldCo LLC — TX only
+  { name: 'Certificate_of_Formation_Summit_HoldCo.pdf', type: 'pdf', entity: 'Summit HoldCo LLC', state: 'TX', date: 'Nov 1, 2024', category: 'formation', size: '154 KB' },
+  { name: 'Operating_Agreement_Summit_HoldCo.pdf', type: 'pdf', entity: 'Summit HoldCo LLC', state: 'TX', date: 'Nov 1, 2024', category: 'formation', size: '320 KB' },
+  { name: 'Tax_Election_Form_8832_Summit_HoldCo.pdf', type: 'pdf', entity: 'Summit HoldCo LLC', state: 'TX', date: 'Dec 1, 2024', category: 'tax', size: '62 KB' },
+  { name: 'Franchise_Tax_Report_TX_2025_Summit.pdf', type: 'pdf', entity: 'Summit HoldCo LLC', state: 'TX', date: 'May 15, 2025', category: 'compliance', size: '84 KB' },
+  { name: 'Written_Consent_Manager_Appointment_Summit.docx', type: 'docx', entity: 'Summit HoldCo LLC', state: 'TX', date: 'Nov 15, 2024', category: 'consents', size: '68 KB' },
+
+  // Cascade Ventures SPV I — WY only
+  { name: 'Certificate_of_Formation_Cascade_SPV_I.pdf', type: 'pdf', entity: 'Cascade Ventures SPV I', state: 'WY', date: 'Jul 19, 2025', category: 'formation', size: '82 KB' },
+  { name: 'Operating_Agreement_Cascade_SPV_I.pdf', type: 'pdf', entity: 'Cascade Ventures SPV I', state: 'WY', date: 'Jul 19, 2025', category: 'formation', size: '260 KB' },
+  { name: 'Annual_Report_WY_2026_Cascade_SPV_I.pdf', type: 'pdf', entity: 'Cascade Ventures SPV I', state: 'WY', date: 'Mar 1, 2026', category: 'compliance', size: '88 KB' },
 ];
 
 // ─── NAVIGATION ─────────────────────────────────────────────
@@ -1099,7 +1525,8 @@ function navigate(view) {
   if (view === 'entities') renderEntities('all');
   if (view === 'orgchart') renderOrgChart();
   if (view === 'compliance') renderCompliance();
-  if (view === 'documents') renderDocuments('all');
+  if (view === 'documents') renderDocuments();
+  if (view === 'orders') renderOrders();
 }
 
 // ─── ENTITIES ────────────────────────────────────────────────
@@ -1145,7 +1572,7 @@ function renderEntities(filter) {
     const raWarning = e.ra === 'lapsed' ? '<span class="ra-lapsed">RA Lapsed</span>' : '';
     const fqDisplay = e.foreignStates.length > 0 ? e.foreignStates.join(', ') : '—';
     return `<tr class="entity-row cat-${e.category}">
-      <td style="font-weight:600;">${e.name}${raWarning}</td>
+      <td style="font-weight:700;font-size:14px;">${e.name}${raWarning}</td>
       <td><span class="badge badge-gray">${e.type}</span></td>
       <td>${e.state}</td>
       <td style="color:var(--text-muted);font-size:12.5px;">${fqDisplay}</td>
@@ -1307,10 +1734,73 @@ function stateFullName(code) {
 }
 
 // ─── COMPLIANCE ──────────────────────────────────────────────
-function renderCompliance() {
+let compStatusFilter = 'all';
+
+function initCompFilters() {
+  const entitySelect = document.getElementById('comp-filter-entity');
+  const entityNames = [...new Set(complianceItems.map(c => c.entity))].sort();
+  entitySelect.innerHTML = '<option value="">All Entities</option>' +
+    entityNames.map(e => `<option>${e}</option>`).join('');
+}
+
+function setCompStatus(btn, status) {
+  document.querySelectorAll('#comp-status-chips .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  compStatusFilter = status;
+  applyCompFilters();
+}
+
+function applyCompFilters() {
+  const search = (document.getElementById('comp-search-input').value || '').toLowerCase();
+  const entity = document.getElementById('comp-filter-entity').value;
+  const state = document.getElementById('comp-filter-state').value;
+
+  let filtered = complianceItems.map((item, idx) => ({ ...item, _idx: idx }));
+
+  // Status filter
+  if (compStatusFilter !== 'all') {
+    filtered = filtered.filter(c => c.badge === compStatusFilter);
+  }
+
+  // Search
+  if (search) {
+    filtered = filtered.filter(c =>
+      c.title.toLowerCase().includes(search) ||
+      c.entity.toLowerCase().includes(search) ||
+      c.state.toLowerCase().includes(search)
+    );
+  }
+
+  // Entity
+  if (entity) {
+    filtered = filtered.filter(c => c.entity === entity);
+  }
+
+  // State
+  if (state) {
+    filtered = filtered.filter(c => c.state === state);
+  }
+
+  renderFilteredCompliance(filtered);
+
+  // Show/hide clear button & count
+  const hasFilters = search || entity || state || compStatusFilter !== 'all';
+  document.getElementById('comp-clear-filters').style.display = hasFilters ? 'inline-flex' : 'none';
+  document.getElementById('comp-count').textContent = hasFilters ? `${filtered.length} filing${filtered.length !== 1 ? 's' : ''}` : '';
+}
+
+function renderFilteredCompliance(items) {
   const list = document.getElementById('compliance-list');
-  list.innerHTML = complianceItems.map(item => {
+  if (items.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:48px 20px;color:var(--text-muted);">
+      <div style="font-size:32px;margin-bottom:8px;">📋</div>
+      <div style="font-size:13px;">No filings match your filters</div>
+    </div>`;
+    return;
+  }
+  list.innerHTML = items.map(item => {
     const dayColor = item.badge === 'red' ? 'color:var(--red)' : item.badge === 'amber' ? 'color:var(--amber)' : 'color:var(--text)';
+    const showFileNow = item.badge !== 'green';
     return `<div class="cal-item">
       <div class="cal-date"><div class="day" style="${dayColor}">${item.day}</div><div class="month">${item.month}</div></div>
       <div class="cal-info">
@@ -1320,44 +1810,517 @@ function renderCompliance() {
       <div class="cal-fee">${item.fee} state fee</div>
       <span class="badge badge-${item.badge}">${item.badgeLabel}</span>
       <div class="cal-actions">
-        ${item.badge === 'red' || item.badge === 'amber' ? `<button class="btn btn-primary btn-sm" onclick="fileNow('${item.entity}','${item.title}','${item.state}')">File Now</button>` : `<button class="btn btn-ghost btn-sm" onclick="openEntityDetail(${entities.findIndex(e=>e.name===item.entity)})">Details</button>`}
+        ${showFileNow ? `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();fileNow('${item.entity}','${item.title}','${item.state}')">File Now</button>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openComplianceDetail(${item._idx})">Details</button>
       </div>
     </div>`;
   }).join('');
 }
 
-// ─── DOCUMENTS ───────────────────────────────────────────────
-function renderDocuments(filter) {
-  const list = document.getElementById('doc-list');
-  const filtered = filter === 'all' ? documents : documents.filter(d => d.category === filter);
-  list.innerHTML = filtered.map(d => `
-    <div class="doc-row">
-      <div class="doc-icon ${d.type}">${d.type === 'pdf' ? '📄' : '📝'}</div>
-      <div style="flex:1;">
-        <div class="doc-name">${d.name}</div>
-        <div class="doc-meta">${d.entity} · ${d.date} · ${d.size}</div>
-      </div>
-      <span class="badge badge-gray" style="font-size:10px;">${d.category}</span>
-      <div class="doc-actions">
-        <button class="btn btn-ghost btn-sm">Download</button>
-        <button class="btn btn-ghost btn-sm">Share</button>
-      </div>
-    </div>
-  `).join('');
+function clearCompFilters() {
+  document.getElementById('comp-search-input').value = '';
+  document.getElementById('comp-filter-entity').value = '';
+  document.getElementById('comp-filter-state').value = '';
+  compStatusFilter = 'all';
+  document.querySelectorAll('#comp-status-chips .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('#comp-status-chips .filter-btn').classList.add('active');
+  applyCompFilters();
 }
 
-function filterDocs(btn, filter) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function renderCompliance() {
+  initCompFilters();
+  applyCompFilters();
+}
+
+function openComplianceDetail(idx) {
+  const item = complianceItems[idx];
+  if (!item) return;
+
+  document.getElementById('comp-detail-title').textContent = item.title;
+  document.getElementById('comp-detail-sub').textContent = `${item.entity} · ${item.state}`;
+  const bc = item.badge === 'red' ? 'badge-red' : item.badge === 'amber' ? 'badge-amber' : item.badge === 'green' ? 'badge-green' : item.badge === 'blue' ? 'badge-blue' : 'badge-gray';
+  document.getElementById('comp-detail-badge').innerHTML = `<span class="badge ${bc}">${item.badgeLabel}</span>`;
+
+  const stateNames = { DE:'Delaware', WY:'Wyoming', CA:'California', NY:'New York', TX:'Texas', FL:'Florida', NV:'Nevada' };
+  const fullState = stateNames[item.state] || item.state;
+
+  // Find the entity data
+  const ent = entities.find(e => e.name === item.entity);
+  const raStatus = ent ? ent.ra : 'active';
+
+  // Determine filing requirements / notes
+  let reqNotes = '';
+  if (raStatus === 'lapsed') {
+    reqNotes = `<div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:12px 14px;margin-bottom:16px;">
+      <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px;">⚠ Blocker</div>
+      <div style="font-size:12.5px;color:var(--text);">Registered Agent coverage has lapsed in ${item.state}. RA must be reinstated before this filing can proceed.</div>
+    </div>`;
+  }
+  if (item.badge === 'red') {
+    const dueDate = new Date(`${item.month} ${item.day}, 2026`);
+    const today = new Date('2026-04-10');
+    const daysOverdue = Math.floor((today - dueDate) / (1000*60*60*24));
+    if (daysOverdue > 0) {
+      reqNotes += `<div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:12px 14px;margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px;">⏰ ${daysOverdue} day${daysOverdue>1?'s':''} overdue</div>
+        <div style="font-size:12.5px;color:var(--text);">Late penalties may apply. File immediately to avoid additional fees or administrative dissolution.</div>
+      </div>`;
+    }
+  }
+
+  // Frequency info by filing type
+  const filingInfo = {
+    'Annual Report': { freq: 'Annual', agency: 'Secretary of State', penalty: 'Late fee + possible administrative dissolution' },
+    'Good Standing Certificate': { freq: 'As needed', agency: 'Secretary of State', penalty: 'N/A — certificate request' },
+    'Franchise Tax Payment': { freq: 'Annual', agency: 'Dept. of Revenue / Franchise Tax Board', penalty: 'Interest + penalties accrue daily' },
+    'Statement of Information': { freq: 'Biennial (every 2 years)', agency: 'Secretary of State', penalty: '$250 penalty + suspension' },
+  };
+  const fi = filingInfo[item.title] || { freq: 'Annual', agency: 'Secretary of State', penalty: 'Varies by state' };
+
+  // Find related orders
+  const relatedOrders = orders.filter(o => o.entity === item.entity && o.service.toLowerCase().includes(item.title.toLowerCase().split(' ')[0]));
+
+  // Find related documents
+  const relatedDocs = documents.filter(d => d.entity === item.entity && d.category === 'compliance' && d.name.toLowerCase().includes(item.title.toLowerCase().split(' ')[0].replace(' ','_')));
+
+  // Build content
+  const content = document.getElementById('comp-detail-content');
+  content.innerHTML = `
+    ${reqNotes}
+
+    <!-- Filing details -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;">
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Filing Type</div>
+        <div class="ed-field-value">${item.title}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Entity</div>
+        <div class="ed-field-value">${item.entity}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Jurisdiction</div>
+        <div class="ed-field-value">${fullState} (${item.state})</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Due Date</div>
+        <div class="ed-field-value">${item.month} ${item.day}, 2026</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">State Fee</div>
+        <div class="ed-field-value">${item.fee}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">RA Status</div>
+        <div class="ed-field-value" style="color:${raStatus === 'active' ? 'var(--green)' : 'var(--red)'};">${raStatus === 'active' ? '● Active' : '● Lapsed'}</div>
+      </div>
+    </div>
+
+    <!-- Filing requirements -->
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:12px;">Filing Requirements</div>
+    <div style="background:var(--navy);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+      <div style="padding:10px 14px;border-bottom:1px solid var(--border);">
+        <div class="ed-field-label" style="margin-bottom:2px;">Frequency</div>
+        <div style="font-size:13px;color:var(--text);">${fi.freq}</div>
+      </div>
+      <div style="padding:10px 14px;border-bottom:1px solid var(--border);">
+        <div class="ed-field-label" style="margin-bottom:2px;">Filing Agency</div>
+        <div style="font-size:13px;color:var(--text);">${fi.agency}</div>
+      </div>
+      <div style="padding:10px 14px;">
+        <div class="ed-field-label" style="margin-bottom:2px;">Late Penalty</div>
+        <div style="font-size:13px;color:var(--text);">${fi.penalty}</div>
+      </div>
+    </div>
+
+    ${relatedOrders.length > 0 ? `
+    <!-- Related orders -->
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:12px;">Related Orders</div>
+    <div style="background:var(--navy);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+      ${relatedOrders.slice(0,3).map(o => {
+        const osc = o.status === 'Completed' ? 'badge-green' : o.status === 'In Progress' ? 'badge-blue' : o.status === 'Sent to RA' ? 'badge-amber' : 'badge-gray';
+        return `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="closeCompPanel();navigate('orders');setTimeout(()=>openOrderDetail('${o.id}'),100)">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--teal);">${o.id}</div>
+            <div style="font-size:11px;color:var(--text-muted);">${o.service} · ${o.date}</div>
+          </div>
+          <span class="badge ${osc}" style="font-size:10px;">${o.status}</span>
+        </div>`;
+      }).join('')}
+    </div>` : ''}
+
+    ${relatedDocs.length > 0 ? `
+    <!-- Filing history / related documents -->
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:12px;">Filing History</div>
+    <div style="background:var(--navy);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+      ${relatedDocs.slice(0,4).map(d => `
+        <div class="doc-row" style="padding:10px 14px;">
+          <div class="doc-icon pdf" style="width:28px;height:28px;font-size:13px;">📄</div>
+          <div style="flex:1;">
+            <div class="doc-name" style="font-size:12.5px;">${d.name}</div>
+            <div class="doc-meta" style="font-size:10.5px;">${d.date} · ${d.size}</div>
+          </div>
+        </div>`).join('')}
+    </div>` : ''}
+
+    <!-- Actions -->
+    ${item.badge !== 'green' ? `
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <button class="btn btn-primary" style="flex:1;" onclick="closeCompPanel();fileNow('${item.entity}','${item.title}','${item.state}')">File Now</button>
+      <button class="btn btn-ghost" onclick="closeCompPanel();openEntityDetail(${entities.findIndex(e => e.name === item.entity)})">View Entity</button>
+    </div>` : `
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <button class="btn btn-ghost" style="flex:1;" onclick="closeCompPanel();openEntityDetail(${entities.findIndex(e => e.name === item.entity)})">View Entity</button>
+    </div>`}
+  `;
+
+  document.getElementById('comp-panel').classList.add('open');
+  document.getElementById('comp-overlay').classList.add('open');
+}
+
+function closeCompPanel() {
+  document.getElementById('comp-panel').classList.remove('open');
+  document.getElementById('comp-overlay').classList.remove('open');
+}
+
+// ─── DOCUMENTS ───────────────────────────────────────────────
+let docTypeFilter = 'all';
+
+function initDocFilters() {
+  // Populate entity dropdown
+  const entitySelect = document.getElementById('doc-filter-entity');
+  const entityNames = [...new Set(documents.map(d => d.entity))].sort();
+  entitySelect.innerHTML = '<option value="">All Entities</option>' +
+    entityNames.map(e => `<option>${e}</option>`).join('');
+}
+
+function setDocType(btn, type) {
+  document.querySelectorAll('.doc-type-chips .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderDocuments(filter);
+  docTypeFilter = type;
+  applyDocFilters();
+}
+
+function applyDocFilters() {
+  const search = (document.getElementById('doc-search-input').value || '').toLowerCase();
+  const entity = document.getElementById('doc-filter-entity').value;
+  const state = document.getElementById('doc-filter-state').value;
+  const dateDays = document.getElementById('doc-filter-date').value;
+
+  let filtered = documents;
+
+  // Type filter
+  if (docTypeFilter !== 'all') {
+    filtered = filtered.filter(d => d.category === docTypeFilter);
+  }
+
+  // Search
+  if (search) {
+    filtered = filtered.filter(d =>
+      d.name.toLowerCase().includes(search) ||
+      d.entity.toLowerCase().includes(search) ||
+      d.category.toLowerCase().includes(search)
+    );
+  }
+
+  // Entity filter
+  if (entity) {
+    filtered = filtered.filter(d => d.entity === entity);
+  }
+
+  // State filter
+  if (state) {
+    filtered = filtered.filter(d => d.state === state);
+  }
+
+  // Date filter
+  if (dateDays) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - parseInt(dateDays));
+    filtered = filtered.filter(d => new Date(d.date) >= cutoff);
+  }
+
+  renderFilteredDocs(filtered);
+  updateClearButton();
+}
+
+function renderFilteredDocs(filtered) {
+  const list = document.getElementById('doc-list');
+  const empty = document.getElementById('doc-empty');
+  const categoryLabels = { formation: 'Formation', compliance: 'Compliance', consents: 'Consent', certs: 'Certificate', tax: 'Tax' };
+
+  if (filtered.length === 0) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    list.innerHTML = filtered.map(d => `
+      <div class="doc-row">
+        <div class="doc-icon ${d.type}">${d.type === 'pdf' ? '📄' : '📝'}</div>
+        <div style="flex:1;">
+          <div class="doc-name">${d.name}</div>
+          <div class="doc-meta">${d.entity} · ${d.state} · ${d.date} · ${d.size}</div>
+        </div>
+        <span class="badge badge-gray" style="font-size:10px;">${categoryLabels[d.category] || d.category}</span>
+        <div class="doc-actions">
+          <button class="btn btn-ghost btn-sm">Download</button>
+          <button class="btn btn-ghost btn-sm">Share</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('doc-count').textContent = `${filtered.length} document${filtered.length !== 1 ? 's' : ''}`;
+}
+
+function updateClearButton() {
+  const search = document.getElementById('doc-search-input').value;
+  const entity = document.getElementById('doc-filter-entity').value;
+  const state = document.getElementById('doc-filter-state').value;
+  const dateDays = document.getElementById('doc-filter-date').value;
+  const hasFilters = search || entity || state || dateDays || docTypeFilter !== 'all';
+  document.getElementById('doc-clear-filters').style.display = hasFilters ? 'inline-flex' : 'none';
+}
+
+function clearDocFilters() {
+  document.getElementById('doc-search-input').value = '';
+  document.getElementById('doc-filter-entity').value = '';
+  document.getElementById('doc-filter-state').value = '';
+  document.getElementById('doc-filter-date').value = '';
+  docTypeFilter = 'all';
+  document.querySelectorAll('.doc-type-chips .filter-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === 0);
+  });
+  applyDocFilters();
+}
+
+function renderDocuments() {
+  initDocFilters();
+  applyDocFilters();
+}
+
+// ─── ORDERS ──────────────────────────────────────────────────
+const orders = [
+  { id:'ORDER-10045', service:'Good Standing Cert', serviceType:'good-standing', entity:'Maple Holdco LLC', state:'CA', priority:'urgent', status:'Sent to RA', progress:35, date:'Apr 8, 2026', filed:'—', fee:'$30', steps:[{done:true,label:'Order received',time:'Apr 8, 2026 9:12 AM'},{done:true,label:'Payment processed',time:'Apr 8, 2026 9:12 AM'},{done:true,label:'Sent to registered agent',time:'Apr 8, 2026 10:45 AM'},{done:false,label:'Filed with CA Secretary of State',time:'Pending'},{done:false,label:'Document uploaded to vault',time:'Pending'}] },
+  { id:'ORDER-10044', service:'LLC Formation', serviceType:'formation', entity:'Sequoia SPV 14 LLC', state:'DE', priority:'standard', status:'In Progress', progress:60, date:'Apr 6, 2026', filed:'—', fee:'$449', steps:[{done:true,label:'Order received',time:'Apr 6, 2026 2:30 PM'},{done:true,label:'Payment processed',time:'Apr 6, 2026 2:30 PM'},{done:true,label:'Filed with DE Division of Corporations',time:'Apr 6, 2026 4:15 PM'},{done:false,label:'EIN application submitted',time:'Pending'},{done:false,label:'Formation documents in vault',time:'Pending'}] },
+  { id:'ORDER-10043', service:'Annual Report', serviceType:'annual-report', entity:'Redwood Fund II LP', state:'DE', priority:'rush', status:'Completed', progress:100, date:'Apr 3, 2026', filed:'Apr 5, 2026', fee:'$125', steps:[{done:true,label:'Order received',time:'Apr 3, 2026 8:00 AM'},{done:true,label:'Payment processed',time:'Apr 3, 2026 8:00 AM'},{done:true,label:'Filed with DE Division of Corporations',time:'Apr 4, 2026 11:30 AM'},{done:true,label:'Filing confirmation received',time:'Apr 5, 2026 9:15 AM'},{done:true,label:'Document uploaded to vault',time:'Apr 5, 2026 9:20 AM'}] },
+  { id:'ORDER-10042', service:'Foreign Qualification', serviceType:'foreign-qual', entity:'Redwood Fund II LP', state:'TX', priority:'standard', status:'Completed', progress:100, date:'Mar 25, 2026', filed:'Mar 28, 2026', fee:'$750', steps:[{done:true,label:'Order received',time:'Mar 25, 2026'},{done:true,label:'Filed with TX Secretary of State',time:'Mar 26, 2026'},{done:true,label:'Qualification approved',time:'Mar 28, 2026'},{done:true,label:'Documents in vault',time:'Mar 28, 2026'}] },
+  { id:'ORDER-10041', service:'Foreign Qualification', serviceType:'foreign-qual', entity:'Redwood GP LLC', state:'NY', priority:'standard', status:'Completed', progress:100, date:'Mar 22, 2026', filed:'Mar 28, 2026', fee:'$650', steps:[{done:true,label:'Order received',time:'Mar 22, 2026'},{done:true,label:'Filed with NY Dept of State',time:'Mar 24, 2026'},{done:true,label:'Qualification approved',time:'Mar 28, 2026'},{done:true,label:'Documents in vault',time:'Mar 28, 2026'}] },
+  { id:'ORDER-10040', service:'EIN Application', serviceType:'other', entity:'Oakwood Ventures SPV III', state:'—', priority:'standard', status:'Completed', progress:100, date:'Mar 10, 2026', filed:'Mar 15, 2026', fee:'$75', steps:[{done:true,label:'Order received',time:'Mar 10, 2026'},{done:true,label:'SS-4 submitted to IRS',time:'Mar 11, 2026'},{done:true,label:'EIN assigned',time:'Mar 15, 2026'},{done:true,label:'Confirmation in vault',time:'Mar 15, 2026'}] },
+  { id:'ORDER-10039', service:'Annual Report', serviceType:'annual-report', entity:'Cascade Ventures SPV I', state:'WY', priority:'standard', status:'Completed', progress:100, date:'Feb 25, 2026', filed:'Mar 1, 2026', fee:'$52', steps:[{done:true,label:'Order received',time:'Feb 25, 2026'},{done:true,label:'Filed with WY Secretary of State',time:'Feb 28, 2026'},{done:true,label:'Documents in vault',time:'Mar 1, 2026'}] },
+  { id:'ORDER-10038', service:'Annual Report', serviceType:'annual-report', entity:'Oakwood Ventures SPV III', state:'WY', priority:'standard', status:'Completed', progress:100, date:'Feb 20, 2026', filed:'Mar 1, 2026', fee:'$52', steps:[{done:true,label:'Order received',time:'Feb 20, 2026'},{done:true,label:'Filed with WY Secretary of State',time:'Feb 27, 2026'},{done:true,label:'Documents in vault',time:'Mar 1, 2026'}] },
+  { id:'ORDER-10037', service:'Amendment', serviceType:'amendment', entity:'Summit HoldCo LLC', state:'TX', priority:'standard', status:'Completed', progress:100, date:'Feb 15, 2026', filed:'Feb 22, 2026', fee:'$300', steps:[{done:true,label:'Order received',time:'Feb 15, 2026'},{done:true,label:'Amendment drafted',time:'Feb 17, 2026'},{done:true,label:'Filed with TX Secretary of State',time:'Feb 20, 2026'},{done:true,label:'Approved & documents in vault',time:'Feb 22, 2026'}] },
+  { id:'ORDER-10036', service:'Good Standing Cert', serviceType:'good-standing', entity:'Redwood GP LLC', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Feb 10, 2026', filed:'Feb 14, 2026', fee:'$50', steps:[{done:true,label:'Order received',time:'Feb 10, 2026'},{done:true,label:'Requested from DE',time:'Feb 11, 2026'},{done:true,label:'Certificate received & in vault',time:'Feb 14, 2026'}] },
+  { id:'ORDER-10035', service:'Annual Report', serviceType:'annual-report', entity:'Redwood GP LLC', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Feb 1, 2026', filed:'Feb 5, 2026', fee:'$50', steps:[{done:true,label:'Order received',time:'Feb 1, 2026'},{done:true,label:'Filed with DE',time:'Feb 4, 2026'},{done:true,label:'Documents in vault',time:'Feb 5, 2026'}] },
+  { id:'ORDER-10034', service:'Franchise Tax', serviceType:'other', entity:'Redwood GP LLC', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Jan 20, 2026', filed:'Jan 28, 2026', fee:'$400', steps:[{done:true,label:'Order received',time:'Jan 20, 2026'},{done:true,label:'Tax calculation prepared',time:'Jan 22, 2026'},{done:true,label:'Payment submitted to DE',time:'Jan 25, 2026'},{done:true,label:'Confirmation in vault',time:'Jan 28, 2026'}] },
+  { id:'ORDER-10033', service:'LLC Formation', serviceType:'formation', entity:'Pioneer SPV 7 LLC', state:'DE', priority:'rush', status:'Completed', progress:100, date:'Sep 18, 2025', filed:'Sep 22, 2025', fee:'$599', steps:[{done:true,label:'Order received',time:'Sep 18, 2025'},{done:true,label:'Filed with DE (rush)',time:'Sep 19, 2025'},{done:true,label:'Certificate issued',time:'Sep 22, 2025'},{done:true,label:'EIN obtained',time:'Oct 5, 2025'},{done:true,label:'Documents in vault',time:'Oct 5, 2025'}] },
+  { id:'ORDER-10032', service:'Annual Report', serviceType:'annual-report', entity:'Cedar Street Partners LP', state:'FL', priority:'standard', status:'Completed', progress:100, date:'Apr 15, 2025', filed:'May 1, 2025', fee:'$138.75', steps:[{done:true,label:'Order received',time:'Apr 15, 2025'},{done:true,label:'Filed with FL Dept of State',time:'Apr 28, 2025'},{done:true,label:'Documents in vault',time:'May 1, 2025'}] },
+  { id:'ORDER-10031', service:'Annual Report', serviceType:'annual-report', entity:'Redwood Capital Mgmt LLC', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Feb 20, 2025', filed:'Mar 1, 2025', fee:'$50', steps:[{done:true,label:'Order received',time:'Feb 20, 2025'},{done:true,label:'Filed with DE',time:'Feb 27, 2025'},{done:true,label:'Documents in vault',time:'Mar 1, 2025'}] },
+  { id:'ORDER-10030', service:'Good Standing Cert', serviceType:'good-standing', entity:'Maple Holdco LLC', state:'CA', priority:'standard', status:'Completed', progress:100, date:'Feb 10, 2025', filed:'Mar 15, 2025', fee:'$30', steps:[{done:true,label:'Order received',time:'Feb 10, 2025'},{done:true,label:'Requested from CA',time:'Feb 12, 2025'},{done:true,label:'Certificate received & in vault',time:'Mar 15, 2025'}] },
+  { id:'ORDER-10029', service:'Annual Report', serviceType:'annual-report', entity:'Atlas Ventures GP LLC', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Feb 5, 2025', filed:'Feb 20, 2025', fee:'$50', steps:[{done:true,label:'Order received',time:'Feb 5, 2025'},{done:true,label:'Filed with DE',time:'Feb 18, 2025'},{done:true,label:'Documents in vault',time:'Feb 20, 2025'}] },
+  { id:'ORDER-10028', service:'Foreign Qualification', serviceType:'foreign-qual', entity:'Redwood Fund II LP', state:'CA', priority:'standard', status:'Completed', progress:100, date:'Aug 10, 2024', filed:'Aug 22, 2024', fee:'$800', steps:[{done:true,label:'Order received',time:'Aug 10, 2024'},{done:true,label:'Filed with CA Secretary of State',time:'Aug 14, 2024'},{done:true,label:'Qualification approved',time:'Aug 22, 2024'},{done:true,label:'Documents in vault',time:'Aug 22, 2024'}] },
+  { id:'ORDER-10027', service:'Foreign Qualification', serviceType:'foreign-qual', entity:'Redwood Fund II LP', state:'NY', priority:'standard', status:'Completed', progress:100, date:'Jun 1, 2024', filed:'Jun 15, 2024', fee:'$650', steps:[{done:true,label:'Order received',time:'Jun 1, 2024'},{done:true,label:'Filed with NY Dept of State',time:'Jun 5, 2024'},{done:true,label:'Qualification approved',time:'Jun 15, 2024'},{done:true,label:'Documents in vault',time:'Jun 15, 2024'}] },
+  { id:'ORDER-10026', service:'LP Formation', serviceType:'formation', entity:'Redwood Fund II LP', state:'DE', priority:'rush', status:'Completed', progress:100, date:'Feb 28, 2024', filed:'Mar 3, 2024', fee:'$749', steps:[{done:true,label:'Order received',time:'Feb 28, 2024'},{done:true,label:'Filed with DE (rush)',time:'Mar 1, 2024'},{done:true,label:'Certificate issued',time:'Mar 3, 2024'},{done:true,label:'EIN obtained',time:'Mar 18, 2024'},{done:true,label:'Documents in vault',time:'Mar 18, 2024'}] },
+  { id:'ORDER-10025', service:'LP Formation', serviceType:'formation', entity:'Redwood Fund III LP', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Feb 28, 2024', filed:'Mar 3, 2024', fee:'$449', steps:[{done:true,label:'Order received',time:'Feb 28, 2024'},{done:true,label:'Filed with DE',time:'Mar 1, 2024'},{done:true,label:'Certificate issued',time:'Mar 3, 2024'},{done:true,label:'Documents in vault',time:'Mar 3, 2024'}] },
+  { id:'ORDER-10024', service:'LLC Formation', serviceType:'formation', entity:'Redwood GP LLC', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Jan 8, 2024', filed:'Jan 12, 2024', fee:'$449', steps:[{done:true,label:'Order received',time:'Jan 8, 2024'},{done:true,label:'Filed with DE',time:'Jan 10, 2024'},{done:true,label:'Certificate issued',time:'Jan 12, 2024'},{done:true,label:'Documents in vault',time:'Jan 12, 2024'}] },
+  { id:'ORDER-10023', service:'LLC Formation', serviceType:'formation', entity:'Redwood Capital Mgmt LLC', state:'DE', priority:'standard', status:'Completed', progress:100, date:'Jan 6, 2024', filed:'Jan 10, 2024', fee:'$449', steps:[{done:true,label:'Order received',time:'Jan 6, 2024'},{done:true,label:'Filed with DE',time:'Jan 8, 2024'},{done:true,label:'Certificate issued',time:'Jan 10, 2024'},{done:true,label:'Documents in vault',time:'Jan 10, 2024'}] },
+  { id:'ORDER-10022', service:'LLC Formation', serviceType:'formation', entity:'Summit HoldCo LLC', state:'TX', priority:'standard', status:'Completed', progress:100, date:'Oct 25, 2024', filed:'Nov 1, 2024', fee:'$500', steps:[{done:true,label:'Order received',time:'Oct 25, 2024'},{done:true,label:'Filed with TX',time:'Oct 28, 2024'},{done:true,label:'Certificate issued',time:'Nov 1, 2024'},{done:true,label:'Documents in vault',time:'Nov 1, 2024'}] },
+  { id:'ORDER-10021', service:'LLC Formation', serviceType:'formation', entity:'Cascade Ventures SPV I', state:'WY', priority:'standard', status:'Completed', progress:100, date:'Jul 15, 2025', filed:'Jul 19, 2025', fee:'$349', steps:[{done:true,label:'Order received',time:'Jul 15, 2025'},{done:true,label:'Filed with WY',time:'Jul 17, 2025'},{done:true,label:'Certificate issued',time:'Jul 19, 2025'},{done:true,label:'Documents in vault',time:'Jul 19, 2025'}] },
+  { id:'ORDER-10020', service:'Reinstatement', serviceType:'other', entity:'Maple Holdco LLC', state:'CA', priority:'urgent', status:'Under Review', progress:20, date:'Apr 9, 2026', filed:'—', fee:'$350', steps:[{done:true,label:'Order received',time:'Apr 9, 2026 8:00 AM'},{done:false,label:'Delinquency review in progress',time:'Pending'},{done:false,label:'Filed with CA Secretary of State',time:'Pending'},{done:false,label:'Reinstatement confirmed',time:'Pending'}] },
+  { id:'ORDER-10019', service:'Name Reservation', serviceType:'other', entity:'—', state:'DE', priority:'standard', status:'Pending', progress:10, date:'Apr 9, 2026', filed:'—', fee:'$75', steps:[{done:true,label:'Order received',time:'Apr 9, 2026 11:30 AM'},{done:false,label:'Name availability check',time:'Pending'},{done:false,label:'Reservation filed with DE',time:'Pending'},{done:false,label:'Confirmation sent',time:'Pending'}] },
+];
+
+let ordServiceFilter = 'all';
+
+function initOrderFilters() {
+  const entitySelect = document.getElementById('ord-filter-entity');
+  const entityNames = [...new Set(orders.map(o => o.entity).filter(e => e !== '—'))].sort();
+  entitySelect.innerHTML = '<option value="">All Entities</option>' +
+    entityNames.map(e => `<option>${e}</option>`).join('');
+}
+
+function setOrdService(btn, type) {
+  document.querySelectorAll('#ord-service-chips .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ordServiceFilter = type;
+  applyOrderFilters();
+}
+
+function applyOrderFilters() {
+  const search = (document.getElementById('ord-search-input').value || '').toLowerCase();
+  const entity = document.getElementById('ord-filter-entity').value;
+  const status = document.getElementById('ord-filter-status').value;
+  const dateDays = document.getElementById('ord-filter-date').value;
+
+  let filtered = orders;
+
+  if (ordServiceFilter !== 'all') {
+    filtered = filtered.filter(o => o.serviceType === ordServiceFilter);
+  }
+  if (search) {
+    filtered = filtered.filter(o =>
+      o.id.toLowerCase().includes(search) ||
+      o.service.toLowerCase().includes(search) ||
+      o.entity.toLowerCase().includes(search)
+    );
+  }
+  if (entity) filtered = filtered.filter(o => o.entity === entity);
+  if (status) filtered = filtered.filter(o => o.status === status);
+  if (dateDays) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - parseInt(dateDays));
+    filtered = filtered.filter(o => new Date(o.date) >= cutoff);
+  }
+
+  renderFilteredOrders(filtered);
+  const hasFilters = search || entity || status || dateDays || ordServiceFilter !== 'all';
+  document.getElementById('ord-clear-filters').style.display = hasFilters ? 'inline-flex' : 'none';
+}
+
+function renderFilteredOrders(filtered) {
+  const tbody = document.getElementById('ord-table-body');
+  const empty = document.getElementById('ord-empty');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    const prioBadge = p => p === 'rush' ? 'badge-amber' : p === 'urgent' ? 'badge-red' : 'badge-gray';
+    const statusBadge = s => s === 'Completed' ? 'badge-green' : s === 'In Progress' ? 'badge-blue' : s === 'Sent to RA' ? 'badge-amber' : s === 'Under Review' ? 'badge-blue' : 'badge-gray';
+    const progressColor = (s, p) => s === 'Completed' ? 'background:var(--green)' : p < 30 ? 'background:var(--amber)' : '';
+
+    tbody.innerHTML = filtered.map((o, i) => `
+      <tr style="cursor:pointer;" onclick="openOrderDetail('${o.id}')">
+        <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">${o.id}</td>
+        <td>${o.service}</td>
+        <td style="font-weight:600;">${o.entity}</td>
+        <td>${o.state}</td>
+        <td><span class="badge ${prioBadge(o.priority)}">${o.priority.charAt(0).toUpperCase() + o.priority.slice(1)}</span></td>
+        <td><span class="badge ${statusBadge(o.status)}">${o.status}</span></td>
+        <td><div class="order-progress"><div class="order-progress-fill" style="width:${o.progress}%;${progressColor(o.status, o.progress)}"></div></div></td>
+        <td style="color:var(--text-muted);font-size:12px;">${o.filed}</td>
+      </tr>`).join('');
+  }
+  document.getElementById('ord-count').textContent = `${filtered.length} order${filtered.length !== 1 ? 's' : ''}`;
+}
+
+function clearOrderFilters() {
+  document.getElementById('ord-search-input').value = '';
+  document.getElementById('ord-filter-entity').value = '';
+  document.getElementById('ord-filter-status').value = '';
+  document.getElementById('ord-filter-date').value = '';
+  ordServiceFilter = 'all';
+  document.querySelectorAll('#ord-service-chips .filter-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === 0);
+  });
+  applyOrderFilters();
+}
+
+function renderOrders() {
+  initOrderFilters();
+  applyOrderFilters();
+}
+
+// ─── ORDER DETAIL SIDEBAR ────────────────────────────────────
+function openOrderDetail(orderId) {
+  const o = orders.find(x => x.id === orderId);
+  if (!o) return;
+
+  document.getElementById('ord-detail-id').textContent = o.id;
+  document.getElementById('ord-detail-sub').textContent = `${o.service} · ${o.entity}`;
+  const sc = o.status === 'Completed' ? 'badge-green' : o.status === 'In Progress' ? 'badge-blue' : o.status === 'Sent to RA' ? 'badge-amber' : o.status === 'Under Review' ? 'badge-blue' : 'badge-gray';
+  document.getElementById('ord-detail-status').innerHTML = `<span class="badge ${sc}">${o.status}</span>`;
+
+  const content = document.getElementById('ord-detail-content');
+  content.innerHTML = `
+    <!-- Order summary fields -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;">
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Service</div>
+        <div class="ed-field-value">${o.service}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Entity</div>
+        <div class="ed-field-value">${o.entity}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">State</div>
+        <div class="ed-field-value">${o.state}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Priority</div>
+        <div class="ed-field-value">${o.priority.charAt(0).toUpperCase() + o.priority.slice(1)}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Fee</div>
+        <div class="ed-field-value">${o.fee}</div>
+      </div>
+      <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
+        <div class="ed-field-label">Submitted</div>
+        <div class="ed-field-value">${o.date}</div>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div style="margin-bottom:24px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <div class="ed-field-label" style="margin:0;">Progress</div>
+        <div style="font-size:12px;color:var(--text-muted);">${o.progress}%</div>
+      </div>
+      <div class="order-progress" style="height:6px;">
+        <div class="order-progress-fill" style="width:${o.progress}%;${o.status === 'Completed' ? 'background:var(--green)' : ''}"></div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:12px;">Order Timeline</div>
+    <div class="timeline">
+      ${o.steps.map((s, i) => `
+        <div class="tl-item">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot ${s.done ? 'done' : 'pending'}"></div>
+            ${i < o.steps.length - 1 ? '<div class="tl-line"></div>' : ''}
+          </div>
+          <div class="tl-content">
+            <div class="tl-title">${s.label}</div>
+            <div class="tl-time">${s.time}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+
+    ${o.status === 'Completed' ? `
+    <!-- Related documents -->
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin:24px 0 12px;">Related Documents</div>
+    <div style="background:var(--navy);border-radius:8px;overflow:hidden;">
+      ${documents.filter(d => d.entity === o.entity && d.state === o.state).slice(0, 3).map(d => `
+        <div class="doc-row" style="padding:10px 14px;">
+          <div class="doc-icon ${d.type}" style="width:28px;height:28px;font-size:13px;">${d.type === 'pdf' ? '📄' : '📝'}</div>
+          <div style="flex:1;">
+            <div class="doc-name" style="font-size:12.5px;">${d.name}</div>
+            <div class="doc-meta" style="font-size:10.5px;">${d.date} · ${d.size}</div>
+          </div>
+        </div>`).join('')}
+    </div>` : ''}
+  `;
+
+  document.getElementById('ord-panel').classList.add('open');
+  document.getElementById('ord-overlay').classList.add('open');
+}
+
+function closeOrderPanel() {
+  document.getElementById('ord-panel').classList.remove('open');
+  document.getElementById('ord-overlay').classList.remove('open');
 }
 
 // ─── MODAL ───────────────────────────────────────────────────
 function openModal(name) {
   document.getElementById('modal-' + name).classList.add('open');
+  if (name === 'new-order') populateOrderEntityList();
 }
 function closeModal(name) {
   document.getElementById('modal-' + name).classList.remove('open');
+  if (name === 'new-order') resetOrderForm();
 }
 document.querySelectorAll('.modal-overlay').forEach(m => {
   m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
@@ -1374,7 +2337,35 @@ function submitOrder() {
   const state = document.getElementById('order-state').value;
   closeModal('new-order');
   showToast(`✅`, `Order #${orderCounter++} submitted — ${name} · ${state}. You'll be notified when complete.`);
+  resetOrderForm();
+}
+
+function resetOrderForm() {
   document.getElementById('order-entity-name').value = '';
+  document.getElementById('order-manager-name').value = '';
+  document.getElementById('officer-options').innerHTML = '';
+}
+
+function populateOrderEntityList() {
+  const dl = document.getElementById('entity-name-options');
+  dl.innerHTML = entities.map(e => `<option value="${e.name}">`).join('');
+}
+
+const SIGNER_ROLE_PRIORITY = ['Manager', 'Managing', 'Sole Member', 'General Partner'];
+function isValidSigner(officer) {
+  return SIGNER_ROLE_PRIORITY.some(role => officer.role.includes(role));
+}
+
+function onOrderEntityChange(value) {
+  const idx = entities.findIndex(e => e.name === value);
+  const input = document.getElementById('order-manager-name');
+  const datalist = document.getElementById('officer-options');
+  if (idx === -1) { datalist.innerHTML = ''; input.value = ''; return; }
+  const officers = entityExtra[idx].officers || [];
+  const signers = officers.filter(isValidSigner);
+  const options = signers.length > 0 ? signers : officers;
+  datalist.innerHTML = options.map(o => `<option value="${o.name}" label="${o.role}">`).join('');
+  input.value = options.length > 0 ? options[0].name : '';
 }
 
 // ─── TOAST ───────────────────────────────────────────────────
@@ -1392,10 +2383,11 @@ const serviceTitleMap = {
   'Franchise Tax Payment':   { key: 'ar',   label: 'Annual Report' },
   'Good Standing Certificate': { key: 'gs', label: 'Good Standing' },
   'Statement of Information':  { key: 'ar', label: 'Annual Report' },
+  'RA Reinstatement':          { key: 'ra', label: 'RA Reinstatement' },
 };
 
 function fileNow(entity, title, state) {
-  // Pre-fill entity name
+  resetOrderForm();
   document.getElementById('order-entity-name').value = entity;
 
   // Pre-select the state
@@ -1418,10 +2410,12 @@ function fileNow(entity, title, state) {
   });
 
   // Set priority to Rush for overdue items
-  const prioritySelect = document.querySelector('#modal-new-order select');
+  const selects = document.querySelectorAll('#modal-new-order select');
+  const prioritySelect = selects[1]; // [0] is order-state, [1] is priority
   if (prioritySelect) prioritySelect.selectedIndex = 1; // Rush
 
   openModal('new-order');
+  onOrderEntityChange(entity);
 }
 
 // ─── SEARCH ──────────────────────────────────────────────────
@@ -1442,6 +2436,8 @@ const entityExtra = [
 ];
 
 function openEntityDetail(idx) {
+  edEditIdx = idx;
+  edEditMode = false;
   const e = entities[idx];
   const x = entityExtra[idx] || entityExtra[0];
   document.getElementById('ed-name').textContent = e.name;
@@ -1449,6 +2445,38 @@ function openEntityDetail(idx) {
   const sc = e.compliance === 'good' ? 'badge-green' : e.compliance === 'warn' ? 'badge-amber' : 'badge-red';
   const sl = e.compliance === 'good' ? 'Good Standing' : e.compliance === 'warn' ? 'Due Soon' : 'Action Required';
   document.getElementById('ed-status-badge').innerHTML = `<span class="badge ${sc}">${sl}</span>`;
+
+  // Outstanding items banner
+  const outstandingEl = document.getElementById('ed-outstanding');
+  const entityItems = complianceItems.filter(c => c.entity === e.name && ['red','amber','blue'].includes(c.badge));
+  const raLapsed = e.ra === 'lapsed';
+  if (entityItems.length > 0 || raLapsed) {
+    const accent = { red: 'var(--red)', amber: 'var(--amber)', blue: 'var(--teal)' };
+    const bg = { red: 'rgba(239,68,68,0.08)', amber: 'rgba(251,191,36,0.08)', blue: 'rgba(20,184,166,0.08)' };
+    const icon = { red: '⛔', amber: '⚠', blue: '📋' };
+    const action = { red: 'File Now', amber: 'File Now', blue: 'Submit Filing' };
+    let rows = '';
+    if (raLapsed) {
+      rows += `<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-left:3px solid var(--red);background:rgba(239,68,68,0.1);border-radius:6px;margin-bottom:6px;">
+        <div style="font-size:16px;">⛔</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--text);">Registered Agent lapsed in ${e.state}</div><div style="font-size:11.5px;color:var(--text-muted);">Must reinstate before any other filings can proceed</div></div>
+        <button class="btn btn-primary btn-sm" onclick="fileNow('${e.name}','RA Reinstatement','${e.state}')">Reinstate RA</button>
+      </div>`;
+    }
+    rows += entityItems.map(c => {
+      const blocked = raLapsed;
+      return `<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-left:3px solid ${accent[c.badge]};background:${bg[c.badge]};border-radius:6px;margin-bottom:6px;${blocked?'opacity:0.55;':''}">
+        <div style="font-size:15px;">${icon[c.badge]}</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--text);">${c.title}</div><div style="font-size:11.5px;color:var(--text-muted);">${c.state} · ${c.month} ${c.day} · ${c.fee}${blocked?' · Blocked by RA lapse':''}</div></div>
+        ${blocked ? `<span style="font-size:11px;font-weight:600;color:var(--text-muted);display:inline-flex;align-items:center;gap:4px;">🔒 Locked</span>` : `<button class="btn btn-primary btn-sm" onclick="fileNow('${e.name}','${c.title}','${c.state}')">${action[c.badge]}</button>`}
+      </div>`;
+    }).join('');
+    outstandingEl.innerHTML = `<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:10px;">Outstanding</div>${rows}`;
+    outstandingEl.style.display = 'block';
+  } else {
+    outstandingEl.style.display = 'none';
+    outstandingEl.innerHTML = '';
+  }
 
   // Fields
   const fields = [
@@ -1502,13 +2530,207 @@ function openEntityDetail(idx) {
       <div class="tl-content"><div class="tl-title">${h.title}</div><div class="tl-time">${h.time}</div></div>
     </div>`).join('');
 
+  // Restore from edit mode if needed
+  const bar = document.querySelector('.ed-edit-bar');
+  if (bar) bar.remove();
+  document.querySelectorAll('#ed-panel .tab').forEach(t => {
+    t.style.opacity = ''; t.style.pointerEvents = '';
+  });
+  document.querySelector('.ed-panel-actions').innerHTML = `
+    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New Order</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>`;
+  document.getElementById('ed-name').textContent = e.name;
+
   // Reset to overview tab
-  edTab(document.querySelector('#modal-entity-detail .tab'), 'overview');
-  openModal('entity-detail');
+  edTab(document.querySelector('#ed-panel .tab'), 'overview');
+  document.getElementById('ed-panel').classList.add('open');
+  document.getElementById('ed-overlay').classList.add('open');
+}
+
+function closeEntityPanel() {
+  document.getElementById('ed-panel').classList.remove('open');
+  document.getElementById('ed-overlay').classList.remove('open');
+  if (edEditMode) toggleEntityEdit(); // exit edit mode on close
+}
+
+// ─── ENTITY EDIT MODE ────────────────────────────────────────
+let edEditMode = false;
+let edEditIdx = -1;
+let edEditOfficers = [];
+
+function toggleEntityEdit() {
+  edEditMode = !edEditMode;
+  if (edEditMode) {
+    renderEntityEditMode();
+  } else {
+    // Re-render view mode
+    openEntityDetail(edEditIdx);
+  }
+}
+
+function renderEntityEditMode() {
+  const e = entities[edEditIdx];
+  const x = entityExtra[edEditIdx] || entityExtra[0];
+  edEditOfficers = x.officers.map(o => ({...o})); // clone
+
+  // Switch tabs to overview
+  edTab(document.querySelector('#ed-panel .tab'), 'overview');
+
+  // Hide other tabs during edit
+  document.querySelectorAll('#ed-panel .tab').forEach((t, i) => {
+    if (i > 0) { t.style.opacity = '0.3'; t.style.pointerEvents = 'none'; }
+  });
+
+  // Editable fields (with read-only distinction)
+  const fields = [
+    { label: 'Entity Type', value: e.type, readonly: true },
+    { label: 'Formation State', value: e.state, readonly: true },
+    { label: 'Formed', value: x.formed, readonly: true },
+    { label: 'EIN', value: x.ein, key: 'ein', readonly: false },
+    { label: 'Fiscal Year End', value: x.fiscal, key: 'fiscal', readonly: false, type: 'select', options: ['Mar 31','Jun 30','Sep 30','Dec 31'] },
+    { label: 'Tax Classification', value: x.tax, key: 'tax', readonly: false, type: 'select', options: ['Disregarded','Partnership','S-Corp','C-Corp'] },
+    { label: 'RA Status', value: 'AlcoveIQ — Active', readonly: true },
+    { label: 'Status', value: e.status === 'active' ? 'Active' : 'Pending Formation', readonly: true },
+  ];
+
+  document.getElementById('ed-fields').innerHTML = fields.map(f => {
+    if (f.readonly) {
+      return `<div class="ed-field-readonly">
+        <span class="ed-lock">🔒</span>
+        <div class="ed-field-label">${f.label}</div>
+        <div class="ed-field-value">${f.value}</div>
+      </div>`;
+    }
+    if (f.type === 'select') {
+      return `<div class="ed-field-editable">
+        <div class="ed-field-label">${f.label}</div>
+        <select data-key="${f.key}">${f.options.map(o => `<option ${o === f.value ? 'selected' : ''}>${o}</option>`).join('')}</select>
+      </div>`;
+    }
+    return `<div class="ed-field-editable">
+      <div class="ed-field-label">${f.label}</div>
+      <input type="text" value="${f.value}" data-key="${f.key}">
+    </div>`;
+  }).join('');
+
+  // Entity name editable
+  document.getElementById('ed-name').innerHTML = `<input type="text" value="${e.name}" id="ed-edit-name" style="background:var(--bg);border:1px solid var(--card-border);border-radius:6px;padding:6px 10px;color:var(--text);font-size:18px;font-weight:700;outline:none;width:100%;letter-spacing:-0.02em;">`;
+
+  // Business purpose editable
+  document.getElementById('ed-fields').innerHTML += `<div class="ed-field-editable" style="grid-column:1/-1;">
+    <div class="ed-field-label">Business Purpose</div>
+    <textarea id="ed-edit-purpose">${x.purpose}</textarea>
+  </div>`;
+
+  // Officers editable
+  renderEditOfficers();
+
+  // Add edit bar
+  const existingBar = document.querySelector('.ed-edit-bar');
+  if (existingBar) existingBar.remove();
+  const bar = document.createElement('div');
+  bar.className = 'ed-edit-bar';
+  bar.innerHTML = `<button class="btn btn-ghost" onclick="toggleEntityEdit()">Cancel</button>
+    <button class="btn btn-primary" onclick="saveEntityEdit()">Save Changes</button>`;
+  document.getElementById('ed-panel').appendChild(bar);
+
+  // Update action buttons
+  document.querySelector('.ed-panel-actions').innerHTML = `
+    <span class="badge badge-blue" style="padding:6px 12px;font-size:12px;">Editing</span>`;
+}
+
+function renderEditOfficers() {
+  const total = edEditOfficers.reduce((s, o) => s + (parseFloat(o.pct) || 0), 0);
+  const totalClass = total === 100 ? 'exact' : total > 100 ? 'over' : '';
+
+  document.getElementById('ed-officers').innerHTML = edEditOfficers.map((o, i) => `
+    <div class="ed-officer-edit">
+      <div class="ed-officer-avatar">${(o.name || '?')[0].toUpperCase()}</div>
+      <div class="ed-officer-fields">
+        <input class="name-input" type="text" value="${o.name}" placeholder="Full name" oninput="edEditOfficers[${i}].name=this.value;updateOfficerAvatar(${i})">
+        <select class="role-input" onchange="edEditOfficers[${i}].role=this.value">
+          ${['Manager','Managing Member','General Partner','Limited Partners','Sole Member','Member','Officer','Director'].map(r => `<option ${r === o.role ? 'selected' : ''}>${r}</option>`).join('')}
+        </select>
+        <input class="pct-input" type="text" value="${o.pct || ''}" placeholder="%" oninput="edEditOfficers[${i}].pct=this.value;updatePctTotal()">
+      </div>
+      <button class="ed-officer-remove" onclick="removeOfficer(${i})" title="Remove">✕</button>
+    </div>`).join('') +
+    `<div class="ed-pct-total ${totalClass}">Total ownership: ${total}%</div>
+    <button class="ed-add-officer" onclick="addOfficer()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add officer or member
+    </button>`;
+}
+
+function updateOfficerAvatar(i) {
+  const avatars = document.querySelectorAll('.ed-officer-avatar');
+  if (avatars[i]) avatars[i].textContent = (edEditOfficers[i].name || '?')[0].toUpperCase();
+}
+
+function updatePctTotal() {
+  const total = edEditOfficers.reduce((s, o) => s + (parseFloat(o.pct) || 0), 0);
+  const el = document.querySelector('.ed-pct-total');
+  if (el) {
+    el.textContent = `Total ownership: ${total}%`;
+    el.className = 'ed-pct-total ' + (total === 100 ? 'exact' : total > 100 ? 'over' : '');
+  }
+}
+
+function addOfficer() {
+  edEditOfficers.push({ name: '', role: 'Member', pct: '' });
+  renderEditOfficers();
+  // Focus the new name input
+  setTimeout(() => {
+    const inputs = document.querySelectorAll('.ed-officer-edit .name-input');
+    if (inputs.length) inputs[inputs.length - 1].focus();
+  }, 50);
+}
+
+function removeOfficer(i) {
+  edEditOfficers.splice(i, 1);
+  renderEditOfficers();
+}
+
+function saveEntityEdit() {
+  // Update data (prototype — in-memory only)
+  const e = entities[edEditIdx];
+  const x = entityExtra[edEditIdx] || entityExtra[0];
+  const nameInput = document.getElementById('ed-edit-name');
+  if (nameInput) e.name = nameInput.value;
+  const purposeInput = document.getElementById('ed-edit-purpose');
+  if (purposeInput) x.purpose = purposeInput.value;
+
+  document.querySelectorAll('.ed-field-editable input[data-key], .ed-field-editable select[data-key]').forEach(el => {
+    x[el.dataset.key] = el.value;
+  });
+  x.officers = edEditOfficers.filter(o => o.name.trim());
+
+  // Exit edit mode and re-render
+  edEditMode = false;
+  // Remove edit bar
+  const bar = document.querySelector('.ed-edit-bar');
+  if (bar) bar.remove();
+  // Restore tabs
+  document.querySelectorAll('#ed-panel .tab').forEach(t => {
+    t.style.opacity = ''; t.style.pointerEvents = '';
+  });
+  // Restore action buttons
+  document.querySelector('.ed-panel-actions').innerHTML = `
+    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New Order</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>`;
+
+  openEntityDetail(edEditIdx);
+
+  // Show toast
+  document.getElementById('toast-icon').textContent = '✅';
+  document.getElementById('toast-msg').textContent = `${e.name} updated successfully.`;
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
 function edTab(el, tab) {
-  document.querySelectorAll('#modal-entity-detail .tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#ed-panel .tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   ['overview','states','docs','history'].forEach(t => {
     document.getElementById('ed-tab-' + t).style.display = t === tab ? 'block' : 'none';
@@ -1528,7 +2750,7 @@ function handleSearch(q) {
       const raWarning = e.ra === 'lapsed' ? '<span class="ra-lapsed">RA Lapsed</span>' : '';
       const fqDisplay = e.foreignStates.length > 0 ? e.foreignStates.join(', ') : '—';
       return `<tr class="entity-row cat-${e.category}">
-        <td style="font-weight:600;">${e.name}${raWarning}</td>
+        <td style="font-weight:700;font-size:14px;">${e.name}${raWarning}</td>
         <td><span class="badge badge-gray">${e.type}</span></td>
         <td>${e.state}</td>
         <td style="color:var(--text-muted);font-size:12.5px;">${fqDisplay}</td>
@@ -1541,17 +2763,81 @@ function handleSearch(q) {
 }
 // ─── AI CHAT ─────────────────────────────────────────────────
 let chatOpen = false;
+let formWizard = null;
+let recentQueries = [];
+const MAX_RECENT = 5;
+
+function addRecentQuery(text) {
+  // Don't duplicate
+  const existing = recentQueries.findIndex(q => q.toLowerCase() === text.toLowerCase());
+  if (existing > -1) recentQueries.splice(existing, 1);
+  recentQueries.unshift(text);
+  if (recentQueries.length > MAX_RECENT) recentQueries.pop();
+  renderDashboardRecent();
+}
+
+function renderRecentQueries() {
+  const container = document.getElementById('chat-recent-queries');
+  if (!container) return;
+  // Hide if no recent queries or if conversation has started
+  const msgs = document.getElementById('chat-messages');
+  const hasUserMsgs = msgs && msgs.querySelector('.chat-msg.user');
+  if (recentQueries.length === 0 || hasUserMsgs) {
+    container.style.display = 'none';
+    return;
+  }
+  container.style.display = 'block';
+  container.innerHTML = `
+    <div class="chat-recent-label">Recent</div>
+    <div class="chat-recent-list">
+      ${recentQueries.map(q => `<button class="chat-recent-btn" onclick="chatSend('${q.replace(/'/g, "\\'")}')"><span class="chat-recent-icon">↩</span>${q}</button>`).join('')}
+    </div>
+  `;
+}
+
+function renderDashboardRecent() {
+  const container = document.getElementById('ai-bar-recent');
+  if (!container) return;
+  const items = recentQueries.length > 0
+    ? recentQueries.slice(0, 2)
+    : ['Tell me about Maple Holdco', 'How much in fees this quarter?'];
+  const isPlaceholder = recentQueries.length === 0;
+  container.style.display = 'flex';
+  container.innerHTML = `
+    <div class="ai-bar-section-label">Recent</div>
+    ${items.map(q => `<button class="ai-bar-recent-btn" onclick="toggleChat();setTimeout(()=>chatSend('${q.replace(/'/g, "\\'")}'),300)"><span class="ai-bar-recent-icon">↩</span>${q}</button>`).join('')}
+  `;
+}
+// Render on load
+document.addEventListener('DOMContentLoaded', renderDashboardRecent);
+
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('chat-panel').classList.toggle('open', chatOpen);
-  if (chatOpen) document.getElementById('chat-input').focus();
+  if (chatOpen) {
+    document.getElementById('chat-input').focus();
+    renderRecentQueries();
+  }
+}
+
+function sendBarPrompt() {
+  const input = document.getElementById('ai-bar-prompt');
+  const text = input.value.trim();
+  if (!text) { toggleChat(); return; }
+  input.value = '';
+  toggleChat();
+  setTimeout(() => chatSend(text), 300);
 }
 
 function chatSend(text) {
   if (!text) text = document.getElementById('chat-input').value.trim();
   if (!text) return;
   document.getElementById('chat-input').value = '';
+  addRecentQuery(text);
   addChatMsg(text, 'user');
+  // Hide recent queries once conversation starts
+  const rq = document.getElementById('chat-recent-queries');
+  if (rq) rq.style.display = 'none';
   // Show typing indicator
   const typing = addChatTyping();
   setTimeout(() => {
@@ -1587,7 +2873,7 @@ function generateChatResponse(input) {
   const q = input.toLowerCase();
 
   // --- ATTENTION / OVERDUE / URGENT ---
-  if (q.includes('attention') || q.includes('overdue') || q.includes('urgent') || q.includes('what needs') || q.includes('action')) {
+  if ((q.includes('attention') || q.includes('overdue') || q.includes('urgent') || q.includes('what needs') || q.includes('action')) && !q.includes('file') && !q.includes('submit')) {
     const urgent = complianceItems.filter(c => c.badge === 'red' || c.badge === 'amber');
     const lapsedRA = entities.filter(e => e.ra === 'lapsed');
     let alerts = '';
@@ -1601,6 +2887,47 @@ function generateChatResponse(input) {
     return {
       text: `You have ${urgent.length + lapsedRA.length} items requiring attention:`,
       cards: `<div class="chat-card"><div class="cc-label">Action Required</div>${alerts}</div><div class="chat-suggestions"><button onclick="chatSend('File the overdue items')">File overdue items</button><button onclick="chatSend('Tell me about Maple Holdco')">Maple Holdco details</button></div>`
+    };
+  }
+
+  // --- FORM ENTITY WIZARD ---
+  if (formWizard && formWizard.step) {
+    // If wizard is active, route free-text input to the current step
+    if (formWizard.step === 'name') return (formWizardStep('name', input), { text: '', cards: '' });
+    if (formWizard.step === 'manager') return (formWizardStep('manager', input), { text: '', cards: '' });
+  }
+  if ((q.includes('form') && (q.includes('entity') || q.includes('llc') || q.includes('lp') || q.includes('corp') || q.includes('new') || q.includes('another'))) ||
+      (q.includes('create') && (q.includes('entity') || q.includes('llc') || q.includes('lp') || q.includes('corp') || q.includes('new'))) ||
+      (q.includes('set up') && (q.includes('entity') || q.includes('llc') || q.includes('lp') || q.includes('spv'))) ||
+      q === 'form another entity') {
+    return startFormWizard();
+  }
+
+  // --- BATCH FILE OVERDUE ---
+  if ((q.includes('file') || q.includes('submit')) && (q.includes('overdue') || q.includes('all') || q.includes('batch'))) {
+    const overdue = complianceItems.filter(c => c.badge === 'red');
+    const lapsedRA = entities.filter(e => e.ra === 'lapsed');
+    if (overdue.length === 0) {
+      return { text: `Great news — you have no overdue filings right now!`, cards: '' };
+    }
+    // Check for blockers
+    const blockedEntities = overdue.filter(c => lapsedRA.some(e => e.name === c.entity));
+    const unblockedItems = overdue.filter(c => !lapsedRA.some(e => e.name === c.entity));
+    let blockerHTML = '';
+    if (blockedEntities.length > 0) {
+      const blockerNames = [...new Set(blockedEntities.map(c => c.entity))];
+      const lapsedDetails = blockerNames.map(name => {
+        const ent = lapsedRA.find(e => e.name === name);
+        return `<div class="cc-alert"><div class="cc-alert-icon" style="color:var(--red);">⛔</div><div class="cc-alert-text"><strong>${name}</strong> — RA lapsed in ${ent.state}. Must reinstate RA before filing. <button class="cc-inline-btn" onclick="chatSend('File RA reinstatement for ${name} in ${ent.state}, rush')">Reinstate RA (Rush)</button></div></div>`;
+      }).join('');
+      blockerHTML = `<div style="margin-bottom:8px;"><div class="cc-label" style="color:var(--red);">⚠ Blocked Filings</div>${lapsedDetails}${blockedEntities.map(c => `<div class="cc-alert" style="opacity:0.6;"><div class="cc-alert-icon">🔴</div><div class="cc-alert-text"><strong>${c.title}</strong> — ${c.entity} · ${c.state} · ${c.fee} — Blocked by lapsed RA</div></div>`).join('')}</div>`;
+    }
+    const totalFees = unblockedItems.reduce((sum, c) => sum + parseFloat(c.fee.replace('$','').replace(',','')), 0);
+    const itemRows = unblockedItems.map(c => `<div class="cc-alert"><div class="cc-alert-icon">🔴</div><div class="cc-alert-text"><strong>${c.title}</strong> — ${c.entity} · ${c.state} · ${c.fee}</div></div>`).join('');
+    const readyHTML = unblockedItems.length > 0 ? `<div><div class="cc-label">Ready to File (${unblockedItems.length})</div>${itemRows}<div class="cc-row" style="border-top:1px solid var(--card-border);margin-top:8px;padding-top:8px;font-weight:600;"><span>Total State Fees</span><span>$${totalFees.toFixed(2)}</span></div><div class="chat-confirm" style="margin-top:10px;"><button class="cc-yes" onclick="chatBatchFile()">Confirm & File All (${unblockedItems.length})</button><button class="cc-no" onclick="addChatMsg('Batch filing cancelled.','ai')">Cancel</button></div></div>` : '';
+    return {
+      text: `I found ${overdue.length} overdue item${overdue.length > 1 ? 's' : ''}${blockedEntities.length > 0 ? ` — ${blockedEntities.length} blocked by lapsed RA` : ''}:`,
+      cards: `<div class="chat-card">${blockerHTML}${readyHTML}</div>`
     };
   }
 
@@ -1762,7 +3089,266 @@ function chatConfirmOrder(entityName, state, service) {
   showToast('✅', `Order #${orderCounter++} submitted — ${entityName} · ${stateFullName(state)}.`);
   addChatMsg(`✅ Order #${orderCounter - 1} submitted for ${entityName} — ${service} in ${stateFullName(state)}. You'll be notified when it's complete.`, 'ai');
 }
+
+function chatBatchFile() {
+  const overdue = complianceItems.filter(c => c.badge === 'red');
+  const lapsedRA = entities.filter(e => e.ra === 'lapsed');
+  const unblocked = overdue.filter(c => !lapsedRA.some(e => e.name === c.entity));
+  if (unblocked.length === 0) {
+    addChatMsg('No unblocked overdue items to file.', 'ai');
+    return;
+  }
+  const orderNums = [];
+  unblocked.forEach(c => {
+    orderNums.push(orderCounter);
+    orderCounter++;
+  });
+  const summary = unblocked.map((c, i) => `<div class="cc-row"><span>Order #${orderNums[i]} — ${c.title}</span><span>${c.entity} · ${c.state}</span></div>`).join('');
+  const totalFees = unblocked.reduce((sum, c) => sum + parseFloat(c.fee.replace('$','').replace(',','')), 0);
+  showToast('✅', `${unblocked.length} orders submitted — $${totalFees.toFixed(2)} in state fees.`);
+  addChatMsg('', 'ai', `<div class="chat-card"><div class="cc-label">✅ ${unblocked.length} Orders Submitted</div>${summary}<div class="cc-row" style="border-top:1px solid var(--card-border);margin-top:6px;padding-top:6px;font-weight:600;"><span>Total Fees</span><span>$${totalFees.toFixed(2)}</span></div><div style="margin-top:8px;font-size:11px;color:var(--text-muted);">You'll be notified as each filing is completed.</div></div>`);
+}
+
+// ─── ENTITY FORMATION WIZARD (SIDEBAR) ───────────────────────
+const wizSteps = ['type','state','name','manager','parent','review'];
+let wiz = { step: 0, type: '', state: '', name: '', manager: '', parent: '', ein: true };
+
+function openWizard() {
+  wiz = { step: 0, type: '', state: '', name: '', manager: '', parent: '', ein: true };
+  document.getElementById('wizard-panel').classList.add('open');
+  renderWizStep();
+}
+function closeWizard() { document.getElementById('wizard-panel').classList.remove('open'); }
+
+function renderWizStep() {
+  const body = document.getElementById('wiz-body');
+  const stepNum = wiz.step;
+  const total = wizSteps.length;
+  document.getElementById('wiz-step-label').textContent = `Step ${stepNum + 1} of ${total}`;
+
+  // Progress dots
+  document.getElementById('wiz-dots').innerHTML = wizSteps.map((s, i) =>
+    `<div class="wizard-step-dot ${i < stepNum ? 'done' : i === stepNum ? 'active' : ''}"></div>`
+  ).join('');
+
+  // Back/Next buttons
+  document.getElementById('wiz-back').style.visibility = stepNum === 0 ? 'hidden' : 'visible';
+  const nextBtn = document.getElementById('wiz-next');
+
+  if (wizSteps[stepNum] === 'type') {
+    nextBtn.textContent = 'Continue';
+    nextBtn.disabled = !wiz.type;
+    body.innerHTML = `
+      <div class="wiz-label">Entity Type</div>
+      <div class="wiz-title">What type of entity?</div>
+      <div class="wiz-sub">Choose the legal structure for your new entity.</div>
+      <div class="wiz-options">
+        <div class="wiz-option ${wiz.type==='LLC'?'selected':''}" onclick="wizSelect('type','LLC')">
+          <div class="wiz-option-icon">🏢</div>
+          <div class="wiz-option-text"><strong>LLC</strong><span>Limited Liability Company — most flexible. Good for SPVs, HoldCos, GPs.</span></div>
+          <div class="wiz-check"></div>
+        </div>
+        <div class="wiz-option ${wiz.type==='LP'?'selected':''}" onclick="wizSelect('type','LP')">
+          <div class="wiz-option-icon">🏦</div>
+          <div class="wiz-option-text"><strong>LP</strong><span>Limited Partnership — standard for investment fund vehicles. Requires a GP.</span></div>
+          <div class="wiz-check"></div>
+        </div>
+        <div class="wiz-option ${wiz.type==='Corp'?'selected':''}" onclick="wizSelect('type','Corp')">
+          <div class="wiz-option-icon">🏛️</div>
+          <div class="wiz-option-text"><strong>Corporation</strong><span>C-Corp or S-Corp structure. Less common for fund structures.</span></div>
+          <div class="wiz-check"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  else if (wizSteps[stepNum] === 'state') {
+    nextBtn.textContent = 'Continue';
+    nextBtn.disabled = !wiz.state;
+    const rec = wiz.type === 'LP' ? 'Delaware is the standard for LP fund vehicles — strong case law and privacy.' : wiz.type === 'Corp' ? 'Delaware is preferred for Corporations — established legal framework.' : 'Delaware and Wyoming are most popular for LLCs. Wyoming has lower fees; Delaware has stronger case law.';
+    const states = [
+      { code:'DE', name:'Delaware', pop:'Most popular', fee:'$90' },
+      { code:'WY', name:'Wyoming', pop:'Low cost', fee:'$100' },
+      { code:'CA', name:'California', pop:'West Coast', fee:'$70' },
+      { code:'TX', name:'Texas', pop:'No state tax', fee:'$300' },
+      { code:'NY', name:'New York', pop:'East Coast', fee:'$200' },
+      { code:'NV', name:'Nevada', pop:'Privacy', fee:'$75' },
+    ];
+    body.innerHTML = `
+      <div class="wiz-label">Formation State</div>
+      <div class="wiz-title">Where should it be formed?</div>
+      <div class="wiz-sub">${rec}</div>
+      <div class="wiz-grid">
+        ${states.map(s => `
+          <div class="wiz-option ${wiz.state===s.code?'selected':''}" onclick="wizSelect('state','${s.code}')" style="flex-direction:column;align-items:flex-start;padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+              <strong style="font-size:13.5px;">${s.name}</strong>
+              <div class="wiz-check"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;width:100%;margin-top:4px;">
+              <span style="font-size:11px;color:var(--text-muted);">${s.pop}</span>
+              <span style="font-size:11px;color:var(--teal);">${s.fee}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  else if (wizSteps[stepNum] === 'name') {
+    nextBtn.textContent = 'Continue';
+    nextBtn.disabled = !wiz.name.trim();
+    const spvCount = entities.filter(e => e.category === 'spv').length;
+    const suggestion = wiz.type === 'LP' ? 'Redwood Fund IV LP' : wiz.type === 'Corp' ? 'Redwood Capital Corp' : `Venture SPV ${spvCount + 1} LLC`;
+    body.innerHTML = `
+      <div class="wiz-label">Entity Name</div>
+      <div class="wiz-title">Name your entity</div>
+      <div class="wiz-sub">Enter the full legal name including the entity suffix (LLC, LP, etc.).</div>
+      <input type="text" class="wiz-input" id="wiz-name-input" placeholder="e.g., ${suggestion}" value="${wiz.name}" oninput="wiz.name=this.value;document.getElementById('wiz-next').disabled=!this.value.trim();" autofocus>
+      <div class="wiz-hint"><div class="wiz-hint-icon">💡</div><div>Name must include entity type suffix (LLC, LP, Inc., Corp.). We'll check name availability in ${stateFullName(wiz.state)} before filing.</div></div>
+    `;
+    setTimeout(() => { const inp = document.getElementById('wiz-name-input'); if (inp) inp.focus(); }, 50);
+  }
+
+  else if (wizSteps[stepNum] === 'manager') {
+    nextBtn.textContent = 'Continue';
+    nextBtn.disabled = !wiz.manager;
+    const managers = new Set();
+    entityExtra.forEach(x => x.officers.forEach(o => { if (o.role.includes('Manager') || o.role.includes('Managing')) managers.add(o.name); }));
+    const managerList = [...managers];
+    body.innerHTML = `
+      <div class="wiz-label">Manager / Member</div>
+      <div class="wiz-title">Who will manage this entity?</div>
+      <div class="wiz-sub">Select the managing member or authorized person. You can update officers after formation.</div>
+      <div class="wiz-options">
+        ${managerList.map(m => `
+          <div class="wiz-option ${wiz.manager===m?'selected':''}" onclick="wizSelect('manager','${m}')">
+            <div class="wiz-option-icon" style="background:linear-gradient(135deg,var(--teal),#6366f1);font-size:12px;font-weight:700;color:white;">${m.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+            <div class="wiz-option-text"><strong>${m}</strong><span>Existing officer in your portfolio</span></div>
+            <div class="wiz-check"></div>
+          </div>
+        `).join('')}
+      </div>
+      <input type="text" class="wiz-input" style="margin-top:12px;" placeholder="Or enter a new name…" oninput="wizSelect('manager',this.value)" value="${!managerList.includes(wiz.manager) ? wiz.manager : ''}">
+    `;
+  }
+
+  else if (wizSteps[stepNum] === 'parent') {
+    nextBtn.textContent = 'Continue';
+    nextBtn.disabled = !wiz.parent;
+    const parents = entities.filter(e => e.category === 'fund' || e.category === 'gp');
+    body.innerHTML = `
+      <div class="wiz-label">Parent Entity</div>
+      <div class="wiz-title">Which entity is the owner?</div>
+      <div class="wiz-sub">Select the parent entity or sole member. This determines where the entity sits in your org chart.</div>
+      <div class="wiz-options">
+        ${parents.map(p => `
+          <div class="wiz-option ${wiz.parent===p.name?'selected':''}" onclick="wizSelect('parent','${p.name}')">
+            <div class="wiz-option-icon" style="font-size:14px;">${p.category==='fund'?'🏦':'🏢'}</div>
+            <div class="wiz-option-text"><strong>${p.name}</strong><span>${p.type} · ${stateFullName(p.state)}</span></div>
+            <div class="wiz-check"></div>
+          </div>
+        `).join('')}
+        <div class="wiz-option ${wiz.parent==='Standalone'?'selected':''}" onclick="wizSelect('parent','Standalone')">
+          <div class="wiz-option-icon">—</div>
+          <div class="wiz-option-text"><strong>No parent</strong><span>Standalone entity, not part of an existing structure</span></div>
+          <div class="wiz-check"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  else if (wizSteps[stepNum] === 'review') {
+    nextBtn.textContent = 'Submit Formation Order';
+    nextBtn.disabled = false;
+    const stateFees = { DE: '$90', WY: '$100', CA: '$70', TX: '$300', NY: '$200', NV: '$75' };
+    body.innerHTML = `
+      <div class="wiz-label">Review & Submit</div>
+      <div class="wiz-title">Confirm your formation order</div>
+      <div class="wiz-sub">Review the details below. Your order will be submitted to our filing team.</div>
+      <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:16px 18px;">
+        <div class="wiz-summary-row"><span class="wiz-s-label">Entity Name</span><span class="wiz-s-value">${wiz.name}</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">Type</span><span class="wiz-s-value">${wiz.type}</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">Formation State</span><span class="wiz-s-value">${stateFullName(wiz.state)}</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">Manager</span><span class="wiz-s-value">${wiz.manager}</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">Parent Entity</span><span class="wiz-s-value">${wiz.parent}</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">EIN Application</span>
+          <span class="wiz-s-value" style="display:flex;align-items:center;gap:8px;">
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--text-dim);">
+              <input type="checkbox" ${wiz.ein?'checked':''} onchange="wiz.ein=this.checked" style="accent-color:var(--teal);"> Include EIN
+            </label>
+          </span>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:16px 18px;margin-top:12px;">
+        <div class="wiz-label" style="margin-bottom:8px;">Estimated Fees</div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">State filing fee</span><span class="wiz-s-value">${stateFees[wiz.state] || '—'}</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">Registered Agent (annual)</span><span class="wiz-s-value">$149</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">EIN Application</span><span class="wiz-s-value">${wiz.ein ? 'Included' : '—'}</span></div>
+        <div class="wiz-summary-row"><span class="wiz-s-label">Service fee</span><span class="wiz-s-value">Included in plan</span></div>
+      </div>
+      <div class="wiz-hint" style="margin-top:16px;"><div class="wiz-hint-icon">⏱️</div><div>Estimated completion: 3-5 business days for ${stateFullName(wiz.state)}. You'll be notified at each step.</div></div>
+    `;
+  }
+}
+
+function wizSelect(field, value) {
+  wiz[field] = value;
+  renderWizStep();
+}
+
+function wizNext() {
+  // Validate current step before advancing
+  const step = wizSteps[wiz.step];
+  if (step === 'type' && !wiz.type) return;
+  if (step === 'state' && !wiz.state) return;
+  if (step === 'name' && !wiz.name.trim()) return;
+  if (step === 'manager' && !wiz.manager) return;
+  if (step === 'parent' && !wiz.parent) return;
+
+  if (wiz.step === wizSteps.length - 1) {
+    // Submit
+    closeWizard();
+    showToast('✅', `Order #${orderCounter} submitted — ${wiz.name} · ${stateFullName(wiz.state)}.`);
+    orderCounter++;
+    return;
+  }
+  wiz.step++;
+  renderWizStep();
+}
+
+function wizBack() {
+  if (wiz.step > 0) { wiz.step--; renderWizStep(); }
+}
+
+function startFormWizard() {
+  openWizard();
+  return {
+    text: `I've opened the formation wizard for you. You can walk through each step in the sidebar.`,
+    cards: ''
+  };
+}
 </script>
+
+<!-- Formation Wizard Sidebar -->
+<div id="wizard-panel" class="wizard-panel">
+  <div class="wizard-header">
+    <div class="wizard-header-left">
+      <div class="wizard-header-icon">🏢</div>
+      <div>
+        <h3>Form New Entity</h3>
+        <p id="wiz-step-label">Step 1 of 6</p>
+      </div>
+    </div>
+    <button onclick="closeWizard()">✕</button>
+  </div>
+  <div class="wizard-steps" id="wiz-dots"></div>
+  <div class="wizard-body" id="wiz-body"></div>
+  <div class="wizard-footer">
+    <button class="wiz-back" id="wiz-back" onclick="wizBack()">Back</button>
+    <button class="wiz-next" id="wiz-next" onclick="wizNext()">Continue</button>
+  </div>
+</div>
 
 <!-- AI Chat -->
 <button class="chat-toggle" onclick="toggleChat()" title="AI Assistant">
@@ -1776,12 +3362,7 @@ function chatConfirmOrder(entityName, state, service) {
   <div id="chat-messages" class="chat-messages">
     <div class="chat-msg ai">
       <div class="chat-bubble">Hi! I'm your AlcoveIQ assistant. I can answer questions about your entities, check compliance status, and file orders for you.</div>
-      <div class="chat-suggestions">
-        <button onclick="chatSend('What needs my attention today?')">What needs attention?</button>
-        <button onclick="chatSend('Show all upcoming filings')">Upcoming filings</button>
-        <button onclick="chatSend('File an order')">File an order</button>
-        <button onclick="chatSend('Tell me about Maple Holdco')">Maple Holdco</button>
-      </div>
+      <div id="chat-recent-queries" style="display:none;"></div>
     </div>
   </div>
   <div class="chat-input-wrap">
