@@ -29,6 +29,136 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; font-size: 14px; }
+  .body-row { display: flex; flex: 1; min-height: 0; overflow: hidden; width: 100%; }
+
+  /* MAIN-COLUMN TOPBAR (only over the right content area) */
+  .main-topbar {
+    display: flex; align-items: center; gap: 10px; padding: 0 16px; height: 56px;
+    background: var(--navy); border-bottom: 1px solid var(--navy-border); flex-shrink: 0;
+    min-width: 0;
+  }
+  .topbar-h-nav { display: flex; align-items: center; gap: 2px; height: 100%; min-width: 0; flex-wrap: nowrap; overflow: hidden; }
+  .nav-item-h {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 6px;
+    background: transparent; border: none; cursor: pointer; font-size: 13px; font-weight: 500; font-family: inherit;
+    color: var(--text-dim); transition: all 0.15s; white-space: nowrap;
+  }
+  .nav-item-h:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+  .nav-item-h.active { background: rgba(20,184,166,0.12); color: var(--teal); }
+  .nav-item-h .nav-badge { font-size: 10px; padding: 1px 5px; }
+  .topbar-h-spacer { flex: 1; min-width: 8px; }
+
+  /* Collapsible search (icon → input on focus/click) */
+  .topbar-search {
+    display: flex; align-items: center; width: 36px; transition: width 0.2s ease;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--navy-border); border-radius: 8px;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .topbar-search:focus-within, .topbar-search.open { width: 240px; background: var(--card); border-color: var(--teal); }
+  .topbar-search-btn {
+    width: 36px; height: 36px; flex-shrink: 0; background: none; border: none;
+    color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .topbar-search-btn:hover { color: var(--text); }
+  .topbar-search-input {
+    flex: 1; min-width: 0; height: 36px; background: transparent; border: none; outline: none;
+    color: var(--text); font-size: 13px; padding: 0 10px 0 0;
+    opacity: 0; transition: opacity 0.15s 0.05s; width: 0;
+  }
+  .topbar-search:focus-within .topbar-search-input,
+  .topbar-search.open .topbar-search-input { opacity: 1; width: auto; }
+  .topbar-search-input::placeholder { color: var(--text-muted); }
+
+  /* Icon-only button */
+  .btn.btn-icon { padding: 0; width: 36px; height: 36px; justify-content: center; gap: 0; flex-shrink: 0; }
+
+  .topbar-h-org { position: relative; flex-shrink: 0; }
+
+  /* AlcoveIQ brand mark inside the chat header */
+  .chat-brand {
+    display: flex; align-items: center; cursor: pointer; flex-shrink: 0; padding-right: 6px;
+  }
+  .chat-brand .logo-mark { width: 28px; height: 28px; font-size: 13px; }
+  /* Team & users page */
+  .team-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .team-stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 16px; }
+  .team-stat-value { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .team-stat-label { font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+  .team-stat-sub { font-size: 11.5px; color: var(--text-dim); margin-top: 4px; }
+  .team-table { width: 100%; }
+  .team-table th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); padding: 10px 16px; border-bottom: 1px solid var(--card-border); }
+  .team-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; vertical-align: middle; }
+  .team-table tr:last-child td { border-bottom: none; }
+  .team-member { display: flex; align-items: center; gap: 10px; }
+  .team-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 700; color: white; flex-shrink: 0; }
+  .team-name { font-size: 13.5px; font-weight: 600; color: var(--text); display: inline-flex; align-items: center; gap: 6px; }
+  .team-email { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+  .team-you { font-size: 9.5px; font-weight: 600; padding: 1px 6px; border-radius: 4px; background: rgba(20,184,166,0.15); color: var(--teal); text-transform: uppercase; letter-spacing: 0.06em; }
+  .td-muted { color: var(--text-muted); font-size: 12.5px; }
+  .role-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 14px; font-size: 11.5px; font-weight: 600; }
+  .role-admin { background: rgba(167,139,250,0.15); color: #c4b5fd; }
+  .role-paralegal { background: rgba(20,184,166,0.15); color: #5eead4; }
+  .role-viewer { background: rgba(148,163,184,0.15); color: #cbd5e1; }
+  .role-external { background: rgba(245,158,11,0.15); color: #fcd34d; }
+  .roles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .role-card { background: var(--navy); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px 16px; }
+  .role-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .role-card-count { font-size: 11.5px; color: var(--text-muted); }
+  .role-card-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.5; }
+  .org-avatar-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
+  .org-avatar-btn:hover { box-shadow: 0 0 0 2px rgba(20,184,166,0.4); }
+  .topbar-h-org .org-avatar { width: 32px; height: 32px; font-size: 11px; }
+  .org-menu {
+    position: absolute; top: calc(100% + 8px); right: 0; min-width: 240px;
+    background: #1a2438; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px;
+    padding: 8px; z-index: 600; box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+    display: none;
+  }
+  .org-menu.open { display: block; }
+  .org-menu-header { display: flex; align-items: center; gap: 10px; padding: 8px 8px 12px; }
+  .org-menu-name { font-size: 13.5px; font-weight: 700; color: var(--text); }
+  .org-menu-plan { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+  .org-menu-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+  .org-menu-section-label {
+    padding: 6px 10px 2px; font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);
+  }
+  .org-menu-item {
+    display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+    background: transparent; border: none; cursor: pointer; color: var(--text);
+    padding: 8px 10px; border-radius: 6px; font-size: 13px; font-family: inherit;
+  }
+  .org-menu-item:hover { background: rgba(255,255,255,0.06); }
+  .org-menu-item svg { color: var(--text-muted); flex-shrink: 0; }
+
+  /* LEFT CHAT (always-on co-pilot) */
+  .left-chat {
+    width: 33.333vw; min-width: 280px; max-width: 41.666vw; flex-shrink: 0;
+    height: 100%; border-right: 1px solid var(--card-border); border-radius: 0;
+    display: flex; flex-direction: column; transition: width 0.25s ease, min-width 0.25s ease, max-width 0.25s ease;
+    min-height: 0; overflow: hidden; position: relative;
+  }
+  .left-chat .left-chat-resize {
+    position: absolute !important; top: 0; right: -3px; width: 6px; height: 100%; cursor: col-resize;
+    z-index: 10; transition: background 0.15s;
+  }
+  .left-chat-resize:hover, .left-chat.resizing .left-chat-resize {
+    background: rgba(20,184,166,0.4);
+  }
+  .left-chat.resizing { transition: none; user-select: none; }
+  .left-chat.dash-chat { min-height: 0; border: none; border-right: 1px solid var(--card-border); }
+  .left-chat.dash-chat-hero { border-radius: 0; border: none; border-right: 1px solid rgba(255,255,255,0.06); }
+  .left-chat .left-chat-expand { display: none; }
+  .left-chat-collapse { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; display: flex; align-items: center; }
+  .left-chat-collapse:hover { color: var(--text); }
+  .left-chat.collapsed { width: 56px; min-width: 56px; max-width: 56px; }
+  .left-chat.collapsed .dash-chat-header,
+  .left-chat.collapsed .left-chat-collapsed-hide { display: none; }
+  .left-chat.collapsed .left-chat-expand {
+    display: flex; align-items: center; justify-content: center; flex: 1;
+    background: none; border: none; color: var(--teal); cursor: pointer; width: 100%;
+  }
+  .left-chat.collapsed .left-chat-expand:hover { background: rgba(255,255,255,0.05); }
 
   /* SIDEBAR */
   .sidebar {
@@ -40,9 +170,14 @@
     display: flex; align-items: center; gap: 10px;
   }
   .logo-mark {
-    width: 32px; height: 32px; background: linear-gradient(135deg, var(--teal), #6366f1);
-    border-radius: 8px; display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 14px; color: white; flex-shrink: 0;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-mark svg, .logo-mark img { width: 100%; height: 100%; display: block; border-radius: 0; }
+  .logo-mark:not(:has(svg)):not(:has(img)) {
+    background: linear-gradient(135deg, var(--teal), #6366f1);
+    color: white; font-weight: 800; font-size: 14px; border-radius: 8px;
   }
   .logo-text { font-weight: 700; font-size: 15px; color: white; }
   .logo-text span { color: var(--teal); }
@@ -76,6 +211,8 @@
     border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04);
     color: var(--text-muted); font-family: inherit; font-weight: 500;
   }
+  body.on-dashboard .nav-assistant { display: none; }
+  body.on-dashboard .sidebar-nav .nav-section:has(.nav-assistant) { display: none; }
   .sidebar-footer { padding: 14px 10px; border-top: 1px solid var(--navy-border); }
   .org-info { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 7px; cursor: pointer; }
   .org-avatar { width: 32px; height: 32px; background: linear-gradient(135deg,#6366f1,#8b5cf6); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; flex-shrink: 0; }
@@ -101,10 +238,32 @@
     border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none;
     transition: all 0.15s; white-space: nowrap;
   }
+  /* 4-tier button system:
+     primary    — the ONE most important action in current context (filled teal)
+     secondary  — meaningful alternatives, persistent CTAs (outlined teal)
+     ghost      — subordinate actions, links, "details" (transparent)
+     destructive — irreversible actions (red outlined; filled for permanent destruction) */
   .btn-primary { background: var(--teal); color: white; }
   .btn-primary:hover { background: var(--teal-dark); }
+  .btn-secondary {
+    background: transparent; color: var(--teal);
+    border: 1px solid rgba(20,184,166,0.4);
+  }
+  .btn-secondary:hover {
+    background: rgba(20,184,166,0.08); border-color: var(--teal); color: var(--teal);
+  }
   .btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--navy-border); }
-  .btn-ghost:hover { background: var(--teal-dim); color: var(--teal); border-color: var(--teal); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.04); color: var(--text); border-color: rgba(255,255,255,0.12); }
+  .btn-destructive {
+    background: transparent; color: #fca5a5;
+    border: 1px solid rgba(239,68,68,0.4);
+  }
+  .btn-destructive:hover {
+    background: rgba(239,68,68,0.1); border-color: var(--red); color: #fecaca;
+  }
+  .btn-destructive-strong { background: var(--red); color: white; border: 1px solid var(--red); }
+  .btn-destructive-strong:hover { background: #dc2626; }
+  .btn:disabled, .btn[disabled] { opacity: 0.4; cursor: not-allowed; }
   .btn-sm { padding: 5px 10px; font-size: 12px; }
 
   .content { flex: 1; overflow-y: auto; padding: 24px; }
@@ -112,6 +271,58 @@
   /* VIEWS */
   .view { display: none; }
   .view.active { display: block; }
+  #view-dashboard.active { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+  #view-dashboard .dash-main-row { display: flex; gap: 16px; flex: 1; align-items: stretch; min-height: 0; }
+  #view-dashboard .dash-main-row > * { flex: 1; min-width: 0; }
+
+  /* TODAY page */
+  .today-header { padding: 12px 4px 28px; }
+  .today-title { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.025em; line-height: 1.15; }
+  .today-sub { font-size: 13.5px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+  .today-sections {
+    display: flex; flex-direction: column; gap: 28px;
+    flex: 1; min-height: 0; overflow-y: auto;
+    padding-right: 4px; padding-bottom: 40px;
+  }
+  .today-section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; padding: 0 2px; }
+  .today-section-subtitle { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; padding: 0 2px; line-height: 1.5; }
+  .today-section-title { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+  .today-section-count {
+    font-size: 11px; padding: 2px 9px; border-radius: 10px;
+    background: rgba(255,255,255,0.06); color: var(--text-dim); font-weight: 600;
+    line-height: 1.5;
+  }
+  .today-section.urgent .today-section-title { color: var(--red); }
+  .today-section.warn .today-section-title { color: var(--amber); }
+  .today-section.info .today-section-title { color: #60a5fa; }
+  .today-section.done .today-section-title { color: var(--green); }
+  .today-list {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 12px;
+    overflow: hidden;
+  }
+  .today-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-left: 3px solid transparent;
+    transition: background 0.15s;
+  }
+  .today-row:last-child { border-bottom: none; }
+  .today-row.urgent { border-left-color: var(--red); background: rgba(239,68,68,0.04); }
+  .today-row.warn { border-left-color: var(--amber); background: rgba(245,158,11,0.03); }
+  .today-row.info { border-left-color: var(--teal); }
+  .today-row.done { border-left-color: var(--green); opacity: 0.75; }
+  .today-row.urgent:hover { background: rgba(239,68,68,0.07); }
+  .today-row.warn:hover { background: rgba(245,158,11,0.06); }
+  .today-row.info:hover { background: rgba(20,184,166,0.05); }
+  .today-row .tr-icon { font-size: 17px; flex-shrink: 0; width: 28px; text-align: center; opacity: 0.95; }
+  .today-row .tr-body { flex: 1; min-width: 0; }
+  .today-row .tr-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .today-row .tr-meta { font-size: 12.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+  .today-row .tr-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+  .today-empty { padding: 22px 22px; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .upcoming-card { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  .upcoming-list { flex: 1; overflow-y: auto; min-height: 0; }
 
   /* CARDS */
   .card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); }
@@ -218,24 +429,33 @@
   .oc-select-group { display: flex; flex-direction: column; gap: 4px; }
   .oc-select-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
   .oc-select { width: auto; min-width: 200px; padding: 7px 28px 7px 10px; font-size: 13px; }
-  .orgchart-wrap { overflow: auto; padding: 32px 24px; background: var(--navy); border-radius: var(--radius); border: 1px solid var(--card-border); min-height: 400px; }
+  .orgchart-wrap { overflow: auto; padding: 28px 12px; background: var(--navy); border-radius: var(--radius); border: 1px solid var(--card-border); min-height: 400px; }
   .oc-tree { display: flex; flex-direction: column; align-items: center; }
   .oc-node {
-    background: var(--card); border-radius: 8px;
-    padding: 14px 18px; min-width: 155px; text-align: center; position: relative;
-    cursor: pointer; transition: all 0.15s; border: 1px solid var(--card-border);
-    border-left: 3px solid var(--card-border);
+    background: #1e2a3f; border-radius: 8px;
+    padding: 14px 14px 12px; min-width: 130px; max-width: 160px; text-align: center; position: relative;
+    cursor: pointer; transition: all 0.15s; border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .oc-node::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--card-border);
   }
   .oc-node:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
-  .oc-node.mgmt { border-left-color: #a78bfa; background: linear-gradient(135deg, var(--card), rgba(167,139,250,0.06)); }
+  .oc-node.mgmt { background: linear-gradient(135deg, #1e2a3f, rgba(167,139,250,0.14)); }
+  .oc-node.mgmt::before { background: #a78bfa; }
   .oc-node.mgmt:hover { border-color: #a78bfa; }
-  .oc-node.gp { border-left-color: var(--teal); background: linear-gradient(135deg, var(--card), rgba(14,165,233,0.06)); }
+  .oc-node.gp { background: linear-gradient(135deg, #1e2a3f, rgba(14,165,233,0.14)); }
+  .oc-node.gp::before { background: var(--teal); }
   .oc-node.gp:hover { border-color: var(--teal); }
-  .oc-node.fund { border-left-color: #818cf8; background: linear-gradient(135deg, var(--card), rgba(129,140,248,0.06)); }
+  .oc-node.fund { background: linear-gradient(135deg, #1e2a3f, rgba(129,140,248,0.14)); }
+  .oc-node.fund::before { background: #818cf8; }
   .oc-node.fund:hover { border-color: #818cf8; }
-  .oc-node.portfolio { border-left-color: var(--green); background: linear-gradient(135deg, var(--card), rgba(16,185,129,0.06)); }
+  .oc-node.portfolio { background: linear-gradient(135deg, #1e2a3f, rgba(16,185,129,0.14)); }
+  .oc-node.portfolio::before { background: var(--green); }
   .oc-node.portfolio:hover { border-color: var(--green); }
-  .oc-node.spv { border-left-color: var(--amber); background: linear-gradient(135deg, var(--card), rgba(245,158,11,0.04)); }
+  .oc-node.spv { background: linear-gradient(135deg, #1e2a3f, rgba(245,158,11,0.12)); }
+  .oc-node.spv::before { background: var(--amber); }
   .oc-node.spv:hover { border-color: var(--amber); }
   .oc-node .oc-type { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
   .oc-node.mgmt .oc-type { color: #a78bfa; }
@@ -246,15 +466,49 @@
   .oc-node .oc-name { font-size: 12.5px; font-weight: 700; color: var(--text); margin-bottom: 3px; line-height: 1.3; }
   .oc-node .oc-state { font-size: 10.5px; color: var(--text-muted); }
   .oc-node .oc-pct { font-size: 10px; font-weight: 600; margin-top: 4px; color: var(--text-dim); }
-  .oc-node .oc-compliance { position: absolute; top: -5px; right: -5px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--navy); }
+  .oc-node .oc-compliance { position: absolute; top: 8px; right: 8px; width: 10px; height: 10px; border-radius: 50%; z-index: 2; }
   .oc-node .oc-compliance.good { background: var(--green); }
   .oc-node .oc-compliance.warn { background: var(--amber); }
   .oc-node .oc-compliance.danger { background: var(--red); }
+  .oc-node .oc-juris {
+    position: absolute; top: 6px; left: 6px; padding: 2px 6px; border-radius: 4px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: var(--text-muted); z-index: 2;
+  }
+  /* Legal-form shapes */
+  .oc-node.shape-lp {
+    clip-path: polygon(0 0, 100% 0, 88% 100%, 12% 100%);
+    border-radius: 0; padding: 14px 18px 18px;
+  }
+  .oc-node.shape-corp {
+    box-shadow: inset 0 0 0 2px var(--card-border);
+  }
+  .oc-node.shape-individual {
+    border-radius: 100px; min-width: 140px;
+  }
   .oc-group { display: flex; flex-direction: column; align-items: center; }
   .oc-vline { width: 2px; background: rgba(100,116,139,0.25); }
+  .oc-vline.minority { background: transparent; background-image: linear-gradient(rgba(100,116,139,0.35) 50%, transparent 50%); background-size: 2px 6px; }
   .oc-hline { height: 2px; background: rgba(100,116,139,0.25); }
-  .oc-children { display: flex; gap: 20px; position: relative; }
+  .oc-children { display: flex; gap: 10px; position: relative; }
   .oc-multi-clients { display: flex; gap: 40px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+  .oc-legend {
+    display: flex; column-gap: 24px; row-gap: 8px; flex-wrap: wrap; margin-bottom: 12px; padding: 8px 14px;
+    background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius);
+    font-size: 11.5px; color: var(--text-dim); align-items: center;
+  }
+  .oc-legend-group { display: flex; align-items: center; column-gap: 12px; row-gap: 8px; flex-wrap: wrap; }
+  .oc-legend-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-muted); margin-right: 4px;
+  }
+  .oc-legend-item { display: flex; align-items: center; gap: 6px; }
+  .oc-legend-swatch { width: 22px; height: 14px; border: 1px solid var(--card-border); background: var(--navy); flex-shrink: 0; }
+  .oc-legend-swatch.swatch-rect { border-radius: 3px; }
+  .oc-legend-swatch.swatch-tri { clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%); border-radius: 0; }
+  .oc-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .oc-legend-line { width: 24px; height: 2px; background: rgba(100,116,139,0.45); flex-shrink: 0; }
+  .oc-legend-line.dashed { background: transparent; background-image: linear-gradient(90deg, rgba(100,116,139,0.6) 50%, transparent 50%); background-size: 6px 2px; }
 
   /* COMPLIANCE CALENDAR */
   .cal-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
@@ -338,6 +592,35 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 99px; }
 
+  /* Chat status banners */
+  .chat-success-banner, .chat-error-banner, .chat-info-banner {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 600;
+    margin-top: 6px;
+  }
+  .chat-success-banner {
+    background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7;
+  }
+  .chat-error-banner {
+    background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5;
+  }
+  .chat-info-banner {
+    background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc;
+  }
+
+  /* Newly created order highlight */
+  .order-row-new td { background: rgba(20,184,166,0.08) !important; animation: newRowPulse 1.6s ease-out 1; }
+  .order-row-new td:first-child { box-shadow: inset 3px 0 0 var(--teal); }
+  @keyframes newRowPulse {
+    0% { background: rgba(20,184,166,0.28) !important; }
+    100% { background: rgba(20,184,166,0.08) !important; }
+  }
+  .new-pill {
+    display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px;
+    background: var(--teal); color: white; font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em;
+    vertical-align: middle;
+  }
+
   /* TOAST */
   .toast {
     position: fixed; bottom: 24px; right: 24px; background: var(--card); border: 1px solid var(--card-border);
@@ -345,7 +628,13 @@
     font-size: 13.5px; font-weight: 500; color: var(--text); z-index: 200;
     transform: translateY(80px); opacity: 0; transition: all 0.3s; pointer-events: none; min-width: 280px;
   }
-  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .toast.clickable { cursor: pointer; transition: all 0.3s, border-color 0.15s, transform 0.15s; }
+  .toast.clickable:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .toast.clickable::after {
+    content: 'View →'; margin-left: auto; padding-left: 12px;
+    font-size: 12px; font-weight: 600; color: var(--teal);
+  }
   .toast-icon { font-size: 20px; }
 
   /* AI CHAT */
@@ -356,6 +645,8 @@
     transition: right 0.3s ease;
   }
   .chat-panel.open { right: 0; }
+  .chat-panel { display: none; } /* superseded by always-on left chat */
+  .chat-toggle { display: none !important; }
   .chat-header {
     padding: 16px 20px; border-bottom: 1px solid var(--card-border);
     display: flex; align-items: center; justify-content: space-between;
@@ -428,10 +719,11 @@
   .chat-recent-btn:hover { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.25); color: var(--text); }
   .chat-recent-icon { color: var(--text-muted); font-size: 11px; flex-shrink: 0; }
   .chat-input-wrap {
-    padding: 14px 16px; border-top: 1px solid var(--card-border); display: flex; gap: 8px;
+    padding: 14px 16px; border-top: 1px solid var(--card-border); display: flex; gap: 8px; align-items: flex-end;
   }
+  .chat-input-wrap .dash-chat-input-col { flex: 1; }
   .chat-input-wrap input {
-    flex: 1; background: var(--card); border: 1px solid var(--card-border); border-radius: 8px;
+    width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 8px;
     padding: 10px 14px; color: var(--text); font-size: 13.5px; outline: none;
   }
   .chat-input-wrap input:focus { border-color: var(--teal); }
@@ -446,7 +738,150 @@
   .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
   .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes chatTyping { 0%,60%,100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
-  /* Dashboard AI card */
+
+  /* Dashboard inline chat (primary surface) */
+  .dash-chat {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius);
+    display: flex; flex-direction: column; min-height: 440px; overflow: hidden;
+  }
+  .dash-chat.dash-chat-hero {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 35%, #1e3a5f 100%);
+    border-color: rgba(129,140,248,0.3);
+    box-shadow: 0 8px 32px rgba(99,102,241,0.12);
+    position: relative; min-height: 0;
+  }
+  .dash-chat.dash-chat-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 20% 0%, rgba(167,139,250,0.18), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(20,184,166,0.12), transparent 50%);
+  }
+  .dash-chat.dash-chat-hero > * { position: relative; z-index: 1; }
+  .dash-chat.dash-chat-hero > .dash-chat-header { z-index: 50; }
+  .dash-chat.dash-chat-hero .dash-chat-header { border-bottom-color: rgba(255,255,255,0.08); }
+  .dash-chat.dash-chat-hero .dash-chat-title { color: #e0e7ff; }
+  .dash-chat.dash-chat-hero .dash-chat-sub { color: #9ca3c4; }
+  .dash-chat.dash-chat-hero .dash-msg.ai .dash-bubble { background: rgba(255,255,255,0.06); color: #e0e7ff; }
+  .dash-chat.dash-chat-hero .dash-chat-input-wrap { border-top-color: rgba(255,255,255,0.08); background: rgba(0,0,0,0.2); }
+  .dash-chat.dash-chat-hero .dash-chat-input { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e0e7ff; }
+  .dash-chat.dash-chat-hero .dash-chips button { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); color: #c7d2fe; }
+  .dash-chat.dash-chat-hero .dash-chips button:hover { background: rgba(20,184,166,0.15); border-color: var(--teal); color: white; }
+  .dash-chat-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 16px; height: 56px; flex-shrink: 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .dash-chat-header .dash-chat-title { font-size: 13.5px; line-height: 1.25; }
+  .dash-chat-header .dash-chat-sub { font-size: 11px; line-height: 1.2; margin-top: 1px; }
+  .dash-chat-header .chat-ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .dash-chat-header-text { flex: 1; min-width: 0; }
+  .dash-chat-menu-wrap { position: relative; flex-shrink: 0; z-index: 600; }
+  .dash-chat-menu-btn {
+    display: flex; align-items: center; gap: 4px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-dim); cursor: pointer; padding: 6px 8px; border-radius: 6px;
+  }
+  .dash-chat-menu-btn:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+  .dash-chat-menu {
+    position: fixed; min-width: 260px; max-width: 320px;
+    background: #1a2438; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px;
+    padding: 6px; z-index: 500; box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+    display: none; max-height: 60vh; overflow-y: auto;
+  }
+  .dash-chat-menu.open { display: block; }
+  .dash-chat-menu-item {
+    display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+    background: transparent; border: none; color: var(--text); cursor: pointer;
+    padding: 8px 10px; border-radius: 6px; font-size: 13px; font-family: inherit;
+  }
+  .dash-chat-menu-item:hover { background: rgba(255,255,255,0.06); }
+  .dash-chat-menu-new { color: var(--teal); font-weight: 600; }
+  .dash-chat-menu-section-label {
+    padding: 8px 10px 4px; font-size: 10.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted);
+  }
+  .dash-chat-menu-thread {
+    display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
+    padding: 8px 10px;
+  }
+  .dash-chat-menu-thread.active { background: rgba(20,184,166,0.12); }
+  .dash-chat-menu-thread-title {
+    font-size: 13px; color: var(--text); font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  }
+  .dash-chat-menu-thread-meta { font-size: 11px; color: var(--text-muted); }
+  .dash-chat-menu-empty { padding: 8px 10px; font-size: 12px; color: var(--text-muted); }
+  .dash-chat-title { font-size: 13.5px; font-weight: 700; color: var(--text); }
+  .dash-chat-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+  .dash-chat-messages {
+    flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; min-height: 0;
+  }
+  .dash-msg { max-width: 88%; display: flex; flex-direction: column; gap: 6px; }
+  .dash-msg.user { align-self: flex-end; }
+  .dash-msg.ai { align-self: flex-start; }
+  .dash-bubble {
+    padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.55; white-space: pre-wrap;
+  }
+  .dash-msg.ai .dash-bubble { background: var(--navy); color: var(--text); border-bottom-left-radius: 4px; }
+  .dash-msg.user .dash-bubble { background: var(--teal); color: white; border-bottom-right-radius: 4px; }
+  .dash-msg .chat-card { background: var(--navy); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; }
+  .dash-msg .chat-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  .dash-msg .chat-suggestions button {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); color: var(--text-dim);
+    padding: 6px 10px; border-radius: 16px; font-size: 11.5px; cursor: pointer;
+  }
+  .dash-msg .chat-suggestions button:hover { color: var(--text); border-color: var(--teal); }
+  .dash-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .dash-chips button {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); color: var(--text-dim);
+    padding: 7px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; transition: all 0.15s;
+  }
+  .dash-chips button:hover { color: var(--text); border-color: var(--teal); background: rgba(20,184,166,0.08); }
+  .dash-chat-input-wrap {
+    display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--card-border);
+    background: rgba(0,0,0,0.15); align-items: flex-end;
+  }
+  .dash-chat-input-col { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .dash-chat-attachments { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dash-chat-attachments:empty { display: none; }
+  .dash-chat-attach-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text); font-size: 11.5px; padding: 4px 8px; border-radius: 14px;
+    max-width: 220px;
+  }
+  .dash-chat-attach-chip-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dash-chat-attach-chip button {
+    background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0; font-size: 14px; line-height: 1;
+  }
+  .dash-chat-attach-chip button:hover { color: var(--text); }
+  .dash-chat-attach {
+    width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05); color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .dash-chat-attach:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+  .dash-msg .dash-bubble-attachments {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;
+  }
+  .dash-msg .dash-bubble-attach {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    padding: 4px 8px; border-radius: 12px; font-size: 11px;
+  }
+  .dash-chat-input {
+    width: 100%; background: var(--navy); border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 9px 12px; color: var(--text); font-size: 13px; outline: none;
+  }
+  .dash-chat-input::placeholder { color: var(--text-muted); }
+  .dash-chat-input:focus { border-color: var(--teal); }
+  .dash-chat-send {
+    width: 36px; height: 36px; border-radius: 8px; border: none; background: var(--teal);
+    color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .dash-chat-send svg { fill: white; }
+  .dash-chat-send:hover { background: #0d9488; }
+
+  /* Dashboard AI card (legacy) */
   /* AI assistant dashboard card */
   .ai-bar {
     position: relative; border-radius: var(--radius); overflow: hidden;
@@ -719,251 +1154,142 @@
   .tab:hover:not(.active) { color: var(--text); }
 </style>
 </head>
-<body>
+<body class="on-dashboard">
 
-<!-- SIDEBAR -->
-<nav class="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-mark">A</div>
-    <div class="logo-text">Alcove<span>IQ</span></div>
-  </div>
-  <div class="sidebar-nav">
-    <div class="nav-section">
-      <div class="nav-label">Platform</div>
-      <div class="nav-item active" onclick="navigate('dashboard')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Dashboard
-      </div>
-      <div class="nav-item" onclick="navigate('entities')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Entities
-        <span class="nav-badge amber" style="background:rgba(245,158,11,0.15);color:#f59e0b;">47</span>
-      </div>
-      <div class="nav-item" onclick="navigate('orgchart')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1"/><rect x="1" y="16" width="8" height="4" rx="1"/><rect x="15" y="16" width="8" height="4" rx="1"/><line x1="12" y1="6" x2="12" y2="16"/><line x1="5" y1="16" x2="19" y2="16"/></svg>
-        Org Chart
-      </div>
-      <div class="nav-item" onclick="navigate('compliance')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Compliance
-        <span class="nav-badge">5</span>
-      </div>
-      <div class="nav-item" onclick="navigate('documents')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Documents
-      </div>
-      <div class="nav-item" onclick="navigate('orders')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
-        Orders
-        <span class="nav-badge">2</span>
-      </div>
-    </div>
-    <div class="nav-section">
-      <div class="nav-label">Actions</div>
-      <div class="nav-item" onclick="openModal('new-order')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        New Order
-      </div>
-    </div>
-    <div class="nav-section">
-      <div class="nav-assistant" onclick="toggleChat()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Assistant
-        <kbd>⌘K</kbd>
-      </div>
-    </div>
-    <div class="nav-section">
-      <div class="nav-label">Account</div>
-      <div class="nav-item" onclick="navigate('billing')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        Billing
-      </div>
-    </div>
-  </div>
-  <div class="sidebar-footer">
-    <div class="org-info">
-      <div class="org-avatar">RC</div>
-      <div>
-        <div class="org-name">Redwood Capital</div>
-        <div class="org-plan">Professional · 47 entities</div>
-      </div>
-    </div>
-  </div>
-</nav>
+<!-- BODY ROW: left chat + main content -->
+<div class="body-row">
 
-<!-- MAIN -->
-<div class="main">
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="topbar-title" id="topbar-title">Dashboard</div>
-    <div class="search-box">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Search entities, documents…" oninput="handleSearch(this.value)">
+<!-- LEFT CHAT PANEL (always visible, owns its column from top) -->
+<aside class="left-chat dash-chat dash-chat-hero" id="left-chat">
+  <div class="dash-chat-header">
+    <div class="chat-brand" onclick="navigate('dashboard')" title="AlcoveIQ">
+      <div class="logo-mark">
+        <img src="logo.svg" alt="AlcoveIQ">
+      </div>
     </div>
-    <button class="btn btn-primary" onclick="openModal('new-order')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      New Order
+    <div class="chat-ai-dot"></div>
+    <div class="dash-chat-header-text">
+      <div class="dash-chat-title">Ask me anything</div>
+      <div class="dash-chat-sub" id="dash-chat-subtitle">Compliance, filings, orders & more</div>
+    </div>
+    <div class="dash-chat-menu-wrap">
+      <button class="dash-chat-menu-btn" onclick="toggleDashChatMenu(event)" aria-label="Conversations" title="Conversations">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dash-chat-menu" id="dash-chat-menu">
+        <button class="dash-chat-menu-item dash-chat-menu-new" onclick="event.stopPropagation();dashChatNew()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New conversation
+        </button>
+        <div class="dash-chat-menu-section-label">Conversations</div>
+        <div id="dash-chat-menu-list"></div>
+      </div>
+    </div>
+    <button class="left-chat-collapse" onclick="toggleLeftChat()" aria-label="Collapse">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
   </div>
+  <div class="dash-chat-messages left-chat-collapsed-hide" id="dash-chat-messages"></div>
+  <div class="dash-chat-input-wrap left-chat-collapsed-hide">
+    <div class="dash-chat-input-col">
+      <div id="dash-chat-attachments" class="dash-chat-attachments"></div>
+      <input class="dash-chat-input" type="text" id="dash-chat-input" placeholder="Ask about your portfolio…" onkeydown="if(event.key==='Enter')dashChatSend()">
+    </div>
+    <input type="file" id="dash-chat-file" multiple style="display:none;" onchange="dashChatAttachFiles(this.files)">
+    <button class="dash-chat-attach" onclick="document.getElementById('dash-chat-file').click()" aria-label="Attach files" title="Attach files">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+    </button>
+    <button class="dash-chat-send" onclick="dashChatSend()" aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <button class="left-chat-expand" onclick="toggleLeftChat()" aria-label="Expand assistant" title="Expand assistant">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <div class="left-chat-resize" onmousedown="startLeftChatResize(event)" title="Drag to resize"></div>
+</aside>
+
+<!-- MAIN: own topbar + content -->
+<div class="main">
+  <header class="main-topbar">
+    <nav class="topbar-h-nav">
+      <button class="nav-item-h active" onclick="navigate('dashboard')">Today</button>
+      <button class="nav-item-h" onclick="navigate('entities')">Entities <span class="nav-badge amber" id="nav-badge-entities" style="background:rgba(245,158,11,0.15);color:#f59e0b;display:none;"></span></button>
+      <button class="nav-item-h" onclick="navigate('orgchart')">Org Chart</button>
+      <button class="nav-item-h" onclick="navigate('compliance')">Compliance <span class="nav-badge" id="nav-badge-compliance" style="display:none;"></span></button>
+      <button class="nav-item-h" onclick="navigate('documents')">Documents</button>
+      <button class="nav-item-h" onclick="navigate('orders')">Orders <span class="nav-badge" id="nav-badge-orders" style="display:none;"></span></button>
+    </nav>
+    <div class="topbar-h-spacer"></div>
+    <div class="topbar-search" id="topbar-search">
+      <button class="topbar-search-btn" onclick="document.getElementById('topbar-search').classList.add('open');setTimeout(()=>document.getElementById('topbar-search-input').focus(),50);" aria-label="Search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <input class="topbar-search-input" id="topbar-search-input" type="search" placeholder="Search entities, documents…" oninput="handleSearch(this.value)" onblur="if(!this.value)document.getElementById('topbar-search').classList.remove('open');">
+    </div>
+    <button class="btn btn-secondary" onclick="openModal('new-order')" aria-label="New order">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      New order
+    </button>
+    <div class="topbar-h-org">
+      <button class="org-avatar-btn" onclick="toggleOrgMenu(event)" aria-label="Account menu">
+        <div class="org-avatar">RC</div>
+      </button>
+      <div class="org-menu" id="org-menu">
+      <div class="org-menu-header">
+        <div class="org-avatar" style="width:36px;height:36px;font-size:13px;">RC</div>
+        <div>
+          <div class="org-menu-name">Redwood Capital</div>
+          <div class="org-menu-plan">Professional · 47 entities</div>
+        </div>
+      </div>
+      <div class="org-menu-divider"></div>
+      <button class="org-menu-item" onclick="event.stopPropagation();closeOrgMenu();navigate('team')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Team & users
+      </button>
+      <button class="org-menu-item" onclick="event.stopPropagation();closeOrgMenu();navigate('billing')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Billing
+      </button>
+      <button class="org-menu-item" onclick="event.stopPropagation();closeOrgMenu();">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </button>
+      <div class="org-menu-divider"></div>
+      <div class="org-menu-section-label">Demo modes</div>
+      <button class="org-menu-item" onclick="event.stopPropagation();closeOrgMenu();loadEmptyDemo()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        Load empty demo
+      </button>
+      <button class="org-menu-item" onclick="event.stopPropagation();closeOrgMenu();loadPopulatedDemo()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+        Load populated demo
+      </button>
+      <button class="org-menu-item" onclick="event.stopPropagation();closeOrgMenu();resetState()" style="color:#fca5a5;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        Reset current demo
+      </button>
+      <button class="org-menu-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign out
+      </button>
+    </div>
+  </div>
+</header>
 
   <!-- CONTENT -->
   <div class="content">
 
     <!-- DASHBOARD VIEW -->
     <div id="view-dashboard" class="view active">
-      <!-- Alert bar -->
-      <div class="dash-alert">
-        <div class="dash-alert-icon">⚠</div>
-        <div class="dash-alert-text"><strong>3 items need attention</strong></div>
-        <div class="dash-alert-items">
-          <span class="dash-alert-item" onclick="navigate('compliance')">Maple Holdco — Overdue</span>
-          <span class="dash-alert-item" onclick="navigate('compliance')">Atlas Ventures — Overdue</span>
-          <span class="dash-alert-item warn" onclick="navigate('compliance')">Redwood Fund II — Apr 14</span>
-        </div>
+      <div class="today-header">
+        <h1 class="today-title">Today</h1>
+        <p class="today-sub" id="today-sub">Everything that needs you, in one place.</p>
       </div>
-
-      <div class="stats-grid">
-        <div class="stat-card stat-highlight">
-          <div class="stat-label">Compliance Health</div>
-          <div class="stat-value stat-good">94%</div>
-          <div class="stat-sub">44 of 47 entities in good standing</div>
-        </div>
-        <div class="stat-card stat-hl-teal">
-          <div class="stat-label">Portfolio</div>
-          <div class="stat-value">47</div>
-          <div class="stat-sub"><span class="stat-good">+3</span> this quarter · 12 states</div>
-        </div>
-        <div class="stat-card stat-hl-amber">
-          <div class="stat-label">Upcoming Deadlines</div>
-          <div class="stat-value stat-warn">5</div>
-          <div class="stat-sub">Next 30 days · $670 in fees</div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px;margin-bottom:16px;align-items:stretch;">
-        <!-- AI Assistant card -->
-        <div class="ai-bar" style="margin-bottom:0;">
-          <div class="ai-bar-inner">
-            <div class="ai-bar-header">
-              <div class="ai-bar-icon">
-                <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              </div>
-              <div class="ai-bar-text">
-                <div class="ai-bar-title">Ask the assistant</div>
-                <div class="ai-bar-sub">Compliance, filings, orders & more</div>
-              </div>
-              <kbd class="ai-bar kbd">⌘K</kbd>
-            </div>
-            <div id="ai-bar-recent" class="ai-bar-section"></div>
-            <div class="ai-bar-section">
-              <div class="ai-bar-section-label">Suggestions</div>
-              <div class="ai-bar-actions">
-                <button class="ai-bar-btn" onclick="toggleChat();setTimeout(()=>chatSend('What needs my attention today?'),300)">⚡ What needs attention?</button>
-                <button class="ai-bar-btn" onclick="toggleChat();setTimeout(()=>chatSend('Show all upcoming filings'),300)">📅 Upcoming filings</button>
-                <button class="ai-bar-btn" onclick="toggleChat();setTimeout(()=>chatSend('File an order'),300)">📋 File an order</button>
-              </div>
-            </div>
-            <div class="ai-bar-input-wrap">
-              <input class="ai-bar-input" type="text" placeholder="Ask about your portfolio..." id="ai-bar-prompt" onkeydown="if(event.key==='Enter')sendBarPrompt()">
-              <button class="ai-bar-send" onclick="sendBarPrompt()">
-                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- Upcoming deadlines -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Upcoming Filings</div>
-            <button class="btn btn-ghost btn-sm" onclick="navigate('compliance')">View all</button>
-          </div>
-          <div id="upcoming-list">
-            <div class="cal-item">
-              <div class="cal-date"><div class="day stat-warn">14</div><div class="month">Apr</div></div>
-              <div class="cal-info">
-                <div class="cal-title">Annual Report</div>
-                <div class="cal-entity">Redwood Fund II LP · Delaware</div>
-              </div>
-              <span class="badge badge-amber">Due Soon</span>
-            </div>
-            <div class="cal-item">
-              <div class="cal-date"><div class="day" style="color:#94a3b8;">22</div><div class="month">Apr</div></div>
-              <div class="cal-info">
-                <div class="cal-title">Franchise Tax</div>
-                <div class="cal-entity">Redwood GP LLC · Delaware</div>
-              </div>
-              <span class="badge badge-blue">Prepared</span>
-            </div>
-            <div class="cal-item">
-              <div class="cal-date"><div class="day" style="color:#94a3b8;">01</div><div class="month">May</div></div>
-              <div class="cal-info">
-                <div class="cal-title">Annual Report</div>
-                <div class="cal-entity">Oakwood Ventures SPV III · Wyoming</div>
-              </div>
-              <span class="badge badge-green">Auto-filed</span>
-            </div>
-            <div class="cal-item">
-              <div class="cal-date"><div class="day stat-danger">09</div><div class="month">Apr</div></div>
-              <div class="cal-info">
-                <div class="cal-title">Good Standing Cert</div>
-                <div class="cal-entity">Maple Holdco LLC · California</div>
-              </div>
-              <span class="badge badge-red">Overdue</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Entities by type -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Entity Portfolio Overview</div>
-          <button class="btn btn-ghost btn-sm" onclick="navigate('entities')">View entities</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Entity</th><th>Type</th><th>Formation State</th><th>States Active</th><th>RA Status</th><th>Compliance</th><th>Next Deadline</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><div class="entity-chip"><div class="entity-icon" style="background:rgba(99,102,241,0.15);font-size:14px;">🏦</div><div><div style="font-weight:600;">Redwood Fund II LP</div><div style="font-size:11.5px;color:var(--text-muted);">Fund IV vintage</div></div></div></td>
-                <td><span class="badge badge-blue">LP</span></td>
-                <td>Delaware</td><td>4</td>
-                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
-                <td><span class="badge badge-amber">Due Soon</span></td>
-                <td style="color:var(--amber);">Apr 14</td>
-              </tr>
-              <tr>
-                <td><div class="entity-chip"><div class="entity-icon" style="background:rgba(14,165,233,0.15);font-size:14px;">🏢</div><div><div style="font-weight:600;">Redwood GP LLC</div><div style="font-size:11.5px;color:var(--text-muted);">General Partner</div></div></div></td>
-                <td><span class="badge badge-gray">LLC</span></td>
-                <td>Delaware</td><td>1</td>
-                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
-                <td><span class="badge badge-green">Good</span></td>
-                <td style="color:var(--text-muted);">Apr 22</td>
-              </tr>
-              <tr>
-                <td><div class="entity-chip"><div class="entity-icon" style="background:rgba(16,185,129,0.15);font-size:14px;">🌿</div><div><div style="font-weight:600;">Oakwood Ventures SPV III</div><div style="font-size:11.5px;color:var(--text-muted);">Special purpose</div></div></div></td>
-                <td><span class="badge badge-gray">LLC</span></td>
-                <td>Wyoming</td><td>1</td>
-                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
-                <td><span class="badge badge-green">Good</span></td>
-                <td style="color:var(--text-muted);">May 1</td>
-              </tr>
-              <tr>
-                <td><div class="entity-chip"><div class="entity-icon" style="background:rgba(239,68,68,0.15);font-size:14px;">🍁</div><div><div style="font-weight:600;">Maple Holdco LLC</div><div style="font-size:11.5px;color:var(--text-muted);">Holding company</div></div></div></td>
-                <td><span class="badge badge-gray">LLC</span></td>
-                <td>California</td><td>2</td>
-                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
-                <td><span class="badge badge-red">Action Req.</span></td>
-                <td style="color:var(--red);">Overdue</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="today-sections" id="today-sections">
+        <!-- rendered by renderTodayPage() -->
       </div>
     </div>
 
@@ -1024,6 +1350,26 @@
         <div style="display:flex;gap:8px;align-items:flex-end;">
           <button class="btn btn-ghost btn-sm" onclick="showToast('📄','PDF export started.')">Export PDF</button>
           <button class="btn btn-ghost btn-sm" onclick="showToast('🖼️','PNG export started.')">Export PNG</button>
+        </div>
+      </div>
+      <div class="oc-legend">
+        <div class="oc-legend-group">
+          <span class="oc-legend-label">Legal form</span>
+          <div class="oc-legend-item"><div class="oc-legend-swatch swatch-rect"></div>LLC / Corp</div>
+          <div class="oc-legend-item"><div class="oc-legend-swatch swatch-tri"></div>LP / Partnership</div>
+        </div>
+        <div class="oc-legend-group">
+          <span class="oc-legend-label">Role</span>
+          <div class="oc-legend-item"><div class="oc-legend-dot" style="background:#a78bfa;"></div>Management Co</div>
+          <div class="oc-legend-item"><div class="oc-legend-dot" style="background:var(--teal);"></div>GP</div>
+          <div class="oc-legend-item"><div class="oc-legend-dot" style="background:#818cf8;"></div>Fund</div>
+          <div class="oc-legend-item"><div class="oc-legend-dot" style="background:var(--amber);"></div>SPV</div>
+          <div class="oc-legend-item"><div class="oc-legend-dot" style="background:var(--green);"></div>Portfolio / HoldCo</div>
+        </div>
+        <div class="oc-legend-group">
+          <span class="oc-legend-label">Ownership</span>
+          <div class="oc-legend-item"><div class="oc-legend-line"></div>Majority (≥50%)</div>
+          <div class="oc-legend-item"><div class="oc-legend-line dashed"></div>Minority (&lt;50%)</div>
         </div>
       </div>
       <div class="orgchart-wrap" id="orgchart-container">
@@ -1164,7 +1510,6 @@
         </select>
         <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
           <span class="doc-count" id="ord-count">0 orders</span>
-          <button class="btn btn-primary btn-sm" onclick="openModal('new-order')">+ New Order</button>
         </div>
       </div>
       <div class="doc-type-chips" id="ord-service-chips">
@@ -1190,6 +1535,228 @@
           <div class="es-icon">📋</div>
           <div class="es-title">No orders match your filters</div>
           <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px;">Try adjusting your search or filters</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM & USERS VIEW -->
+    <div id="view-team" class="view">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:16px;">
+        <div>
+          <h2 style="font-size:20px;font-weight:700;color:var(--text);letter-spacing:-0.02em;">Team & users</h2>
+          <p style="font-size:13px;color:var(--text-muted);margin-top:4px;">Manage who can access this Redwood Capital workspace.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('invite-member')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Invite member
+        </button>
+      </div>
+
+      <div class="team-stats">
+        <div class="team-stat"><div class="team-stat-value">7</div><div class="team-stat-label">Active members</div></div>
+        <div class="team-stat"><div class="team-stat-value">2</div><div class="team-stat-label">Pending invites</div></div>
+        <div class="team-stat"><div class="team-stat-value">10</div><div class="team-stat-label">Seats available</div><div class="team-stat-sub">3 of 10 used</div></div>
+        <div class="team-stat"><div class="team-stat-value">SSO</div><div class="team-stat-label">Authentication</div><div class="team-stat-sub">via Google Workspace</div></div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">Members</div>
+          <input class="search-box" type="search" placeholder="Search members…" style="width:220px;">
+        </div>
+        <div class="table-wrap">
+          <table class="team-table">
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Role</th>
+                <th>Last active</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:linear-gradient(135deg,#0e7490,#22d3ee);">MG</div>
+                    <div>
+                      <div class="team-name">Maria Grilo <span class="team-you">You</span></div>
+                      <div class="team-email">maria@redwoodcapital.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-admin">Admin</span></td>
+                <td class="td-muted">Just now</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td><button class="btn btn-ghost btn-sm" disabled title="You can't edit yourself">⋯</button></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">AC</div>
+                    <div>
+                      <div class="team-name">Alex Chen</div>
+                      <div class="team-email">alex@redwoodcapital.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-admin">Admin</span></td>
+                <td class="td-muted">2 hours ago</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:linear-gradient(135deg,#0d9488,#5eead4);">JR</div>
+                    <div>
+                      <div class="team-name">Jamie Rivera</div>
+                      <div class="team-email">jamie@redwoodcapital.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-paralegal">Paralegal</span></td>
+                <td class="td-muted">Yesterday</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:linear-gradient(135deg,#b45309,#fbbf24);">SK</div>
+                    <div>
+                      <div class="team-name">Sam Kowalski</div>
+                      <div class="team-email">sam@redwoodcapital.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-paralegal">Paralegal</span></td>
+                <td class="td-muted">Apr 30</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:linear-gradient(135deg,#9d174d,#f472b6);">PD</div>
+                    <div>
+                      <div class="team-name">Priya Desai</div>
+                      <div class="team-email">priya@redwoodcapital.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-viewer">Viewer</span></td>
+                <td class="td-muted">3 days ago</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:linear-gradient(135deg,#1e40af,#60a5fa);">DT</div>
+                    <div>
+                      <div class="team-name">David Tan</div>
+                      <div class="team-email">david@externalcounsel.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-external">External counsel</span></td>
+                <td class="td-muted">Apr 22</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:linear-gradient(135deg,#374151,#9ca3af);">RW</div>
+                    <div>
+                      <div class="team-name">Robert Wu</div>
+                      <div class="team-email">robert@redwoodcapital.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-viewer">Viewer</span></td>
+                <td class="td-muted">2 weeks ago</td>
+                <td><span class="badge badge-gray"><span class="dot"></span> Inactive</span></td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">Pending invites</div>
+        </div>
+        <div class="table-wrap">
+          <table class="team-table">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:rgba(255,255,255,0.06);color:var(--text-muted);">?</div>
+                    <div>
+                      <div class="team-name">elena@redwoodcapital.com</div>
+                      <div class="team-email">Invited by Alex Chen · Apr 28</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-paralegal">Paralegal</span></td>
+                <td class="td-muted">Pending · 5 days</td>
+                <td><span class="badge badge-amber">Awaiting</span></td>
+                <td>
+                  <button class="btn btn-ghost btn-sm">Resend</button>
+                  <button class="btn btn-destructive btn-sm">Revoke</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-member">
+                    <div class="team-avatar" style="background:rgba(255,255,255,0.06);color:var(--text-muted);">?</div>
+                    <div>
+                      <div class="team-name">finance@redwoodcapital.com</div>
+                      <div class="team-email">Invited by Maria Grilo · May 1</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="role-pill role-viewer">Viewer</span></td>
+                <td class="td-muted">Pending · 2 days</td>
+                <td><span class="badge badge-amber">Awaiting</span></td>
+                <td>
+                  <button class="btn btn-ghost btn-sm">Resend</button>
+                  <button class="btn btn-destructive btn-sm">Revoke</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Roles & permissions</div>
+        </div>
+        <div class="card-body">
+          <div class="roles-grid">
+            <div class="role-card">
+              <div class="role-card-header"><span class="role-pill role-admin">Admin</span><span class="role-card-count">2</span></div>
+              <div class="role-card-desc">Full access. Can manage entities, file orders, invite members, and edit billing.</div>
+            </div>
+            <div class="role-card">
+              <div class="role-card-header"><span class="role-pill role-paralegal">Paralegal</span><span class="role-card-count">2</span></div>
+              <div class="role-card-desc">Manage entities and file orders. Cannot manage team or billing.</div>
+            </div>
+            <div class="role-card">
+              <div class="role-card-header"><span class="role-pill role-viewer">Viewer</span><span class="role-card-count">2</span></div>
+              <div class="role-card-desc">Read-only. Can view entities, compliance, and documents. Cannot file or edit.</div>
+            </div>
+            <div class="role-card">
+              <div class="role-card-header"><span class="role-pill role-external">External counsel</span><span class="role-card-count">1</span></div>
+              <div class="role-card-desc">Scoped access to specific entities. Can view documents and add notes.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1234,6 +1801,7 @@
     </div>
 
   </div>
+</div>
 </div>
 
 <!-- NEW ORDER MODAL -->
@@ -1325,7 +1893,7 @@
     </div>
   </div>
   <div class="ed-panel-actions">
-    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New Order</button>
+    <button class="btn btn-secondary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
     <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>
   </div>
   <div class="tabs" style="padding:0 24px;margin-bottom:0;">
@@ -1395,6 +1963,53 @@
     <div id="comp-detail-content"></div>
   </div>
   <div id="comp-detail-footer" class="comp-panel-footer"></div>
+</div>
+
+<!-- ORDER INPUT MODAL (resolve "needs your input" pause) -->
+<!-- PAYMENT CONFIRMATION MODAL (richer flow for kind='payment') -->
+<div class="modal-overlay" id="payment-confirm-overlay">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <div class="modal-title">Confirm payment</div>
+      <button class="modal-close" onclick="document.getElementById('payment-confirm-overlay').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;padding:8px 0 14px;">
+        <div id="pay-amount" style="font-size:32px;font-weight:800;color:var(--text);letter-spacing:-0.02em;line-height:1;">$0.00</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:14px;background:var(--navy);border-radius:10px;font-size:13px;">
+        <div style="display:flex;justify-content:space-between;gap:14px;"><span style="color:var(--text-muted);">To</span><span id="pay-to" style="color:var(--text);font-weight:500;text-align:right;">—</span></div>
+        <div style="display:flex;justify-content:space-between;gap:14px;"><span style="color:var(--text-muted);">For</span><span id="pay-for" style="color:var(--text);font-weight:500;text-align:right;">—</span></div>
+        <div style="display:flex;justify-content:space-between;gap:14px;align-items:center;"><span style="color:var(--text-muted);">Paying with</span><span style="color:var(--text);font-weight:500;display:inline-flex;align-items:center;gap:8px;">Visa ending in 4242 <button class="btn btn-ghost btn-sm" onclick="event.preventDefault();showToast('💳','Payment method picker is not yet wired in the prototype.')" style="padding:2px 8px;font-size:11px;">Change</button></span></div>
+      </div>
+      <div id="pay-reason" style="font-size:12.5px;color:var(--text-dim);margin-top:14px;line-height:1.5;padding:0 4px;"></div>
+      <label style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 12px;background:rgba(20,184,166,0.06);border:1px solid rgba(20,184,166,0.15);border-radius:8px;cursor:pointer;">
+        <input type="checkbox" id="pay-raise-threshold" style="width:14px;height:14px;accent-color:var(--teal);cursor:pointer;">
+        <span id="pay-raise-label" style="font-size:12.5px;color:var(--text);">Auto-approve future fees up to $50</span>
+      </label>
+    </div>
+    <div class="modal-footer" style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px 20px;">
+      <button class="btn btn-ghost" id="pay-cancel">Cancel</button>
+      <button class="btn btn-primary" id="pay-confirm">Pay</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="order-input-overlay">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-header">
+      <div class="modal-title" id="order-input-title">Action needed</div>
+      <button class="modal-close" onclick="document.getElementById('order-input-overlay').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13.5px;color:var(--text-dim);line-height:1.55;margin-bottom:12px;" id="order-input-prompt"></p>
+      <div style="font-size:11.5px;color:var(--text-muted);padding:10px 12px;background:var(--navy);border-radius:8px;font-family:monospace;" id="order-input-meta"></div>
+    </div>
+    <div class="modal-footer" style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px 20px;">
+      <button class="btn btn-ghost" id="order-input-cancel">Cancel</button>
+      <button class="btn btn-primary" id="order-input-confirm">Confirm</button>
+    </div>
+  </div>
 </div>
 
 <!-- TOAST -->
@@ -1523,12 +2138,11 @@ const documents = [
 let currentView = 'dashboard';
 function navigate(view) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('view-' + view).classList.add('active');
-  document.querySelector(`.nav-item[onclick*="${view}"]`)?.classList.add('active');
-  const titles = { dashboard:'Dashboard', entities:'Entities', orgchart:'Org Chart', compliance:'Compliance Calendar', documents:'Document Vault', orders:'Orders', billing:'Billing & Plan' };
-  document.getElementById('topbar-title').textContent = titles[view] || view;
+  document.querySelectorAll('.nav-item-h').forEach(n => n.classList.remove('active'));
+  document.getElementById('view-' + view)?.classList.add('active');
+  document.querySelector(`.nav-item-h[onclick*="${view}"]`)?.classList.add('active');
   currentView = view;
+  if (view === 'dashboard') { renderTodayPage(); dashChatRenderThread(dashChatGetCurrent()); }
   if (view === 'entities') renderEntities('all');
   if (view === 'orgchart') renderOrgChart();
   if (view === 'compliance') renderCompliance();
@@ -1572,20 +2186,35 @@ function renderEntities(filter) {
     const cmp = va < vb ? -1 : va > vb ? 1 : 0;
     return entitySort.dir === 'asc' ? cmp : -cmp;
   });
+  if (filtered.length === 0) {
+    if (entities.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" style="padding:48px 24px;text-align:center;">
+        <div style="font-size:14px;color:var(--text);font-weight:600;margin-bottom:6px;">No entities yet</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:18px;">Add your first entity to start managing compliance, filings, and orders.</div>
+        <button class="btn btn-primary" onclick="openWizard()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Form your first entity
+        </button>
+      </td></tr>`;
+    } else {
+      tbody.innerHTML = `<tr><td colspan="7" style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">No entities match the current filter.</td></tr>`;
+    }
+    return;
+  }
   tbody.innerHTML = filtered.map(e => {
     const globalIdx = entities.indexOf(e);
     const statusBadge = e.status === 'active' ? `<span class="badge badge-green"><span class="dot"></span> Active</span>` : `<span class="badge badge-blue">Pending</span>`;
     const nextColor = e.next === 'Overdue' ? 'color:var(--red)' : e.next.includes('Apr 1') ? 'color:var(--amber)' : 'color:var(--text-muted)';
     const raWarning = e.ra === 'lapsed' ? '<span class="ra-lapsed">RA Lapsed</span>' : '';
     const fqDisplay = e.foreignStates.length > 0 ? e.foreignStates.join(', ') : '—';
-    return `<tr class="entity-row cat-${e.category}">
+    return `<tr class="entity-row cat-${e.category}" style="cursor:pointer;" onclick="openEntityDetail(${globalIdx})">
       <td style="font-weight:700;font-size:14px;">${e.name}${raWarning}</td>
       <td><span class="badge badge-gray">${e.type}</span></td>
       <td>${e.state}</td>
       <td style="color:var(--text-muted);font-size:12.5px;">${fqDisplay}</td>
       <td>${statusBadge}</td>
       <td style="${nextColor};font-size:12.5px;">${e.next}</td>
-      <td><button class="btn btn-ghost btn-sm" onclick="openEntityDetail(${globalIdx})">View</button></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEntityDetail(${globalIdx})">View</button></td>
     </tr>`;
   }).join('');
 }
@@ -1645,9 +2274,74 @@ function collectFundNodes(node, list) {
 }
 
 let lastOcClient = null;
+function collectOrgDataNames() {
+  const names = new Set();
+  const walk = (n) => { if (!n) return; names.add(n.name); (n.children || []).forEach(walk); };
+  Object.values(orgData).forEach(c => walk(c.root));
+  return names;
+}
+
+function renderSimpleOrgTree() {
+  // Render newly-created entities (not part of seeded orgData) as a simple tree,
+  // nesting children under their declared parent where possible.
+  const byParent = new Map();
+  entities.forEach(e => {
+    const p = e.parent || null;
+    if (!byParent.has(p)) byParent.set(p, []);
+    byParent.get(p).push(e);
+  });
+  const roleClass = (e) => e.category === 'fund' ? 'fund' : e.category === 'gp' ? 'gp' : e.category === 'spv' ? 'spv' : e.category === 'holdco' ? 'portfolio' : 'mgmt';
+  const renderNodeSimple = (e) => {
+    const idx = entities.indexOf(e);
+    const kids = byParent.get(e.name) || [];
+    const kidsHtml = kids.length === 0 ? '' :
+      `<div class="oc-vline" style="height:48px;"></div>
+       <div class="oc-children">
+         ${kids.map(k => `<div class="oc-group"><div class="oc-vline" style="height:36px;"></div>${renderNodeSimple(k)}</div>`).join('')}
+       </div>`;
+    return `<div style="display:flex;flex-direction:column;align-items:center;">
+      <div class="oc-node ${roleClass(e)}" onclick="openEntityDetail(${idx})" style="cursor:pointer;">
+        <div class="oc-state-tag">${e.state}</div>
+        <div class="oc-role-label">${e.type === 'LP' ? 'Fund Vehicle' : e.category === 'gp' ? 'General Partner' : e.category === 'mgmt' ? 'Management Co' : e.category === 'holdco' ? 'Holding Co' : 'SPV'}</div>
+        <div class="oc-name">${e.name}</div>
+        <div class="oc-sub">${e.state}${e.status === 'pending' ? ' · Pending' : ''}</div>
+      </div>
+      ${kidsHtml}
+    </div>`;
+  };
+  // Roots = entities whose parent is null OR whose parent isn't in entities[]
+  const entityNames = new Set(entities.map(e => e.name));
+  const roots = entities.filter(e => !e.parent || !entityNames.has(e.parent));
+  if (roots.length === 0) return '<div style="padding:32px;color:var(--text-muted);text-align:center;">Nothing to chart.</div>';
+  return `<div class="orgchart"><div class="oc-tree" style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;">${roots.map(renderNodeSimple).join('')}</div></div>`;
+}
+
 function renderOrgChart() {
-  const clientKey = document.getElementById('oc-client-select').value;
   const container = document.getElementById('orgchart-container');
+  const toolbar = document.querySelector('.oc-toolbar');
+  if (entities.length === 0) {
+    if (toolbar) toolbar.style.display = 'none';
+    container.innerHTML = `<div style="padding:64px 24px;text-align:center;">
+      <div style="font-size:42px;margin-bottom:14px;opacity:0.4;">🌳</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;">No entities to chart yet</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">Form your first entity and it'll appear in the org chart automatically.</div>
+      <button class="btn btn-primary" onclick="openWizard()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Form your first entity
+      </button>
+    </div>`;
+    return;
+  }
+  // Check if any entity is part of the seeded orgData portfolio.
+  const seeded = collectOrgDataNames();
+  const hasSeededOrg = entities.some(e => seeded.has(e.name));
+  if (!hasSeededOrg) {
+    if (toolbar) toolbar.style.display = 'none';
+    container.innerHTML = renderSimpleOrgTree();
+    return;
+  }
+  if (toolbar) toolbar.style.display = '';
+  const clientKey = document.getElementById('oc-client-select').value;
   const rootSelect = document.getElementById('oc-root-select');
 
   // Only rebuild root selector when client changes
@@ -1694,14 +2388,29 @@ function findNode(node, id) {
   return null;
 }
 
+function legalFormShape(name) {
+  if (/\bLP\b/i.test(name) || /\bLLP\b/i.test(name)) return 'shape-lp';
+  if (/\b(Corp|Corporation|Inc)\b/i.test(name)) return 'shape-corp';
+  if (/\b(LLC|L\.L\.C\.)\b/i.test(name)) return 'shape-llc';
+  return 'shape-llc';
+}
+function isMinority(pct) {
+  if (!pct) return false;
+  const m = pct.match(/(\d+(?:\.\d+)?)%/);
+  return m ? parseFloat(m[1]) < 50 : false;
+}
+
 function renderNode(node) {
   const entityIdx = entities.findIndex(e => e.name === node.name);
   const onclick = entityIdx >= 0 ? `onclick="openEntityDetail(${entityIdx})"` : '';
   const compDot = node.compliance ? `<div class="oc-compliance ${node.compliance}"></div>` : '';
+  const jurisBadge = node.state ? `<div class="oc-juris">${node.state}</div>` : '';
+  const shape = legalFormShape(node.name);
 
   let html = `<div class="oc-group">`;
-  html += `<div class="oc-node ${node.type}" ${onclick}>
+  html += `<div class="oc-node ${node.type} ${shape}" ${onclick}>
     ${compDot}
+    ${jurisBadge}
     <div class="oc-type">${nodeTypeLabel(node.type)}</div>
     <div class="oc-name">${node.name}</div>
     <div class="oc-state">${stateFullName(node.state)}</div>
@@ -1709,7 +2418,7 @@ function renderNode(node) {
   </div>`;
 
   if (node.children && node.children.length > 0) {
-    html += `<div class="oc-vline" style="height:28px;"></div>`;
+    html += `<div class="oc-vline${isMinority(node.pct) ? ' minority' : ''}" style="height:48px;"></div>`;
     if (node.children.length === 1) {
       html += renderNode(node.children[0]);
     } else {
@@ -1718,9 +2427,9 @@ function renderNode(node) {
       const gap = 20;
       html += `<div class="oc-children">`;
       // hline spanning from first child center to last child center
-      html += `<div class="oc-hline" style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:calc(100% - 155px);"></div>`;
+      html += `<div class="oc-hline" style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:calc(100% - 140px);"></div>`;
       html += node.children.map(c => {
-        return `<div class="oc-group"><div class="oc-vline" style="height:20px;"></div>${renderNode(c)}</div>`;
+        return `<div class="oc-group"><div class="oc-vline${isMinority(c.pct) ? ' minority' : ''}" style="height:36px;"></div>${renderNode(c)}</div>`;
       }).join('');
       html += `</div>`;
     }
@@ -1808,8 +2517,9 @@ function renderFilteredCompliance(items) {
   list.innerHTML = items.map(item => {
     const dayColor = item.badge === 'red' ? 'color:var(--red)' : item.badge === 'amber' ? 'color:var(--amber)' : 'color:var(--text)';
     const showFileNow = item.badge !== 'green';
+    const yr = item.year && item.year !== 2026 ? `<div class="month" style="color:var(--text-dim);">${item.year}</div>` : '';
     return `<div class="cal-item">
-      <div class="cal-date"><div class="day" style="${dayColor}">${item.day}</div><div class="month">${item.month}</div></div>
+      <div class="cal-date"><div class="day" style="${dayColor}">${item.day}</div><div class="month">${item.month}</div>${yr}</div>
       <div class="cal-info">
         <div class="cal-title">${item.title}</div>
         <div class="cal-entity">${item.entity} · ${item.state}</div>
@@ -1839,7 +2549,9 @@ function renderCompliance() {
   applyCompFilters();
 }
 
+let currentCompIdx = null;
 function openComplianceDetail(idx) {
+  currentCompIdx = idx;
   const item = complianceItems[idx];
   if (!item) return;
 
@@ -1991,6 +2703,7 @@ function closeCompPanel() {
   document.getElementById('comp-panel').classList.remove('open');
   document.getElementById('comp-overlay').classList.remove('open');
   document.getElementById('comp-detail-footer').innerHTML = '';
+  currentCompIdx = null;
 }
 
 // ─── DOCUMENTS ───────────────────────────────────────────────
@@ -2112,7 +2825,7 @@ function renderDocuments() {
 // ─── ORDERS ──────────────────────────────────────────────────
 const orders = [
   { id:'ORDER-10045', service:'Good Standing Cert', serviceType:'good-standing', entity:'Maple Holdco LLC', state:'CA', priority:'urgent', status:'Sent to RA', progress:35, date:'Apr 8, 2026', filed:'—', fee:'$30', steps:[{done:true,label:'Order received',time:'Apr 8, 2026 9:12 AM'},{done:true,label:'Payment processed',time:'Apr 8, 2026 9:12 AM'},{done:true,label:'Sent to registered agent',time:'Apr 8, 2026 10:45 AM'},{done:false,label:'Filed with CA Secretary of State',time:'Pending'},{done:false,label:'Document uploaded to vault',time:'Pending'}] },
-  { id:'ORDER-10044', service:'LLC Formation', serviceType:'formation', entity:'Sequoia SPV 14 LLC', state:'DE', priority:'standard', status:'In Progress', progress:60, date:'Apr 6, 2026', filed:'—', fee:'$449', steps:[{done:true,label:'Order received',time:'Apr 6, 2026 2:30 PM'},{done:true,label:'Payment processed',time:'Apr 6, 2026 2:30 PM'},{done:true,label:'Filed with DE Division of Corporations',time:'Apr 6, 2026 4:15 PM'},{done:false,label:'EIN application submitted',time:'Pending'},{done:false,label:'Formation documents in vault',time:'Pending'}] },
+  { id:'ORDER-10044', service:'LLC Formation', serviceType:'formation', entity:'Sequoia SPV 14 LLC', state:'DE', priority:'standard', status:'Needs your input', progress:50, date:'Apr 6, 2026', filed:'—', fee:'$449', needsInput:{ kind:'signature', since:'2026-05-13T08:00:00Z' }, steps:[{done:true,label:'Order received',time:'Apr 6, 2026 2:30 PM'},{done:true,label:'Payment processed',time:'Apr 6, 2026 2:30 PM'},{done:false,label:'Awaiting your input',time:'Paused'},{done:false,label:'Filed with DE Division of Corporations',time:'Pending'},{done:false,label:'Formation documents in vault',time:'Pending'}] },
   { id:'ORDER-10043', service:'Annual Report', serviceType:'annual-report', entity:'Redwood Fund II LP', state:'DE', priority:'rush', status:'Completed', progress:100, date:'Apr 3, 2026', filed:'Apr 5, 2026', fee:'$125', steps:[{done:true,label:'Order received',time:'Apr 3, 2026 8:00 AM'},{done:true,label:'Payment processed',time:'Apr 3, 2026 8:00 AM'},{done:true,label:'Filed with DE Division of Corporations',time:'Apr 4, 2026 11:30 AM'},{done:true,label:'Filing confirmation received',time:'Apr 5, 2026 9:15 AM'},{done:true,label:'Document uploaded to vault',time:'Apr 5, 2026 9:20 AM'}] },
   { id:'ORDER-10042', service:'Foreign Qualification', serviceType:'foreign-qual', entity:'Redwood Fund II LP', state:'TX', priority:'standard', status:'Completed', progress:100, date:'Mar 25, 2026', filed:'Mar 28, 2026', fee:'$750', steps:[{done:true,label:'Order received',time:'Mar 25, 2026'},{done:true,label:'Filed with TX Secretary of State',time:'Mar 26, 2026'},{done:true,label:'Qualification approved',time:'Mar 28, 2026'},{done:true,label:'Documents in vault',time:'Mar 28, 2026'}] },
   { id:'ORDER-10041', service:'Foreign Qualification', serviceType:'foreign-qual', entity:'Redwood GP LLC', state:'NY', priority:'standard', status:'Completed', progress:100, date:'Mar 22, 2026', filed:'Mar 28, 2026', fee:'$650', steps:[{done:true,label:'Order received',time:'Mar 22, 2026'},{done:true,label:'Filed with NY Dept of State',time:'Mar 24, 2026'},{done:true,label:'Qualification approved',time:'Mar 28, 2026'},{done:true,label:'Documents in vault',time:'Mar 28, 2026'}] },
@@ -2200,9 +2913,10 @@ function renderFilteredOrders(filtered) {
     const statusBadge = s => s === 'Completed' ? 'badge-green' : s === 'In Progress' ? 'badge-blue' : s === 'Sent to RA' ? 'badge-amber' : s === 'Under Review' ? 'badge-blue' : 'badge-gray';
     const progressColor = (s, p) => s === 'Completed' ? 'background:var(--green)' : p < 30 ? 'background:var(--amber)' : '';
 
-    tbody.innerHTML = filtered.map((o, i) => `
-      <tr style="cursor:pointer;" onclick="openOrderDetail('${o.id}')">
-        <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">${o.id}</td>
+    tbody.innerHTML = filtered.map((o, i) => {
+      const isNew = unseenOrderIds.has(o.id);
+      return `<tr class="${isNew ? 'order-row-new' : ''}" style="cursor:pointer;" onclick="openOrderDetail('${o.id}')">
+        <td style="font-family:monospace;color:var(--teal);font-size:12.5px;">${o.id}${isNew ? ' <span class="new-pill">NEW</span>' : ''}</td>
         <td>${o.service}</td>
         <td style="font-weight:600;">${o.entity}</td>
         <td>${o.state}</td>
@@ -2210,7 +2924,8 @@ function renderFilteredOrders(filtered) {
         <td><span class="badge ${statusBadge(o.status)}">${o.status}</span></td>
         <td><div class="order-progress"><div class="order-progress-fill" style="width:${o.progress}%;${progressColor(o.status, o.progress)}"></div></div></td>
         <td style="color:var(--text-muted);font-size:12px;">${o.filed}</td>
-      </tr>`).join('');
+      </tr>`;
+    }).join('');
   }
   document.getElementById('ord-count').textContent = `${filtered.length} order${filtered.length !== 1 ? 's' : ''}`;
 }
@@ -2233,9 +2948,14 @@ function renderOrders() {
 }
 
 // ─── ORDER DETAIL SIDEBAR ────────────────────────────────────
+let currentOrderId = null;
 function openOrderDetail(orderId) {
   const o = orders.find(x => x.id === orderId);
   if (!o) return;
+  currentOrderId = orderId;
+  unseenOrderIds.delete(orderId);
+  // Refresh orders table if it's showing
+  if (currentView === 'orders' && typeof applyOrderFilters === 'function') applyOrderFilters();
 
   document.getElementById('ord-detail-id').textContent = o.id;
   document.getElementById('ord-detail-sub').textContent = `${o.service} · ${o.entity}`;
@@ -2243,7 +2963,22 @@ function openOrderDetail(orderId) {
   document.getElementById('ord-detail-status').innerHTML = `<span class="badge ${sc}">${o.status}</span>`;
 
   const content = document.getElementById('ord-detail-content');
+  // Banner + CTA when the order is paused for user input
+  let inputBanner = '';
+  if (o.needsInput) {
+    const k = INPUT_KINDS[o.needsInput.kind] || { label: 'Action needed', prompt: '', cta: 'Resolve' };
+    inputBanner = `
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:10px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);margin-bottom:20px;">
+        <div style="font-size:18px;">⏸</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:13.5px;font-weight:700;color:var(--amber);">${k.label}</div>
+          <div style="font-size:12px;color:var(--text-dim);margin-top:2px;line-height:1.5;">${k.prompt}</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openOrderInputModal('${o.id}')">${k.cta}</button>
+      </div>`;
+  }
   content.innerHTML = `
+    ${inputBanner}
     <!-- Order summary fields -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;">
       <div style="background:var(--navy);border-radius:8px;padding:12px 14px;">
@@ -2321,6 +3056,7 @@ function openOrderDetail(orderId) {
 function closeOrderPanel() {
   document.getElementById('ord-panel').classList.remove('open');
   document.getElementById('ord-overlay').classList.remove('open');
+  currentOrderId = null;
 }
 
 // ─── MODAL ───────────────────────────────────────────────────
@@ -2342,11 +3078,24 @@ function selectService(el, type) {
 }
 
 let orderCounter = 10046;
+let pendingComplianceTitle = null;
 function submitOrder() {
   const name = document.getElementById('order-entity-name').value.trim() || 'New Entity';
-  const state = document.getElementById('order-state').value;
+  const stateValue = document.getElementById('order-state').value;
+  const stateCodes = { Delaware:'DE', Wyoming:'WY', California:'CA', 'New York':'NY', Texas:'TX', Florida:'FL', Nevada:'NV' };
+  const stateCode = stateCodes[stateValue] || stateValue;
+  const card = document.querySelector('#modal-new-order .service-card.selected');
+  const cardLabel = card?.querySelector('.svc-name')?.textContent.trim() || 'Filing';
+  // Prefer the original compliance title (e.g., "Good Standing Certificate") when
+  // the modal was opened from a specific item — otherwise use the card label.
+  const serviceTitle = pendingComplianceTitle || cardLabel;
+  const selects = document.querySelectorAll('#modal-new-order select');
+  const priorityRaw = selects[1]?.value || 'Standard';
+  const priority = priorityRaw.split(' ')[0].toLowerCase();
+
   closeModal('new-order');
-  showToast(`✅`, `Order #${orderCounter++} submitted — ${name} · ${state}. You'll be notified when complete.`);
+  const order = stateFileOrder({ entity: name, title: serviceTitle, state: stateCode, priority });
+  showToast('✅', `${serviceTitle} order created for ${name} — ${order.id}`, () => openOrderDetail(order.id));
   resetOrderForm();
 }
 
@@ -2354,6 +3103,7 @@ function resetOrderForm() {
   document.getElementById('order-entity-name').value = '';
   document.getElementById('order-manager-name').value = '';
   document.getElementById('officer-options').innerHTML = '';
+  pendingComplianceTitle = null;
 }
 
 function populateOrderEntityList() {
@@ -2379,12 +3129,19 @@ function onOrderEntityChange(value) {
 }
 
 // ─── TOAST ───────────────────────────────────────────────────
-function showToast(icon, msg) {
+function showToast(icon, msg, onClick) {
   const t = document.getElementById('toast');
   document.getElementById('toast-icon').textContent = icon;
   document.getElementById('toast-msg').textContent = msg;
+  // Reset any previous click handler
+  t.onclick = null;
+  t.classList.toggle('clickable', !!onClick);
+  if (onClick) {
+    t.onclick = () => { t.classList.remove('show'); onClick(); };
+  }
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4000);
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove('show'), onClick ? 7000 : 4000);
 }
 
 // Map compliance title → service card key + state select value
@@ -2397,6 +3154,7 @@ const serviceTitleMap = {
 };
 
 function fileNow(entity, title, state) {
+  pendingComplianceTitle = title;
   resetOrderForm();
   document.getElementById('order-entity-name').value = entity;
 
@@ -2444,6 +3202,444 @@ const entityExtra = [
   { ein: '89-0123456', formed: 'Nov 1, 2024', fiscal: 'Dec 31', tax: 'Disregarded', purpose: 'Texas holding company', officers: [{name:'Rafael Moreno', role:'Manager', pct:'100%'}], states:[{code:'TX',type:'Domestic',status:'Good Standing',ra:true,next:'May 15'}], docs:[], history:[{done:true,title:'Entity formed — Texas',time:'Nov 1, 2024'}] },
   { ein: '90-1234567', formed: 'Jul 19, 2025', fiscal: 'Dec 31', tax: 'Disregarded', purpose: 'SPV — Cascade Ventures Series I', officers: [{name:'Redwood Fund II LP', role:'Sole Member', pct:'100%'}], states:[{code:'WY',type:'Domestic',status:'Good Standing',ra:true,next:'Jun 1'}], docs:[], history:[{done:true,title:'Entity formed — Wyoming',time:'Jul 19, 2025'}] },
 ];
+
+// ─── STATE STORE — persists mutations across reloads ─────────
+const STATE_STORAGE_KEY = 'alcoveiq_state_v2';
+const unseenOrderIds = new Set(); // in-memory only; resets per session
+
+function saveState() {
+  try {
+    localStorage.setItem(STATE_STORAGE_KEY, JSON.stringify({
+      entities, entityExtra, complianceItems, orders, documents, orderCounter
+    }));
+  } catch (e) { console.warn('saveState failed', e); }
+}
+const PRESET_KEY = 'alcoveiq_preset';
+function getDemoPreset() { return localStorage.getItem(PRESET_KEY) || 'populated'; }
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STATE_STORAGE_KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      if (s.entities) { entities.length = 0; entities.push(...s.entities); }
+      if (s.entityExtra) { entityExtra.length = 0; entityExtra.push(...s.entityExtra); }
+      if (s.complianceItems) { complianceItems.length = 0; complianceItems.push(...s.complianceItems); }
+      if (s.orders) { orders.length = 0; orders.push(...s.orders); }
+      if (s.documents) { documents.length = 0; documents.push(...s.documents); }
+      if (s.orderCounter) orderCounter = s.orderCounter;
+      return;
+    }
+    // No saved state — apply preset defaults.
+    if (getDemoPreset() === 'empty') {
+      entities.length = 0;
+      entityExtra.length = 0;
+      complianceItems.length = 0;
+      orders.length = 0;
+      documents.length = 0;
+    }
+    // 'populated' = leave the module-level seed data in place.
+  } catch (e) { console.warn('loadState failed', e); }
+}
+
+function setDemoPreset(preset, opts) {
+  opts = opts || {};
+  const label = preset === 'empty' ? 'empty (fresh, no entities)' : 'populated (full demo portfolio)';
+  const msg = opts.confirmMessage || `Switch to the ${label} demo? Any unsaved changes will be cleared.`;
+  if (!confirm(msg)) return;
+  localStorage.setItem(PRESET_KEY, preset);
+  localStorage.removeItem(STATE_STORAGE_KEY);
+  localStorage.removeItem('alcoveiq_dash_threads_v3');
+  localStorage.removeItem('alcoveiq_dash_current_thread_v3');
+  location.reload();
+}
+function loadEmptyDemo() { setDemoPreset('empty'); }
+function loadPopulatedDemo() { setDemoPreset('populated'); }
+
+function resetState() {
+  const preset = getDemoPreset();
+  const presetLabel = preset === 'empty' ? 'empty' : 'populated';
+  if (!confirm(`Reset to the ${presetLabel} demo? Any changes you made will be cleared.`)) return;
+  localStorage.removeItem(STATE_STORAGE_KEY);
+  localStorage.removeItem('alcoveiq_dash_threads_v3');
+  localStorage.removeItem('alcoveiq_dash_current_thread_v3');
+  location.reload();
+}
+function renderNavBadges() {
+  const ent = document.getElementById('nav-badge-entities');
+  const cmp = document.getElementById('nav-badge-compliance');
+  const ord = document.getElementById('nav-badge-orders');
+  const setBadge = (el, n) => {
+    if (!el) return;
+    if (n > 0) { el.textContent = n; el.style.display = ''; }
+    else { el.style.display = 'none'; }
+  };
+  setBadge(ent, entities.length);
+  // Compliance badge = items that need action (overdue + due soon + blocked-equivalent), excluding green/filed
+  const compCount = complianceItems.filter(c => c.badge === 'red' || c.badge === 'amber' || c.badge === 'blue').length;
+  setBadge(cmp, compCount);
+  // Orders badge = in-flight orders + paused-for-input
+  const ordCount = orders.filter(o => o.status !== 'Completed').length;
+  setBadge(ord, ordCount);
+}
+
+function refreshAllViews() {
+  renderNavBadges();
+  if (typeof renderTodayPage === 'function') renderTodayPage();
+  if (typeof renderUpcomingFilings === 'function') renderUpcomingFilings();
+  if (currentView === 'entities' && typeof renderEntities === 'function') renderEntities('all');
+  if (currentView === 'orgchart' && typeof renderOrgChart === 'function') renderOrgChart();
+  if (currentView === 'compliance' && typeof renderCompliance === 'function') renderCompliance();
+  if (currentView === 'documents' && typeof renderDocuments === 'function') renderDocuments();
+  if (currentView === 'orders' && typeof applyOrderFilters === 'function') applyOrderFilters();
+  // Re-render any open slide-in panel so it reflects current state
+  const edPanel = document.getElementById('ed-panel');
+  if (edPanel?.classList.contains('open') && !edEditMode && typeof edEditIdx === 'number' && edEditIdx >= 0) {
+    openEntityDetail(edEditIdx);
+  }
+  const compPanel = document.getElementById('comp-panel');
+  if (compPanel?.classList.contains('open') && typeof currentCompIdx === 'number') {
+    openComplianceDetail(currentCompIdx);
+  }
+  const ordPanel = document.getElementById('ord-panel');
+  if (ordPanel?.classList.contains('open') && currentOrderId) {
+    openOrderDetail(currentOrderId);
+  }
+}
+
+function formatToday() {
+  return new Date('2026-05-08').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function serviceTypeFor(title) {
+  const t = title.toLowerCase();
+  if (t.includes('annual report')) return 'annual-report';
+  if (t.includes('foreign')) return 'foreign-qual';
+  if (t.includes('good standing')) return 'good-standing';
+  if (t.includes('amendment')) return 'amendment';
+  if (t.includes('formation')) return 'formation';
+  if (t.includes('dissolution')) return 'formation';
+  if (t.includes('ein')) return 'other';
+  if (t.includes('ra ') || t.includes('reinstatement')) return 'other';
+  return 'other';
+}
+function defaultFeeFor(state) {
+  const m = { DE: '$50', WY: '$52', CA: '$30', NY: '$100', TX: '$0', FL: '$138.75', NV: '$200' };
+  return m[state] || '$0';
+}
+
+// ─── MUTATIONS ───────────────────────────────────────────────
+function stateFileOrder({ entity, title, state, priority, fee }) {
+  const id = 'ORDER-' + orderCounter++;
+  const date = formatToday();
+  const newOrder = {
+    id, service: title, serviceType: serviceTypeFor(title),
+    entity, state, priority: (priority || 'standard').toLowerCase(),
+    status: 'In Progress', progress: 25, date, filed: '—',
+    fee: fee || defaultFeeFor(state),
+    steps: [
+      { done: true, label: 'Order received', time: date },
+      { done: true, label: 'Payment processed', time: date },
+      { done: false, label: 'Sent to registered agent', time: 'Pending' },
+      { done: false, label: 'Filed with state', time: 'Pending' },
+      { done: false, label: 'Document uploaded to vault', time: 'Pending' },
+    ]
+  };
+  orders.unshift(newOrder);
+  unseenOrderIds.add(newOrder.id);
+
+  // Update related compliance item — mark as Prepared (in-flight)
+  // Try exact match first, then fuzzy match (first word of title) for ad-hoc orders.
+  let ci = complianceItems.find(c => c.entity === entity && c.title === title && c.state === state);
+  if (!ci) {
+    const tFirst = (title || '').toLowerCase().split(/\s+/)[0];
+    ci = complianceItems.find(c =>
+      c.entity === entity && c.state === state && c.badge !== 'green' &&
+      (c.title.toLowerCase().startsWith(tFirst) || title.toLowerCase().startsWith(c.title.toLowerCase().split(/\s+/)[0]))
+    );
+  }
+  if (ci) { ci.badge = 'blue'; ci.badgeLabel = 'Prepared'; }
+
+  // RA reinstatement also flips the entity's RA status immediately
+  if (/reinstatement|^ra /i.test(title)) {
+    const ent = entities.find(e => e.name === entity);
+    if (ent) {
+      ent.ra = 'active';
+      // Recompute compliance from remaining items
+      const stillOverdue = complianceItems.some(c => c.entity === entity && c.badge === 'red');
+      if (!stillOverdue && ent.compliance === 'danger') ent.compliance = 'warn';
+    }
+  }
+
+  saveState();
+  refreshAllViews();
+
+  // Auto-advance order — first to "Sent to RA", then "Completed"
+  setTimeout(() => stateAdvanceOrder(id), 6000);
+  return newOrder;
+}
+
+// "Needs your input" taxonomy — orders that genuinely require user action mid-flight
+const INPUT_KINDS = {
+  signature: {
+    label: 'Signature required',
+    prompt: 'The registered agent firm needs a signed authorization before they can file with the state.',
+    cta: 'Sign now',
+    successToast: 'Authorization signed — order resuming.'
+  },
+  info: {
+    label: 'Additional info requested',
+    prompt: 'The state office requested clarification on the entity\'s primary business address.',
+    cta: 'Provide info',
+    successToast: 'Information submitted — order resuming.'
+  },
+  payment: {
+    label: 'Payment method confirmation',
+    prompt: 'The state filing fee exceeds your default payment threshold. Confirm to proceed.',
+    cta: 'Confirm payment',
+    successToast: 'Payment confirmed — order resuming.'
+  }
+};
+
+function maybeRequireInput(order) {
+  // Likelihood: ~33% of orders need input mid-flight; formation always does
+  if (/formation/i.test(order.service)) return 'signature';
+  const r = Math.random();
+  if (r < 0.18) return 'signature';
+  if (r < 0.30) return 'info';
+  if (r < 0.36) return 'payment';
+  return null;
+}
+
+// User-level payment preference (prototype: in-memory + localStorage)
+const PAY_THRESHOLD_KEY = 'alcoveiq_pay_threshold';
+function getPayThreshold() { return parseFloat(localStorage.getItem(PAY_THRESHOLD_KEY)) || 25; }
+function setPayThreshold(v) { localStorage.setItem(PAY_THRESHOLD_KEY, String(v)); }
+
+function openOrderInputModal(orderId) {
+  const o = orders.find(x => x.id === orderId);
+  if (!o || !o.needsInput) return;
+  if (o.needsInput.kind === 'payment') return openPaymentConfirmModal(orderId);
+
+  const k = INPUT_KINDS[o.needsInput.kind] || { label: 'Action needed', prompt: '', cta: 'Resolve' };
+  const overlay = document.getElementById('order-input-overlay');
+  document.getElementById('order-input-title').textContent = k.label;
+  document.getElementById('order-input-prompt').textContent = k.prompt;
+  document.getElementById('order-input-meta').textContent = `${o.id} · ${o.service} · ${o.entity} · ${o.state}`;
+  const confirmBtn = document.getElementById('order-input-confirm');
+  confirmBtn.textContent = k.cta;
+  confirmBtn.onclick = () => {
+    overlay.classList.remove('open');
+    stateResolveOrderInput(orderId);
+  };
+  document.getElementById('order-input-cancel').onclick = () => overlay.classList.remove('open');
+  overlay.classList.add('open');
+}
+
+function openPaymentConfirmModal(orderId) {
+  const o = orders.find(x => x.id === orderId);
+  if (!o) return;
+  const stateNames = { CA:'California', DE:'Delaware', WY:'Wyoming', NY:'New York', TX:'Texas', FL:'Florida', NV:'Nevada' };
+  const fee = (o.fee || '$0').replace(/[^0-9.]/g, '');
+  const amount = parseFloat(fee) || 0;
+  const formatted = `$${amount.toFixed(2)}`;
+  const threshold = getPayThreshold();
+  const suggestedNew = Math.max(amount + 25, threshold + 50);
+  document.getElementById('pay-amount').textContent = formatted;
+  document.getElementById('pay-to').textContent = `${stateNames[o.state] || o.state} Secretary of State`;
+  document.getElementById('pay-for').textContent = `${o.service} — ${o.entity}`;
+  document.getElementById('pay-reason').innerHTML = `This <strong>${formatted}</strong> fee is above your <strong>$${threshold.toFixed(2)}</strong> auto-pay limit, so we paused for your approval.`;
+  const cb = document.getElementById('pay-raise-threshold');
+  const cbLabel = document.getElementById('pay-raise-label');
+  cb.checked = false;
+  cbLabel.textContent = `Auto-approve future fees up to $${suggestedNew.toFixed(0)}`;
+  cb.dataset.suggested = suggestedNew;
+  const confirmBtn = document.getElementById('pay-confirm');
+  confirmBtn.textContent = `Pay ${formatted}`;
+  confirmBtn.onclick = () => {
+    if (cb.checked) setPayThreshold(parseFloat(cb.dataset.suggested));
+    document.getElementById('payment-confirm-overlay').classList.remove('open');
+    stateResolveOrderInput(orderId);
+  };
+  document.getElementById('pay-cancel').onclick = () => document.getElementById('payment-confirm-overlay').classList.remove('open');
+  document.getElementById('payment-confirm-overlay').classList.add('open');
+}
+
+function stateResolveOrderInput(orderId) {
+  const o = orders.find(x => x.id === orderId);
+  if (!o || !o.needsInput) return;
+  const kindName = o.needsInput.kind;
+  const kind = INPUT_KINDS[kindName];
+  const fee = o.fee || '';
+  o.needsInput = null;
+  o.status = 'Sent to RA';
+  saveState();
+  refreshAllViews();
+  let toastMsg = kind?.successToast || 'Done — order resuming.';
+  if (kindName === 'payment') toastMsg = `${fee} paid to ${o.state} SoS — ${o.service} resuming.`;
+  showToast('✅', toastMsg, () => openOrderDetail(orderId));
+  // Resume auto-advance toward completion
+  setTimeout(() => stateAdvanceOrder(orderId), 6000);
+}
+
+function stateAdvanceOrder(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  if (o.status === 'In Progress') {
+    // Possibly require user input before sending to RA
+    const inputKind = maybeRequireInput(o);
+    if (inputKind && !o.needsInput) {
+      o.status = 'Needs your input';
+      o.needsInput = { kind: inputKind, since: new Date().toISOString() };
+      if (o.steps[2]) { o.steps[2].label = 'Awaiting your input'; }
+      saveState();
+      refreshAllViews();
+      const k = INPUT_KINDS[inputKind];
+      showToast('⏸', `${o.id} paused — ${k.label.toLowerCase()}`, () => openOrderDetail(o.id));
+      return; // wait for user to resolve
+    }
+    o.status = 'Sent to RA';
+    o.progress = 65;
+    if (o.steps[2]) { o.steps[2].done = true; o.steps[2].time = formatToday(); }
+    saveState();
+    refreshAllViews();
+    setTimeout(() => stateAdvanceOrder(id), 8000);
+  } else if (o.status === 'Needs your input') {
+    // Stays paused — user must resolve via stateResolveOrderInput
+    return;
+  } else if (o.status === 'Sent to RA') {
+    o.status = 'Completed';
+    o.progress = 100;
+    o.filed = formatToday();
+    o.steps.forEach(s => { s.done = true; if (s.time === 'Pending') s.time = formatToday(); });
+    // Mark compliance item filed (exact then fuzzy by first word)
+    let ci = complianceItems.find(c => c.entity === o.entity && c.title === o.service && c.state === o.state);
+    if (!ci) {
+      const tFirst = (o.service || '').toLowerCase().split(/\s+/)[0];
+      ci = complianceItems.find(c =>
+        c.entity === o.entity && c.state === o.state && c.badge !== 'green' &&
+        (c.title.toLowerCase().startsWith(tFirst) || o.service.toLowerCase().startsWith(c.title.toLowerCase().split(/\s+/)[0]))
+      );
+    }
+    if (ci) { ci.badge = 'green'; ci.badgeLabel = 'Filed'; }
+    // Add a document
+    documents.unshift({
+      name: `${o.service.replace(/\s+/g, '_')}_${o.state}_2026_${o.entity.replace(/\s+/g, '_')}.pdf`,
+      type: 'pdf', entity: o.entity, state: o.state, date: formatToday(),
+      category: 'compliance', size: '142 KB'
+    });
+    // Update entity compliance if all clean now
+    const ent = entities.find(e => e.name === o.entity);
+    if (ent) {
+      const stillRed = complianceItems.some(c => c.entity === o.entity && c.badge === 'red');
+      const stillAmber = complianceItems.some(c => c.entity === o.entity && c.badge === 'amber');
+      if (!stillRed && !stillAmber) ent.compliance = 'good';
+      else if (!stillRed) ent.compliance = 'warn';
+      // Formation order completion activates the entity
+      if (/formation/i.test(o.service) && ent.status === 'pending') {
+        ent.status = 'active';
+        ent.next = '—';
+        const xidx = entities.indexOf(ent);
+        if (entityExtra[xidx]) {
+          entityExtra[xidx].formed = formatToday();
+          entityExtra[xidx].ein = '88-' + Math.floor(1000000 + Math.random() * 8999999);
+          (entityExtra[xidx].history || []).push({ done: true, title: `Entity formed — ${ent.state}`, time: formatToday() });
+          if (entityExtra[xidx].states && entityExtra[xidx].states[0]) {
+            entityExtra[xidx].states[0].status = 'Good Standing';
+          }
+        }
+      }
+    }
+    saveState();
+    refreshAllViews();
+    showToast('✅', `${o.service} filed for ${o.entity} — document in vault.`);
+  }
+}
+
+// Per-jurisdiction + entity-type recurring compliance templates.
+// monthsOut = months from "today" (state today date) to the first filing's due date.
+const COMPLIANCE_TEMPLATES = {
+  DE: {
+    LLC: [{ title: 'Franchise Tax', fee: '$300', monthsOut: 8 }],
+    LP:  [{ title: 'Annual Report', fee: '$50', monthsOut: 12 }],
+    Corp:[{ title: 'Annual Report', fee: '$50', monthsOut: 12 }, { title: 'Franchise Tax', fee: '$175', monthsOut: 10 }],
+  },
+  CA: {
+    LLC: [{ title: 'Statement of Information', fee: '$20', monthsOut: 3 }, { title: 'Franchise Tax', fee: '$800', monthsOut: 11 }],
+    LP:  [{ title: 'Statement of Information', fee: '$20', monthsOut: 3 }],
+    Corp:[{ title: 'Statement of Information', fee: '$25', monthsOut: 3 }, { title: 'Franchise Tax', fee: '$800', monthsOut: 11 }],
+  },
+  WY: { LLC: [{ title: 'Annual Report', fee: '$60', monthsOut: 12 }],
+        LP:  [{ title: 'Annual Report', fee: '$60', monthsOut: 12 }],
+        Corp:[{ title: 'Annual Report', fee: '$60', monthsOut: 12 }] },
+  TX: { LLC: [{ title: 'Franchise Tax / PIR', fee: '$0', monthsOut: 12 }],
+        LP:  [{ title: 'Franchise Tax / PIR', fee: '$0', monthsOut: 12 }],
+        Corp:[{ title: 'Franchise Tax / PIR', fee: '$0', monthsOut: 12 }] },
+  NY: { LLC: [{ title: 'Biennial Statement', fee: '$9', monthsOut: 24 }],
+        LP:  [{ title: 'Annual Report', fee: '$50', monthsOut: 12 }],
+        Corp:[{ title: 'Biennial Statement', fee: '$9', monthsOut: 24 }] },
+  FL: { LLC: [{ title: 'Annual Report', fee: '$138.75', monthsOut: 12 }],
+        LP:  [{ title: 'Annual Report', fee: '$500', monthsOut: 12 }],
+        Corp:[{ title: 'Annual Report', fee: '$150', monthsOut: 12 }] },
+  NV: { LLC: [{ title: 'Annual Report', fee: '$200', monthsOut: 12 }],
+        LP:  [{ title: 'Annual Report', fee: '$200', monthsOut: 12 }],
+        Corp:[{ title: 'Annual Report', fee: '$200', monthsOut: 12 }] },
+};
+
+function generateComplianceForEntity(entity) {
+  const tpl = COMPLIANCE_TEMPLATES[entity.state]?.[entity.type]
+           || [{ title: 'Annual Report', fee: '$50', monthsOut: 12 }];
+  const today = new Date('2026-05-13');
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  return tpl.map(t => {
+    const due = new Date(today);
+    due.setMonth(due.getMonth() + t.monthsOut);
+    return {
+      day: String(due.getDate()).padStart(2, '0'),
+      month: months[due.getMonth()],
+      year: due.getFullYear(),
+      title: t.title,
+      entity: entity.name,
+      state: entity.state,
+      fee: t.fee,
+      badge: 'gray',
+      badgeLabel: 'Upcoming'
+    };
+  });
+}
+
+function stateCreateEntity({ name, type, state, manager, parent, ein }) {
+  if (entities.some(e => e.name === name)) {
+    showToast('⚠', `Entity "${name}" already exists.`);
+    return;
+  }
+  const stateCodes = { Delaware:'DE', Wyoming:'WY', California:'CA', Texas:'TX', 'New York':'NY', Florida:'FL', Nevada:'NV' };
+  const code = stateCodes[state] || state;
+  const newEntity = {
+    name, type, state: code, foreignStates: [],
+    status: 'pending', next: 'Formation in progress',
+    compliance: 'good',
+    category: type === 'LP' ? 'fund' : (parent && parent !== 'Standalone' ? 'spv' : 'holdco'),
+    ra: 'active',
+    parent: parent && parent !== 'Standalone' ? parent : null
+  };
+  entities.push(newEntity);
+  const role = type === 'LP' ? 'General Partner' : 'Manager';
+  entityExtra.push({
+    ein: ein ? 'Pending IRS' : 'N/A',
+    formed: 'Pending',
+    fiscal: 'Dec 31', tax: 'Pending classification',
+    purpose: `New ${type} — ${parent && parent !== 'Standalone' ? 'subsidiary of ' + parent : 'standalone entity'}`,
+    officers: [{ name: manager, role, pct: '100%' }],
+    states: [{ code, type: 'Domestic', status: 'Pending', ra: true, next: 'Formation' }],
+    docs: [],
+    history: [{ done: false, title: `Formation order submitted — ${state}`, time: formatToday() }]
+  });
+  // Seed future compliance items based on jurisdiction + entity type
+  const newCompliance = generateComplianceForEntity(newEntity);
+  if (newCompliance.length > 0) complianceItems.push(...newCompliance);
+  // Create the formation order
+  stateFileOrder({ entity: name, title: `${type} Formation`, state: code, priority: 'standard' });
+}
 
 function openEntityDetail(idx) {
   edEditIdx = idx;
@@ -2547,7 +3743,7 @@ function openEntityDetail(idx) {
     t.style.opacity = ''; t.style.pointerEvents = '';
   });
   document.querySelector('.ed-panel-actions').innerHTML = `
-    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New Order</button>
+    <button class="btn btn-secondary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
     <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>`;
   document.getElementById('ed-name').textContent = e.name;
 
@@ -2726,7 +3922,7 @@ function saveEntityEdit() {
   });
   // Restore action buttons
   document.querySelector('.ed-panel-actions').innerHTML = `
-    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New Order</button>
+    <button class="btn btn-secondary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
     <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>`;
 
   openEntityDetail(edEditIdx);
@@ -2818,8 +4014,187 @@ function renderDashboardRecent() {
     ${items.map(q => `<button class="ai-bar-recent-btn" onclick="toggleChat();setTimeout(()=>chatSend('${q.replace(/'/g, "\\'")}'),300)"><span class="ai-bar-recent-icon">↩</span>${q}</button>`).join('')}
   `;
 }
+function renderTodayPage() {
+  const root = document.getElementById('today-sections');
+  if (!root) return;
+  const today = new Date('2026-05-08');
+  const stateNames = { CA:'California', DE:'Delaware', WY:'Wyoming', FL:'Florida', NY:'New York', TX:'Texas', NV:'Nevada' };
+  const monthOrder = { JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11 };
+  const dueDate = (it) => new Date(it.year || 2026, monthOrder[it.month], parseInt(it.day, 10));
+  const daysUntil = (it) => Math.round((dueDate(it) - today) / 86400000);
+
+  // 1. Blockers (lapsed RAs that block filings)
+  const blockedEntities = entities.filter(e => e.ra === 'lapsed');
+  const blockers = blockedEntities.map(e => {
+    const idx = entities.indexOf(e);
+    return { entity: e, idx };
+  });
+
+  // 2. Overdue compliance
+  const overdue = complianceItems.filter(c => c.badge === 'red');
+  // 3. Due this week (amber, or due in 0-7 days)
+  const thisWeek = complianceItems.filter(c => c.badge === 'amber' || (c.badge !== 'red' && c.badge !== 'green' && daysUntil(c) >= 0 && daysUntil(c) <= 7) );
+  // 4. Orders that genuinely need user input (paused mid-flight)
+  const inputNeeded = orders.filter(o => o.needsInput);
+  const inFlightCount = orders.filter(o => o.status !== 'Completed' && !o.needsInput).length;
+  // 5. Today's completed (auto-filed and recently filed)
+  const completedRecently = complianceItems.filter(c => c.badge === 'green');
+
+  const fmtDue = (c) => {
+    const d = daysUntil(c);
+    if (d < 0) return `${Math.abs(d)} day${Math.abs(d)===1?'':'s'} overdue`;
+    if (d === 0) return 'Due today';
+    if (d === 1) return 'Due tomorrow';
+    if (d <= 7) return `Due in ${d} days`;
+    const yr = c.year && c.year !== 2026 ? `, ${c.year}` : '';
+    return `${c.month} ${c.day}${yr}`;
+  };
+
+  const compRow = (c, kind, blocked) => {
+    const idx = complianceItems.indexOf(c);
+    const ent = entities.find(e => e.name === c.entity);
+    const entIdx = entities.indexOf(ent);
+    const icon = blocked ? '🔒' : (kind === 'urgent' ? '⛔' : kind === 'warn' ? '⚠' : '📋');
+    // Count other pending filings for the same entity that would also unblock
+    const sameEntityPending = complianceItems.filter(x => x.entity === c.entity && x.badge !== 'green').length;
+    const otherUnblocks = Math.max(0, sameEntityPending - 1);
+    const blockedSuffix = blocked
+      ? (otherUnblocks > 0 ? ` · 🔒 RA lapsed — unblocks ${otherUnblocks + 1} filings` : ' · 🔒 RA lapsed')
+      : '';
+    const action = blocked
+      ? `<button class="btn btn-primary btn-sm" onclick="fileNow('${ent ? ent.name : c.entity}','RA Reinstatement','${ent ? ent.state : c.state}')" title="Reinstating the registered agent unblocks this filing">Reinstate RA first</button>`
+      : (kind === 'urgent'
+          ? `<button class="btn btn-primary btn-sm" onclick="fileNow('${c.entity}','${c.title}','${c.state}')">File now (Rush)</button>`
+          : `<button class="btn btn-primary btn-sm" onclick="fileNow('${c.entity}','${c.title}','${c.state}')">File now</button>`);
+    return `<div class="today-row ${kind}">
+      <div class="tr-icon">${icon}</div>
+      <div class="tr-body">
+        <div class="tr-title">${c.title} · ${stateNames[c.state] || c.state}</div>
+        <div class="tr-meta">${c.entity} · ${fmtDue(c)} · ${c.fee}${blockedSuffix}</div>
+      </div>
+      <div class="tr-actions">
+        ${action}
+        <button class="btn btn-ghost btn-sm" onclick="openComplianceDetail(${idx})">Details</button>
+      </div>
+    </div>`;
+  };
+
+  const orderRow = (o) => {
+    const k = INPUT_KINDS[o.needsInput?.kind] || { label: 'Action needed', cta: 'Resolve' };
+    const iconMap = { signature: '✍️', info: '❓', payment: '💳' };
+    const icon = iconMap[o.needsInput?.kind] || '⏸';
+    return `<div class="today-row warn">
+      <div class="tr-icon">${icon}</div>
+      <div class="tr-body">
+        <div class="tr-title">${k.label} — ${o.entity}</div>
+        <div class="tr-meta">${o.id} · ${o.service} · ${o.state}</div>
+      </div>
+      <div class="tr-actions">
+        <button class="btn btn-primary btn-sm" onclick="openOrderInputModal('${o.id}')">${k.cta}</button>
+        <button class="btn btn-ghost btn-sm" onclick="openOrderDetail('${o.id}')">Details</button>
+      </div>
+    </div>`;
+  };
+
+  const blockerRow = (b) => {
+    const e = b.entity;
+    const pending = complianceItems.filter(c => c.entity === e.name && c.badge !== 'green');
+    const fees = pending.reduce((sum, c) => sum + (parseFloat((c.fee || '$0').replace(/[^0-9.]/g,'')) || 0), 0);
+    const feesStr = fees > 0 ? ` worth $${fees % 1 === 0 ? fees.toFixed(0) : fees.toFixed(2)}` : '';
+    return `<div class="today-row urgent">
+      <div class="tr-icon">⛔</div>
+      <div class="tr-body">
+        <div class="tr-title">Registered Agent lapsed — ${e.name}</div>
+        <div class="tr-meta">${stateNames[e.state] || e.state} · → Unblocks ${pending.length} filing${pending.length === 1 ? '' : 's'}${feesStr}</div>
+      </div>
+      <div class="tr-actions">
+        <button class="btn btn-primary btn-sm" onclick="fileNow('${e.name}','RA Reinstatement','${e.state}')">Reinstate RA</button>
+        <button class="btn btn-ghost btn-sm" onclick="openEntityDetail(${b.idx})">View entity</button>
+      </div>
+    </div>`;
+  };
+
+  const completedRow = (c) => {
+    return `<div class="today-row done">
+      <div class="tr-icon">✓</div>
+      <div class="tr-body">
+        <div class="tr-title">${c.title} · ${stateNames[c.state] || c.state}</div>
+        <div class="tr-meta">${c.entity} · Auto-filed · ${c.fee}</div>
+      </div>
+      <div class="tr-actions">
+        <button class="btn btn-ghost btn-sm" onclick="navigate('documents')">View doc</button>
+      </div>
+    </div>`;
+  };
+
+  const section = (kind, title, count, rowsHtml, emptyText, subtitle) => `
+    <div class="today-section ${kind}">
+      <div class="today-section-header">
+        <div class="today-section-title">${title}</div>
+        <span class="today-section-count">${count}</span>
+      </div>
+      ${subtitle && count > 0 ? `<div class="today-section-subtitle">${subtitle}</div>` : ''}
+      <div class="today-list">
+        ${count > 0 ? rowsHtml : `<div class="today-empty">${emptyText}</div>`}
+      </div>
+    </div>`;
+
+  const blockedEntityNames = new Set(blockedEntities.map(e => e.name));
+
+  root.innerHTML = [
+    section('urgent', 'Blockers', blockers.length, blockers.map(blockerRow).join(''), 'No blockers — you can file freely.', 'Fix these to unblock other filings.'),
+    section('urgent', 'Overdue', overdue.length,
+      overdue.map(c => compRow(c, 'urgent', blockedEntityNames.has(c.entity))).join(''),
+      'Nothing overdue. Nice.'),
+    section('warn', 'Due this week', thisWeek.length,
+      thisWeek.map(c => compRow(c, 'warn', blockedEntityNames.has(c.entity))).join(''),
+      'No filings due in the next 7 days.'),
+    section('warn', 'Needs your input', inputNeeded.length,
+      inputNeeded.map(orderRow).join(''),
+      'No orders need your input right now.',
+      inputNeeded.length > 0 ? 'These orders are paused until you act.' : null),
+    section('done', 'Recently completed', completedRecently.length,
+      completedRecently.map(completedRow).join(''),
+      'No completed filings yet.'),
+  ].join('');
+
+  // Update subtitle
+  const sub = document.getElementById('today-sub');
+  if (sub) {
+    const totalActions = blockers.length + overdue.length + thisWeek.length + inputNeeded.length;
+    const flightNote = inFlightCount > 0 ? ` · <span style="color:var(--text-dim);">${inFlightCount} order${inFlightCount===1?'':'s'} in flight</span>` : '';
+    sub.innerHTML = (totalActions === 0
+      ? `You're all caught up — nothing needs your attention right now.`
+      : `${totalActions} item${totalActions===1?'':'s'} need your attention.`) + flightNote;
+  }
+}
+
+function renderUpcomingFilings() {
+  const list = document.getElementById('upcoming-list');
+  if (!list) return;
+  const stateNames = { CA:'California', DE:'Delaware', WY:'Wyoming', FL:'Florida', NY:'New York', TX:'Texas', NV:'Nevada' };
+  const dayClass = { red: 'stat-danger', amber: 'stat-warn' };
+  const monthOrder = { JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11 };
+  const sorted = [...complianceItems].sort((a,b) => (monthOrder[a.month]*100 + parseInt(a.day,10)) - (monthOrder[b.month]*100 + parseInt(b.day,10)));
+  list.innerHTML = sorted.map((it, idx) => {
+    const realIdx = complianceItems.indexOf(it);
+    const dc = dayClass[it.badge] || '';
+    const dayStyle = dc ? '' : 'style="color:#94a3b8;"';
+    const badgeClass = `badge-${it.badge}`;
+    const yr = it.year && it.year !== 2026 ? `<div class="month" style="color:var(--text-dim);">${it.year}</div>` : '';
+    return `<div class="cal-item" style="cursor:pointer;" onclick="openComplianceDetail(${realIdx})">
+      <div class="cal-date"><div class="day ${dc}" ${dayStyle}>${it.day}</div><div class="month">${it.month.charAt(0)+it.month.slice(1).toLowerCase()}</div>${yr}</div>
+      <div class="cal-info">
+        <div class="cal-title">${it.title}</div>
+        <div class="cal-entity">${it.entity} · ${stateNames[it.state] || it.state}</div>
+      </div>
+      <span class="badge ${badgeClass}">${it.badgeLabel}</span>
+    </div>`;
+  }).join('');
+}
+
 // Render on load
-document.addEventListener('DOMContentLoaded', renderDashboardRecent);
+document.addEventListener('DOMContentLoaded', () => { loadState(); renderNavBadges(); renderDashboardRecent(); renderUpcomingFilings(); renderTodayPage(); dashChatInit(); });
 
 // Capture-mode router: ?view=<name>[:<arg>] sets up a specific state before the figma capture fires.
 // Supported: dashboard | entities | orgchart | compliance[:red|amber|blue|gray] | orders | documents | billing
@@ -2880,14 +4255,70 @@ document.addEventListener('DOMContentLoaded', renderDashboardRecent);
   }, 150);
 })();
 
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chat-panel').classList.toggle('open', chatOpen);
-  if (chatOpen) {
-    document.getElementById('chat-input').focus();
-    renderRecentQueries();
+function toggleChat() { /* slide-in chat removed; left chat is now permanent */ }
+
+function toggleOrgMenu(ev) {
+  ev && ev.stopPropagation();
+  document.getElementById('org-menu')?.classList.toggle('open');
+}
+function closeOrgMenu() {
+  document.getElementById('org-menu')?.classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const wrap = document.querySelector('.topbar-h-org');
+  if (wrap && !wrap.contains(e.target)) closeOrgMenu();
+});
+function toggleLeftChat() {
+  const el = document.getElementById('left-chat');
+  if (!el) return;
+  const collapsing = !el.classList.contains('collapsed');
+  el.classList.toggle('collapsed', collapsing);
+  if (collapsing) {
+    // Clear inline width so the .collapsed CSS rule can take over
+    el.style.width = '';
+    el.style.minWidth = '';
+    el.style.maxWidth = '';
+  } else {
+    restoreLeftChatWidth();
+    setTimeout(() => document.getElementById('dash-chat-input')?.focus(), 260);
   }
 }
+
+// Manual drag-to-resize for the left chat
+const LEFT_CHAT_WIDTH_KEY = 'alcoveiq_left_chat_width';
+function applyLeftChatWidth(px) {
+  const el = document.getElementById('left-chat');
+  if (!el) return;
+  const max = Math.round(window.innerWidth * 5 / 12);
+  const min = 280;
+  const w = Math.max(min, Math.min(max, px));
+  el.style.width = w + 'px';
+  el.style.maxWidth = max + 'px';
+  el.style.minWidth = min + 'px';
+}
+function startLeftChatResize(e) {
+  e.preventDefault();
+  const el = document.getElementById('left-chat');
+  if (!el || el.classList.contains('collapsed')) return;
+  el.classList.add('resizing');
+  const startX = e.clientX;
+  const startW = el.getBoundingClientRect().width;
+  function onMove(ev) { applyLeftChatWidth(startW + (ev.clientX - startX)); }
+  function onUp() {
+    el.classList.remove('resizing');
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    localStorage.setItem(LEFT_CHAT_WIDTH_KEY, el.getBoundingClientRect().width);
+  }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+function restoreLeftChatWidth() {
+  const saved = parseInt(localStorage.getItem(LEFT_CHAT_WIDTH_KEY), 10);
+  if (saved) applyLeftChatWidth(saved);
+}
+window.addEventListener('resize', restoreLeftChatWidth);
+document.addEventListener('DOMContentLoaded', restoreLeftChatWidth);
 
 function sendBarPrompt() {
   const input = document.getElementById('ai-bar-prompt');
@@ -2898,25 +4329,493 @@ function sendBarPrompt() {
   setTimeout(() => chatSend(text), 300);
 }
 
-function chatSend(text) {
-  if (!text) text = document.getElementById('chat-input').value.trim();
-  if (!text) return;
-  document.getElementById('chat-input').value = '';
+// ─── DASHBOARD CHAT — multi-thread state ─────────────────────
+const DASH_CHAT_STORAGE_KEY = 'alcoveiq_dash_threads_v3';
+const DASH_CHAT_CURRENT_KEY = 'alcoveiq_dash_current_thread_v3';
+
+function dashChatLoadAll() {
+  try { return JSON.parse(localStorage.getItem(DASH_CHAT_STORAGE_KEY)) || []; } catch { return []; }
+}
+function dashChatSaveAll(threads) {
+  localStorage.setItem(DASH_CHAT_STORAGE_KEY, JSON.stringify(threads));
+}
+function dashChatGetCurrent() {
+  return localStorage.getItem(DASH_CHAT_CURRENT_KEY);
+}
+function dashChatSetCurrent(id) {
+  localStorage.setItem(DASH_CHAT_CURRENT_KEY, id);
+}
+function dashChatTitleFromText(text) {
+  const trimmed = text.trim().replace(/\s+/g, ' ');
+  if (trimmed.length <= 42) return trimmed;
+  return trimmed.slice(0, 40).trim() + '…';
+}
+function dashChatRelativeTime(iso) {
+  const d = new Date(iso); const now = new Date();
+  const diff = (now - d) / 1000;
+  if (diff < 60) return 'now';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (d.toDateString() === now.toDateString()) return 'Today ' + d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+  const yesterday = new Date(now); yesterday.setDate(yesterday.getDate()-1);
+  if (d.toDateString() === yesterday.toDateString()) return 'Yesterday';
+  return d.toLocaleDateString([], {month:'short', day:'numeric'});
+}
+
+function dashChatNew() {
+  const id = 't_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+  const thread = { id, title: 'New conversation', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), messages: [] };
+  const threads = dashChatLoadAll();
+  threads.unshift(thread);
+  dashChatSaveAll(threads);
+  dashChatSetCurrent(id);
+  dashChatRenderThread(id);
+  closeDashChatMenu();
+}
+
+function dashChatLoadThread(id) {
+  dashChatSetCurrent(id);
+  dashChatRenderThread(id);
+  closeDashChatMenu();
+}
+
+function dashChatRenderThread(id) {
+  const threads = dashChatLoadAll();
+  const thread = threads.find(t => t.id === id);
+  const msgs = document.getElementById('dash-chat-messages');
+  if (!msgs) return;
+
+  // Greeting + chips for empty thread (dynamic based on portfolio state)
+  if (!thread || thread.messages.length === 0) {
+    let greeting, chips;
+    if (entities.length === 0) {
+      greeting = `Welcome to AlcoveIQ. This is your empty workspace — add your first entity to get started, or just ask me anything.`;
+      chips = `
+        <button onclick="openWizard()">🏢 Form your first entity</button>
+        <button onclick="dashChatSend('What can you help me with?')">💬 What can you do?</button>
+        <button onclick="dashChatSend('Tell me about AlcoveIQ')">ℹ Tell me about AlcoveIQ</button>`;
+    } else {
+      const overdue = complianceItems.filter(c => c.badge === 'red').length;
+      const dueSoon = complianceItems.filter(c => c.badge === 'amber').length;
+      const upcoming = complianceItems.filter(c => c.badge !== 'red' && c.badge !== 'green').length;
+      const totalFees = complianceItems.filter(c => c.badge !== 'green').reduce((s,c) => s + parseFloat((c.fee||'$0').replace(/[^0-9.]/g,'')||0), 0);
+      const lines = [];
+      if (overdue > 0) lines.push(`• ${overdue} overdue filing${overdue===1?'':'s'}`);
+      if (dueSoon > 0) lines.push(`• ${dueSoon} due soon`);
+      if (upcoming > 0) lines.push(`• ${upcoming} filing${upcoming===1?'':'s'} in the pipeline${totalFees > 0 ? ` ($${totalFees.toFixed(2)} total)` : ''}`);
+      const summary = lines.length > 0 ? lines.join('<br>') : '• Nothing pressing — you\'re all caught up.';
+      greeting = `Hi Maria — here's what's on your plate today:<br><br>${summary}<br><br>What do you want to tackle?`;
+      chips = `
+        <button onclick="dashChatSend('What needs my attention today?')">⚡ What needs attention?</button>
+        <button onclick="dashChatSend('File all overdue items')">📋 File overdue</button>
+        <button onclick="dashChatSend('Show all upcoming filings')">📅 Upcoming filings</button>
+        <button onclick="dashChatSend('How much have I spent in fees this quarter?')">💰 Fees this quarter</button>`;
+    }
+    msgs.innerHTML = `
+      <div class="dash-msg ai">
+        <div class="dash-bubble">${greeting}</div>
+      </div>
+      <div class="dash-chips" id="dash-chat-chips">${chips}</div>`;
+  } else {
+    msgs.innerHTML = thread.messages.map(m => {
+      const cards = m.cards || '';
+      const atts = m.role === 'user' ? dashChatAttachmentsHtml(m.attachments) : '';
+      return `<div class="dash-msg ${m.role}"><div class="dash-bubble">${m.text}${atts}</div>${cards}</div>`;
+    }).join('');
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+  dashChatRenderHeader(thread);
+  dashChatRenderHistory();
+}
+
+function dashChatRenderHeader(thread) {
+  const title = document.querySelector('.dash-chat-title');
+  const sub = document.getElementById('dash-chat-subtitle');
+  if (!title || !sub) return;
+  if (thread && thread.messages.length > 0) {
+    title.textContent = thread.title;
+    sub.textContent = dashChatRelativeTime(thread.updatedAt);
+  } else {
+    title.textContent = 'Ask me anything';
+    sub.textContent = 'Compliance, filings, orders & more';
+  }
+}
+function sideChatRenderHeader(thread) {
+  const titleEl = document.querySelector('#chat-panel .chat-header-title span');
+  if (!titleEl) return;
+  if (thread && thread.messages.length > 0) {
+    titleEl.textContent = thread.title;
+  } else {
+    titleEl.textContent = 'New conversation';
+  }
+}
+
+function dashChatRenderHistory() {
+  const list = document.getElementById('dash-chat-menu-list');
+  if (!list) return;
+  const threads = dashChatLoadAll().filter(t => t.messages.length > 0);
+  const currentId = dashChatGetCurrent();
+  if (threads.length === 0) {
+    list.innerHTML = `<div class="dash-chat-menu-empty">No past conversations yet</div>`;
+    return;
+  }
+  list.innerHTML = threads.slice(0, 10).map(t => `
+    <button class="dash-chat-menu-item dash-chat-menu-thread${t.id === currentId ? ' active' : ''}" onclick="event.stopPropagation();dashChatLoadThread('${t.id}')">
+      <span class="dash-chat-menu-thread-title">${t.title}</span>
+      <span class="dash-chat-menu-thread-meta">${dashChatRelativeTime(t.updatedAt)}</span>
+    </button>`).join('');
+}
+
+function positionDashChatMenu() {
+  const menu = document.getElementById('dash-chat-menu');
+  const btn = document.querySelector('.dash-chat-menu-btn');
+  if (!menu || !btn) return;
+  const r = btn.getBoundingClientRect();
+  menu.style.top = (r.bottom + 6) + 'px';
+  menu.style.right = (window.innerWidth - r.right) + 'px';
+}
+function toggleDashChatMenu(ev) {
+  ev && ev.stopPropagation();
+  const menu = document.getElementById('dash-chat-menu');
+  const willOpen = !menu.classList.contains('open');
+  if (willOpen) positionDashChatMenu();
+  menu.classList.toggle('open');
+  if (willOpen) dashChatRenderHistory();
+}
+function closeDashChatMenu() {
+  const m = document.getElementById('dash-chat-menu');
+  if (m) m.classList.remove('open');
+  const sm = document.getElementById('side-chat-menu');
+  if (sm) sm.classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const wrap = document.querySelector('.dash-chat-menu-wrap');
+  const sideWrap = document.querySelector('.side-chat-menu-wrap');
+  const menu = document.getElementById('dash-chat-menu');
+  const sideMenu = document.getElementById('side-chat-menu');
+  if (wrap && !wrap.contains(e.target) && menu && !menu.contains(e.target)) menu.classList.remove('open');
+  if (sideWrap && !sideWrap.contains(e.target) && sideMenu && !sideMenu.contains(e.target)) sideMenu.classList.remove('open');
+});
+window.addEventListener('resize', () => { positionDashChatMenu(); positionSideChatMenu(); });
+window.addEventListener('scroll', () => { positionDashChatMenu(); positionSideChatMenu(); }, true);
+
+// Attachments staged for the next send
+let dashChatStagedAttachments = [];
+function dashChatAttachFiles(fileList) {
+  for (const f of fileList) {
+    dashChatStagedAttachments.push({ name: f.name, size: f.size });
+  }
+  dashChatRenderAttachments();
+  document.getElementById('dash-chat-file').value = '';
+}
+function dashChatRemoveAttachment(idx) {
+  dashChatStagedAttachments.splice(idx, 1);
+  dashChatRenderAttachments();
+}
+function dashChatRenderAttachments() {
+  const wrap = document.getElementById('dash-chat-attachments');
+  if (!wrap) return;
+  wrap.innerHTML = dashChatStagedAttachments.map((a, i) => `
+    <span class="dash-chat-attach-chip">
+      <span>📎</span>
+      <span class="dash-chat-attach-chip-name">${a.name}</span>
+      <button onclick="dashChatRemoveAttachment(${i})" aria-label="Remove">×</button>
+    </span>`).join('');
+}
+function dashChatAttachmentsHtml(atts) {
+  if (!atts || atts.length === 0) return '';
+  return `<div class="dash-bubble-attachments">${atts.map(a => `<span class="dash-bubble-attach">📎 ${a.name}</span>`).join('')}</div>`;
+}
+
+function dashChatSend(text) {
+  const inputEl = document.getElementById('dash-chat-input');
+  if (!text) text = inputEl.value.trim();
+  if (!text && dashChatStagedAttachments.length === 0) return;
+  if (!text && dashChatStagedAttachments.length > 0) text = 'Here are some files for you to look at';
+  inputEl.value = '';
+  const attachments = dashChatStagedAttachments.slice();
+  dashChatStagedAttachments = [];
+  dashChatRenderAttachments();
   addRecentQuery(text);
-  addChatMsg(text, 'user');
-  // Hide recent queries once conversation starts
-  const rq = document.getElementById('chat-recent-queries');
-  if (rq) rq.style.display = 'none';
-  // Show typing indicator
+
+  // Ensure a current thread
+  let currentId = dashChatGetCurrent();
+  let threads = dashChatLoadAll();
+  let thread = threads.find(t => t.id === currentId);
+  if (!thread) {
+    currentId = 't_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    thread = { id: currentId, title: 'New conversation', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), messages: [] };
+    threads.unshift(thread);
+    dashChatSetCurrent(currentId);
+  }
+
+  const msgs = document.getElementById('dash-chat-messages');
+  const chips = document.getElementById('dash-chat-chips');
+  if (chips) chips.remove();
+  // First-time greeting bubble — keep it as a visual element only
+  // (we don't store it in thread.messages, so on reload the user sees their actual conversation)
+
+  const user = document.createElement('div');
+  user.className = 'dash-msg user';
+  user.innerHTML = `<div class="dash-bubble">${text}${dashChatAttachmentsHtml(attachments)}</div>`;
+  msgs.appendChild(user);
+
+  const typing = document.createElement('div');
+  typing.className = 'dash-msg ai';
+  typing.innerHTML = `<div class="dash-bubble"><div class="chat-typing"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(typing);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Set thread title from first user message
+  const isFirstUserMessage = thread.messages.filter(m => m.role === 'user').length === 0;
+  thread.messages.push({ role: 'user', text, attachments });
+  if (isFirstUserMessage) thread.title = dashChatTitleFromText(text);
+  thread.updatedAt = new Date().toISOString();
+  dashChatSaveAll(threads);
+
+  setTimeout(() => {
+    typing.remove();
+    // Route through active flow first; else detect a new flow trigger; else normal response
+    let r;
+    if (chatFlowState) {
+      r = continueChatFlow(text);
+    } else {
+      const flowId = detectChatFlow(text);
+      r = flowId ? startChatFlow(flowId) : generateChatResponse(text);
+    }
+    const ai = document.createElement('div');
+    ai.className = 'dash-msg ai';
+    ai.innerHTML = `<div class="dash-bubble">${r.text}</div>${r.cards || ''}`;
+    msgs.appendChild(ai);
+    msgs.scrollTop = msgs.scrollHeight;
+    // Persist AI response
+    const ts = dashChatLoadAll();
+    const t = ts.find(x => x.id === currentId);
+    if (t) {
+      t.messages.push({ role: 'ai', text: r.text, cards: r.cards });
+      t.updatedAt = new Date().toISOString();
+      dashChatSaveAll(ts);
+      dashChatRenderHeader(t);
+    }
+  }, 600 + Math.random() * 400);
+}
+
+function dashChatSeedExamples() {
+  // Demo conversations with realistic past dates
+  const now = Date.now();
+  const dayMs = 24*60*60*1000;
+  const seeds = [
+    { ago: 0.1 * dayMs, prompts: ['Tell me about Maple Holdco'] },
+    { ago: 0.5 * dayMs, prompts: ['What needs my attention today?'] },
+    { ago: 1.2 * dayMs, prompts: ['How much have I spent in fees this quarter?'] },
+    { ago: 2.5 * dayMs, prompts: ['Show all upcoming filings'] },
+    { ago: 4.0 * dayMs, prompts: ['File annual report for Redwood Fund II LP, rush'] },
+  ];
+  return seeds.map((s, i) => {
+    const ts = new Date(now - s.ago).toISOString();
+    const messages = [];
+    s.prompts.forEach(p => {
+      messages.push({ role: 'user', text: p });
+      const r = generateChatResponse(p);
+      messages.push({ role: 'ai', text: r.text, cards: r.cards });
+    });
+    return {
+      id: 't_seed_' + i + '_' + Math.random().toString(36).slice(2,6),
+      title: dashChatTitleFromText(s.prompts[0]),
+      createdAt: ts,
+      updatedAt: ts,
+      messages
+    };
+  });
+}
+
+function dashChatInit() {
+  let threads = dashChatLoadAll();
+  // First-ever load: seed example past conversations (only in populated preset)
+  if (threads.length === 0 && getDemoPreset() !== 'empty') {
+    threads = dashChatSeedExamples();
+    dashChatSaveAll(threads);
+  }
+  let currentId = dashChatGetCurrent();
+  if (!currentId || !threads.find(t => t.id === currentId)) {
+    // Create a fresh empty thread as the current one (on top of seeded history)
+    const id = 't_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    threads.unshift({ id, title: 'New conversation', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), messages: [] });
+    dashChatSaveAll(threads);
+    dashChatSetCurrent(id);
+    currentId = id;
+  }
+  dashChatRenderThread(currentId);
+}
+
+// ─── SIDE-PANEL CHAT — shares the dashboard chat thread pool ───
+let sideChatStagedAttachments = [];
+function sideChatAttachFiles(fileList) {
+  for (const f of fileList) sideChatStagedAttachments.push({ name: f.name, size: f.size });
+  sideChatRenderAttachments();
+  document.getElementById('side-chat-file').value = '';
+}
+function sideChatRemoveAttachment(idx) {
+  sideChatStagedAttachments.splice(idx, 1);
+  sideChatRenderAttachments();
+}
+function sideChatRenderAttachments() {
+  const wrap = document.getElementById('side-chat-attachments');
+  if (!wrap) return;
+  wrap.innerHTML = sideChatStagedAttachments.map((a, i) => `
+    <span class="dash-chat-attach-chip">
+      <span>📎</span>
+      <span class="dash-chat-attach-chip-name">${a.name}</span>
+      <button onclick="sideChatRemoveAttachment(${i})" aria-label="Remove">×</button>
+    </span>`).join('');
+}
+
+function sideChatNew() {
+  dashChatNew(); // creates a new thread + sets current
+  sideChatRenderThread(dashChatGetCurrent());
+  closeSideChatMenu();
+}
+function sideChatLoadThread(id) {
+  dashChatSetCurrent(id);
+  sideChatRenderThread(id);
+  // Also refresh dashboard if it's showing
+  if (document.getElementById('dash-chat-messages')) dashChatRenderThread(id);
+  closeSideChatMenu();
+}
+function sideChatRenderThread(id) {
+  const threads = dashChatLoadAll();
+  const thread = threads.find(t => t.id === id);
+  const msgs = document.getElementById('chat-messages');
+  if (!msgs) return;
+  if (!thread || thread.messages.length === 0) {
+    msgs.innerHTML = `<div class="chat-msg ai"><div class="chat-bubble">Hi! I'm your AlcoveIQ assistant. Ask about entities, check compliance, file orders, or attach a document.</div></div>`;
+  } else {
+    msgs.innerHTML = thread.messages.map(m => {
+      const cards = m.cards || '';
+      const atts = m.role === 'user' && m.attachments ? `<div class="dash-bubble-attachments">${m.attachments.map(a => `<span class="dash-bubble-attach">📎 ${a.name}</span>`).join('')}</div>` : '';
+      return `<div class="chat-msg ${m.role}"><div class="chat-bubble">${m.text}${atts}</div>${cards}</div>`;
+    }).join('');
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+  sideChatRenderHeader(thread);
+  sideChatRenderHistory();
+}
+function sideChatRenderHistory() {
+  const list = document.getElementById('side-chat-menu-list');
+  if (!list) return;
+  const threads = dashChatLoadAll().filter(t => t.messages.length > 0);
+  const currentId = dashChatGetCurrent();
+  if (threads.length === 0) {
+    list.innerHTML = `<div class="dash-chat-menu-empty">No past conversations yet</div>`;
+    return;
+  }
+  list.innerHTML = threads.slice(0, 10).map(t => `
+    <button class="dash-chat-menu-item dash-chat-menu-thread${t.id === currentId ? ' active' : ''}" onclick="event.stopPropagation();sideChatLoadThread('${t.id}')">
+      <span class="dash-chat-menu-thread-title">${t.title}</span>
+      <span class="dash-chat-menu-thread-meta">${dashChatRelativeTime(t.updatedAt)}</span>
+    </button>`).join('');
+}
+function positionSideChatMenu() {
+  const menu = document.getElementById('side-chat-menu');
+  const btn = document.querySelector('.side-chat-menu-wrap .dash-chat-menu-btn');
+  if (!menu || !btn) return;
+  const r = btn.getBoundingClientRect();
+  menu.style.top = (r.bottom + 6) + 'px';
+  menu.style.right = (window.innerWidth - r.right) + 'px';
+}
+function toggleSideChatMenu(ev) {
+  ev && ev.stopPropagation();
+  const menu = document.getElementById('side-chat-menu');
+  const willOpen = !menu.classList.contains('open');
+  if (willOpen) positionSideChatMenu();
+  menu.classList.toggle('open');
+  if (willOpen) sideChatRenderHistory();
+}
+function closeSideChatMenu() {
+  const m = document.getElementById('side-chat-menu');
+  if (m) m.classList.remove('open');
+}
+
+function chatSend(text) {
+  // The slide-in chat is hidden; route everything to the always-on left chat.
+  if (typeof dashChatSend === 'function') return dashChatSend(text);
+  const inputEl = document.getElementById('chat-input');
+  if (!text) text = inputEl.value.trim();
+  if (!text && sideChatStagedAttachments.length === 0) return;
+  if (!text && sideChatStagedAttachments.length > 0) text = 'Here are some files for you to look at';
+  inputEl.value = '';
+  const attachments = sideChatStagedAttachments.slice();
+  sideChatStagedAttachments = [];
+  sideChatRenderAttachments();
+  addRecentQuery(text);
+
+  // Ensure a current thread (shared with dashboard)
+  let currentId = dashChatGetCurrent();
+  let threads = dashChatLoadAll();
+  let thread = threads.find(t => t.id === currentId);
+  if (!thread) {
+    currentId = 't_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    thread = { id: currentId, title: 'New conversation', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), messages: [] };
+    threads.unshift(thread);
+    dashChatSetCurrent(currentId);
+  }
+
+  const msgs = document.getElementById('chat-messages');
+  // Replace greeting if empty thread
+  if (thread.messages.length === 0) msgs.innerHTML = '';
+
+  const attsHtml = attachments.length ? `<div class="dash-bubble-attachments">${attachments.map(a => `<span class="dash-bubble-attach">📎 ${a.name}</span>`).join('')}</div>` : '';
+  const user = document.createElement('div');
+  user.className = 'chat-msg user';
+  user.innerHTML = `<div class="chat-bubble">${text}${attsHtml}</div>`;
+  msgs.appendChild(user);
   const typing = addChatTyping();
+
+  const isFirstUserMessage = thread.messages.filter(m => m.role === 'user').length === 0;
+  thread.messages.push({ role: 'user', text, attachments });
+  if (isFirstUserMessage) thread.title = dashChatTitleFromText(text);
+  thread.updatedAt = new Date().toISOString();
+  dashChatSaveAll(threads);
+
   setTimeout(() => {
     typing.remove();
     const response = generateChatResponse(text);
     addChatMsg(response.text, 'ai', response.cards);
+    const ts = dashChatLoadAll();
+    const t = ts.find(x => x.id === currentId);
+    if (t) {
+      t.messages.push({ role: 'ai', text: response.text, cards: response.cards });
+      t.updatedAt = new Date().toISOString();
+      dashChatSaveAll(ts);
+    }
   }, 600 + Math.random() * 600);
 }
 
 function addChatMsg(text, sender, cards) {
+  // Prefer the always-on left chat surface; fall back to legacy slide-in.
+  const dashMsgs = document.getElementById('dash-chat-messages');
+  if (dashMsgs) {
+    // Hide the starter chips once anything is added by AI flows
+    const chips = document.getElementById('dash-chat-chips');
+    if (chips) chips.style.display = 'none';
+    const div = document.createElement('div');
+    div.className = `dash-msg ${sender}`;
+    let html = `<div class="dash-bubble">${text}</div>`;
+    if (cards) html += cards;
+    div.innerHTML = html;
+    dashMsgs.appendChild(div);
+    dashMsgs.scrollTop = dashMsgs.scrollHeight;
+    // Persist to the active thread so the message survives reload
+    try {
+      const threads = dashChatLoadAll();
+      const t = threads.find(x => x.id === dashChatGetCurrent());
+      if (t) {
+        t.messages.push({ role: sender, text, cards });
+        t.updatedAt = new Date().toISOString();
+        dashChatSaveAll(threads);
+      }
+    } catch (e) {}
+    return div;
+  }
   const msgs = document.getElementById('chat-messages');
   const div = document.createElement('div');
   div.className = `chat-msg ${sender}`;
@@ -2938,6 +4837,244 @@ function addChatTyping() {
   return div;
 }
 
+// ─── CONVERSATIONAL FLOWS — multi-turn guided commands ────────
+let chatFlowState = null; // { id, step, data }
+
+const STATE_NAME_MAP = { delaware:'DE', de:'DE', wyoming:'WY', wy:'WY', california:'CA', ca:'CA', 'new york':'NY', ny:'NY', texas:'TX', tx:'TX', florida:'FL', fl:'FL', nevada:'NV', nv:'NV' };
+
+function detectChatFlow(text) {
+  const q = text.toLowerCase().trim();
+  // create-entity triggers
+  if (/\b(form|create|start|spin up|spin-up|set up|make|register)\b.*\b(entity|llc|lp|corp|corporation|spv|fund|company|subsidiary|holdco)\b/i.test(q) ||
+      /^(new entity|form entity|form a new|create a new|form another|new spv|new fund|new llc|new lp)/i.test(q)) {
+    return 'create-entity';
+  }
+  return null;
+}
+
+function startChatFlow(id) {
+  chatFlowState = { id, step: 0, data: {} };
+  return chatFlowHandlers[id].open();
+}
+
+function continueChatFlow(text) {
+  if (!chatFlowState) return null;
+  const t = text.trim();
+  if (/^(cancel|stop|exit|nevermind|never mind|forget it|abort)$/i.test(t)) {
+    chatFlowState = null;
+    return { text: 'Cancelled — nothing was submitted.' };
+  }
+  return chatFlowHandlers[chatFlowState.id].step(chatFlowState, text);
+}
+
+function flowChips(opts) {
+  return `<div class="chat-suggestions" style="margin-top:8px;">${opts.map(o => `<button onclick="dashChatSend('${o.replace(/'/g, "\\'")}')">${o}</button>`).join('')}</div>`;
+}
+
+const chatFlowHandlers = {
+  'create-entity': {
+    open: () => ({
+      text: `Great — let's form a new entity. What type?`,
+      cards: flowChips(['LLC', 'LP', 'Corporation'])
+    }),
+    step: (s, text) => {
+      const t = text.trim().toLowerCase();
+      // Step 0 → type
+      if (s.step === 0) {
+        let type = null;
+        if (/\bllc\b|limited liability company/i.test(t)) type = 'LLC';
+        else if (/\blp\b|limited partnership/i.test(t)) type = 'LP';
+        else if (/\bcorp(oration)?\b|\binc\b/i.test(t)) type = 'Corp';
+        if (!type) return { text: `I didn't catch that — pick one:`, cards: flowChips(['LLC', 'LP', 'Corporation']) };
+        s.data.type = type;
+        s.step = 1;
+        return {
+          text: `Got it — ${type === 'LP' ? 'an LP' : type === 'Corp' ? 'a Corporation' : 'an LLC'}. Which state should it be formed in?`,
+          cards: flowChips(['Delaware', 'Wyoming', 'California', 'New York', 'Texas', 'Florida', 'Nevada'])
+        };
+      }
+      // Step 1 → state
+      if (s.step === 1) {
+        // Find any state mention in the input
+        let code = STATE_NAME_MAP[t] || null;
+        if (!code) {
+          for (const [key, val] of Object.entries(STATE_NAME_MAP)) {
+            if (t.includes(key)) { code = val; break; }
+          }
+        }
+        if (!code && t.length >= 2) {
+          const upper = t.match(/\b([A-Z]{2})\b/i);
+          if (upper && ['DE','WY','CA','NY','TX','FL','NV'].includes(upper[1].toUpperCase())) {
+            code = upper[1].toUpperCase();
+          }
+        }
+        if (!code || !['DE','WY','CA','NY','TX','FL','NV'].includes(code)) {
+          return { text: 'Which state? Pick one:', cards: flowChips(['Delaware', 'Wyoming', 'California', 'New York', 'Texas']) };
+        }
+        s.data.state = code;
+        const stateFull = { DE:'Delaware', WY:'Wyoming', CA:'California', NY:'New York', TX:'Texas', FL:'Florida', NV:'Nevada' }[code];
+        s.step = 2;
+        const suggest = s.data.type === 'LP' ? 'Sequoia Fund IV' : s.data.type === 'Corp' ? 'Sequoia Capital' : `Venture SPV ${entities.length + 1}`;
+        return { text: `${stateFull} ✓. What's the entity name? I'll add "${s.data.type}" at the end for you (e.g., "${suggest}").` };
+      }
+      // Step 2 → name
+      if (s.step === 2) {
+        let name = text.trim();
+        if (name.length < 3) return { text: 'That name looks too short — try a full legal name.' };
+        // Detect suffix to catch type/name mismatches (legal requirement: name suffix must match entity type)
+        const SUFFIX_TO_TYPE = { 'llc':'LLC', 'l.l.c.':'LLC', 'limited liability company':'LLC',
+                                 'lp':'LP', 'l.p.':'LP', 'limited partnership':'LP',
+                                 'corp':'Corp', 'corp.':'Corp', 'corporation':'Corp',
+                                 'inc':'Corp', 'inc.':'Corp', 'incorporated':'Corp' };
+        const lower = name.toLowerCase();
+        let typedSuffix = null, typedType = null;
+        for (const sx of Object.keys(SUFFIX_TO_TYPE).sort((a,b) => b.length - a.length)) {
+          if (lower.endsWith(' ' + sx) || lower === sx) { typedSuffix = sx; typedType = SUFFIX_TO_TYPE[sx]; break; }
+        }
+        if (typedType && typedType !== s.data.type) {
+          // Suffix the user typed conflicts with the type they picked.
+          s.pendingName = name;
+          s.pendingTypedType = typedType;
+          s.pendingTypedSuffix = typedSuffix.toUpperCase();
+          s.step = 2.5;
+          return {
+            text: `Heads up — you ended the name with "<strong>${typedSuffix.toUpperCase()}</strong>" (a ${typedType} suffix), but you picked <strong>${s.data.type}</strong>. State filings reject names whose suffix doesn't match the entity type.`,
+            cards: flowChips([`Form as ${typedType} instead`, `Keep ${s.data.type}, rename`, 'Cancel'])
+          };
+        }
+        if (!typedSuffix) name = `${name} ${s.data.type}`;
+        if (entities.some(e => e.name.toLowerCase() === name.toLowerCase())) return { text: `"${name}" already exists in your portfolio. Try a different name.` };
+        s.data.name = name;
+        s.step = 3;
+        const officers = new Set();
+        entityExtra.forEach(x => (x.officers || []).forEach(o => {
+          if (o.role && (o.role.includes('Manager') || o.role.includes('Managing') || o.role.includes('General Partner'))) officers.add(o.name);
+        }));
+        const officerList = [...officers].slice(0, 4);
+        const chips = officerList.length > 0
+          ? flowChips(officerList)
+          : '';
+        return {
+          text: `"${name}" ✓. Who'll manage it? Pick an existing officer or type a new name.`,
+          cards: chips
+        };
+      }
+      // Step 2.5 → resolve type/suffix mismatch
+      if (s.step === 2.5) {
+        if (/form as.*(corp|llc|lp)|switch.*(corp|llc|lp)|use\s+(corp|llc|lp)/i.test(t) || new RegExp(`^form as ${s.pendingTypedType}`, 'i').test(t)) {
+          // Switch the entity type to match the typed suffix
+          s.data.type = s.pendingTypedType;
+          let name = s.pendingName;
+          if (entities.some(e => e.name.toLowerCase() === name.toLowerCase())) {
+            s.step = 2;
+            return { text: `"${name}" already exists. Try a different name.` };
+          }
+          s.data.name = name;
+          delete s.pendingName; delete s.pendingTypedType; delete s.pendingTypedSuffix;
+          s.step = 3;
+          const officers = new Set();
+          entityExtra.forEach(x => (x.officers || []).forEach(o => {
+            if (o.role && (o.role.includes('Manager') || o.role.includes('Managing') || o.role.includes('General Partner'))) officers.add(o.name);
+          }));
+          const officerList = [...officers].slice(0, 4);
+          return {
+            text: `Updated — forming as a <strong>${s.data.type}</strong>. "${name}" ✓. Who'll manage it?`,
+            cards: officerList.length > 0 ? flowChips(officerList) : ''
+          };
+        }
+        if (/keep.*rename|^keep|rename/i.test(t)) {
+          delete s.pendingName; delete s.pendingTypedType; delete s.pendingTypedSuffix;
+          s.step = 2;
+          return { text: `Got it — staying as <strong>${s.data.type}</strong>. What's the entity name? (I'll add "${s.data.type}" automatically.)` };
+        }
+        // Unrecognized response — re-prompt with chips
+        return {
+          text: `Pick one:`,
+          cards: flowChips([`Form as ${s.pendingTypedType} instead`, `Keep ${s.data.type}, rename`, 'Cancel'])
+        };
+      }
+      // Step 3 → manager
+      if (s.step === 3) {
+        const name = text.trim();
+        if (name.length < 2) return { text: 'Please type a manager name.' };
+        s.data.manager = name;
+        s.step = 4;
+        const parents = entities.filter(e => e.category === 'fund' || e.category === 'gp' || e.category === 'holdco').slice(0, 4);
+        const parentList = parents.map(p => p.name);
+        parentList.push('Standalone');
+        return {
+          text: `Manager: ${name}. Last question — is this a subsidiary of an existing entity, or standalone?`,
+          cards: flowChips(parentList)
+        };
+      }
+      // Step 4 → parent
+      if (s.step === 4) {
+        const raw = text.trim();
+        let parent;
+        if (/^standalone|^none|^no parent|^standalon$/i.test(raw)) parent = 'Standalone';
+        else {
+          // Try fuzzy match against entities
+          const match = entities.find(e => e.name.toLowerCase() === raw.toLowerCase() || e.name.toLowerCase().startsWith(raw.toLowerCase()));
+          parent = match ? match.name : raw;
+        }
+        s.data.parent = parent;
+        s.step = 5;
+        const stateFull = { DE:'Delaware', WY:'Wyoming', CA:'California', NY:'New York', TX:'Texas', FL:'Florida', NV:'Nevada' }[s.data.state];
+        const summary = `Ready to file:<br>
+• <strong>${s.data.name}</strong><br>
+• ${s.data.type} formed in ${stateFull}<br>
+• Manager: ${s.data.manager}<br>
+• Parent: ${s.data.parent}<br><br>
+Confirm to submit the formation order?`;
+        return {
+          text: summary,
+          cards: flowChips(['Yes, submit', 'Cancel'])
+        };
+      }
+      // Step 5 → confirm
+      if (s.step === 5) {
+        if (/^(y|yes|confirm|ok|do it|go|submit|file|yes,?\s*submit)/i.test(t)) {
+          const data = s.data;
+          chatFlowState = null;
+          try {
+            stateCreateEntity({ name: data.name, type: data.type, state: data.state, manager: data.manager, parent: data.parent, ein: true });
+            const newOrder = orders[0];
+            const orderRow = newOrder
+              ? `<div class="cc-row"><span>Formation order</span><span style="color:var(--teal);font-family:monospace;">${newOrder.id}</span></div>`
+              : '';
+            const orderBtn = newOrder
+              ? `<button onclick="openOrderDetail('${newOrder.id}')">Open formation order</button>`
+              : '';
+            return {
+              text: `Done — ${data.name} is on its way.`,
+              cards: `<div class="chat-success-banner">✓ Entity created · formation order submitted</div>
+                      <div class="chat-card">
+                        <div class="cc-label">${data.name}</div>
+                        <div class="cc-row"><span>Type</span><span>${data.type}</span></div>
+                        <div class="cc-row"><span>State</span><span>${data.state}</span></div>
+                        <div class="cc-row"><span>Manager</span><span>${data.manager}</span></div>
+                        <div class="cc-row"><span>Parent</span><span>${data.parent}</span></div>
+                        ${orderRow}
+                        <div class="chat-suggestions" style="margin-top:8px;">
+                          <button onclick="openEntityDetail(${entities.indexOf(entities.find(e => e.name === data.name))})">View entity →</button>
+                          ${orderBtn}
+                        </div>
+                      </div>`
+            };
+          } catch (e) {
+            return { text: `I couldn't create that entity.`, cards: `<div class="chat-error-banner">✕ ${e.message || 'Unknown error'}</div>` };
+          }
+        }
+        if (/^(n|no|cancel|stop)/i.test(t)) {
+          chatFlowState = null;
+          return { text: 'Cancelled — nothing was submitted.' };
+        }
+        return { text: 'Type <strong>yes</strong> to submit, or <strong>no</strong> to cancel.', cards: flowChips(['Yes, submit', 'Cancel']) };
+      }
+    }
+  }
+};
+
 function generateChatResponse(input) {
   const q = input.toLowerCase();
 
@@ -2953,9 +5090,19 @@ function generateChatResponse(input) {
       const icon = c.badge === 'red' ? '🔴' : '🟡';
       alerts += `<div class="cc-alert"><div class="cc-alert-icon">${icon}</div><div class="cc-alert-text"><strong>${c.title}</strong> — ${c.entity} · ${c.state}. Fee: ${c.fee}. Status: ${c.badgeLabel}.</div></div>`;
     });
+    const stateFullNameMap = { CA:'California', DE:'Delaware', WY:'Wyoming', NY:'New York', TX:'Texas', FL:'Florida', NV:'Nevada' };
+    let chips = '';
+    if (lapsedRA.length > 0) {
+      const e = lapsedRA[0];
+      const stName = stateFullNameMap[e.state] || e.state;
+      chips += `<button onclick="chatSend('File RA reinstatement for ${e.name} in ${stName}, rush')">Reinstate ${e.name.split(' ')[0]} RA</button>`;
+    }
+    if (urgent.filter(c => c.badge === 'red').length > 0) {
+      chips += `<button onclick="chatSend('File the overdue items')">File overdue items</button>`;
+    }
     return {
       text: `You have ${urgent.length + lapsedRA.length} items requiring attention:`,
-      cards: `<div class="chat-card"><div class="cc-label">Action Required</div>${alerts}</div><div class="chat-suggestions"><button onclick="chatSend('File the overdue items')">File overdue items</button><button onclick="chatSend('Tell me about Maple Holdco')">Maple Holdco details</button></div>`
+      cards: `<div class="chat-card"><div class="cc-label">Action Required</div>${alerts}</div><div class="chat-suggestions">${chips}</div>`
     };
   }
 
@@ -3035,7 +5182,7 @@ function generateChatResponse(input) {
           <div class="cc-row"><span>Priority</span><span>${priority}</span></div>
           <div class="cc-row"><span>State fee</span><span>${fee}</span></div>
           <div class="chat-confirm">
-            <button class="cc-yes" onclick="chatConfirmOrder('${matchedEntity.name}','${state}','${service}')">Confirm & Submit</button>
+            <button class="cc-yes" onclick="chatConfirmOrder('${matchedEntity.name}','${state}','${service}','${priority.toLowerCase()}')">Confirm & Submit</button>
             <button class="cc-no" onclick="addChatMsg('Order cancelled.','ai')">Cancel</button>
           </div>
         </div>`
@@ -3154,9 +5301,22 @@ function generateChatResponse(input) {
   };
 }
 
-function chatConfirmOrder(entityName, state, service) {
-  showToast('✅', `Order #${orderCounter++} submitted — ${entityName} · ${stateFullName(state)}.`);
-  addChatMsg(`✅ Order #${orderCounter - 1} submitted for ${entityName} — ${service} in ${stateFullName(state)}. You'll be notified when it's complete.`, 'ai');
+function chatConfirmOrder(entityName, state, service, priority) {
+  try {
+    const order = stateFileOrder({ entity: entityName, title: service, state, priority: priority || 'standard' });
+    showToast('✅', `${service} filed for ${entityName} — ${order.id}`, () => openOrderDetail(order.id));
+    addChatMsg(`Done — I've submitted your ${service} for ${entityName}. It's now in progress.`, 'ai',
+      `<div class="chat-success-banner">✓ Order ${order.id} submitted successfully</div>
+       <div class="chat-card"><div class="cc-label">Order Details</div>
+         <div class="cc-row"><span>Service</span><span>${service}</span></div>
+         <div class="cc-row"><span>Entity</span><span>${entityName} · ${state}</span></div>
+         <div class="cc-row"><span>Status</span><span>${order.status}</span></div>
+         <div class="chat-suggestions" style="margin-top:8px;"><button onclick="openOrderDetail('${order.id}')">View order →</button></div>
+       </div>`);
+  } catch (e) {
+    addChatMsg(`I couldn't submit that order.`, 'ai',
+      `<div class="chat-error-banner">✕ Something went wrong: ${e.message || 'unknown error'}</div>`);
+  }
 }
 
 function chatBatchFile() {
@@ -3164,18 +5324,28 @@ function chatBatchFile() {
   const lapsedRA = entities.filter(e => e.ra === 'lapsed');
   const unblocked = overdue.filter(c => !lapsedRA.some(e => e.name === c.entity));
   if (unblocked.length === 0) {
-    addChatMsg('No unblocked overdue items to file.', 'ai');
+    addChatMsg(`There's nothing left to file right now.`, 'ai',
+      `<div class="chat-info-banner">ℹ No overdue items are unblocked. Reinstate any lapsed RAs first.</div>`);
     return;
   }
-  const orderNums = [];
-  unblocked.forEach(c => {
-    orderNums.push(orderCounter);
-    orderCounter++;
-  });
-  const summary = unblocked.map((c, i) => `<div class="cc-row"><span>Order #${orderNums[i]} — ${c.title}</span><span>${c.entity} · ${c.state}</span></div>`).join('');
-  const totalFees = unblocked.reduce((sum, c) => sum + parseFloat(c.fee.replace('$','').replace(',','')), 0);
-  showToast('✅', `${unblocked.length} orders submitted — $${totalFees.toFixed(2)} in state fees.`);
-  addChatMsg('', 'ai', `<div class="chat-card"><div class="cc-label">✅ ${unblocked.length} Orders Submitted</div>${summary}<div class="cc-row" style="border-top:1px solid var(--card-border);margin-top:6px;padding-top:6px;font-weight:600;"><span>Total Fees</span><span>$${totalFees.toFixed(2)}</span></div><div style="margin-top:8px;font-size:11px;color:var(--text-muted);">You'll be notified as each filing is completed.</div></div>`);
+  try {
+    const createdOrders = unblocked.map(c => stateFileOrder({ entity: c.entity, title: c.title, state: c.state, priority: 'rush', fee: c.fee }));
+    const summary = createdOrders.map((o, i) => {
+      const c = unblocked[i];
+      return `<div class="cc-row" style="cursor:pointer;" onclick="openOrderDetail('${o.id}')"><span><span style="color:var(--teal);font-family:monospace;font-size:11.5px;">${o.id}</span> — ${c.title}</span><span>${c.entity} · ${c.state}</span></div>`;
+    }).join('');
+    const totalFees = unblocked.reduce((sum, c) => sum + parseFloat(c.fee.replace('$','').replace(',','')), 0);
+    const firstId = createdOrders[0].id;
+    showToast('✅', `${unblocked.length} orders filed — $${totalFees.toFixed(2)} in fees`, () => { navigate('orders'); });
+    addChatMsg(`Done — I've filed ${unblocked.length} overdue ${unblocked.length === 1 ? 'item' : 'items'} for you on Rush priority.`, 'ai',
+      `<div class="chat-success-banner">✓ ${unblocked.length} order${unblocked.length===1?'':'s'} submitted · $${totalFees.toFixed(2)} in state fees</div>
+       <div class="chat-card"><div class="cc-label">Orders</div>${summary}
+         <div class="chat-suggestions" style="margin-top:10px;"><button onclick="navigate('orders')">View all orders →</button><button onclick="openOrderDetail('${firstId}')">Open first order</button></div>
+       </div>`);
+  } catch (e) {
+    addChatMsg(`I hit a problem filing those.`, 'ai',
+      `<div class="chat-error-banner">✕ ${e.message || 'Unknown error'}</div>`);
+  }
 }
 
 // ─── ENTITY FORMATION WIZARD (SIDEBAR) ───────────────────────
@@ -3298,7 +5468,7 @@ function renderWizStep() {
           </div>
         `).join('')}
       </div>
-      <input type="text" class="wiz-input" style="margin-top:12px;" placeholder="Or enter a new name…" oninput="wizSelect('manager',this.value)" value="${!managerList.includes(wiz.manager) ? wiz.manager : ''}">
+      <input type="text" class="wiz-input" id="wiz-manager-input" style="margin-top:12px;" placeholder="Or type a new name…" value="${!managerList.includes(wiz.manager) ? wiz.manager : ''}" oninput="wiz.manager=this.value;document.getElementById('wiz-next').disabled=!this.value.trim();document.querySelectorAll('.wiz-option').forEach(o=>o.classList.remove('selected'));">
     `;
   }
 
@@ -3376,10 +5546,14 @@ function wizNext() {
   if (step === 'parent' && !wiz.parent) return;
 
   if (wiz.step === wizSteps.length - 1) {
-    // Submit
+    // Submit — create the entity + formation order
     closeWizard();
-    showToast('✅', `Order #${orderCounter} submitted — ${wiz.name} · ${stateFullName(wiz.state)}.`);
-    orderCounter++;
+    stateCreateEntity({
+      name: wiz.name, type: wiz.type, state: wiz.state,
+      manager: wiz.manager, parent: wiz.parent, ein: wiz.ein
+    });
+    const newOrder = orders[0];
+    showToast('✅', `Formation order submitted for ${wiz.name} — ${newOrder.id}`, () => openOrderDetail(newOrder.id));
     return;
   }
   wiz.step++;
@@ -3426,17 +5600,33 @@ function startFormWizard() {
 <div id="chat-panel" class="chat-panel">
   <div class="chat-header">
     <div class="chat-header-title"><div class="chat-ai-dot"></div><span>AlcoveIQ Assistant</span></div>
-    <button onclick="toggleChat()">✕</button>
-  </div>
-  <div id="chat-messages" class="chat-messages">
-    <div class="chat-msg ai">
-      <div class="chat-bubble">Hi! I'm your AlcoveIQ assistant. I can answer questions about your entities, check compliance status, and file orders for you.</div>
-      <div id="chat-recent-queries" style="display:none;"></div>
+    <div class="side-chat-menu-wrap">
+      <button class="dash-chat-menu-btn" onclick="toggleSideChatMenu(event)" aria-label="Conversations" title="Conversations">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dash-chat-menu" id="side-chat-menu">
+        <button class="dash-chat-menu-item dash-chat-menu-new" onclick="event.stopPropagation();sideChatNew()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New conversation
+        </button>
+        <div class="dash-chat-menu-section-label">Conversations</div>
+        <div id="side-chat-menu-list"></div>
+      </div>
     </div>
+    <button onclick="toggleChat()" title="Close">✕</button>
   </div>
+  <div id="chat-messages" class="chat-messages"></div>
   <div class="chat-input-wrap">
-    <input type="text" id="chat-input" placeholder="Ask about entities, filings, or place an order…" onkeydown="if(event.key==='Enter')chatSend()">
-    <button onclick="chatSend()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    <div class="dash-chat-input-col">
+      <div id="side-chat-attachments" class="dash-chat-attachments"></div>
+      <input type="text" id="chat-input" placeholder="Ask about entities, filings, or place an order…" onkeydown="if(event.key==='Enter')chatSend()">
+    </div>
+    <input type="file" id="side-chat-file" multiple style="display:none;" onchange="sideChatAttachFiles(this.files)">
+    <button class="dash-chat-attach" onclick="document.getElementById('side-chat-file').click()" aria-label="Attach files" title="Attach files">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+    </button>
+    <button onclick="chatSend()" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
   </div>
 </div>
 
