@@ -1462,6 +1462,174 @@
     color: var(--text);
   }
 
+  /* ---- PHASE 3: Full-page entity / order / compliance views (no slide-in) ---- */
+  .ed-panel, #ed-panel, #ord-panel, #comp-panel { display: none !important; }
+  .ed-panel.open, #ed-panel.open, #ord-panel.open, #comp-panel.open {
+    display: flex !important;
+    position: fixed !important;
+    top: 62px !important;
+    left: var(--sb-w) !important;
+    right: var(--chat-w) !important;
+    bottom: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    border-left: none !important;
+    border-top: 1px solid var(--card-border);
+    box-shadow: none !important;
+    background: var(--bg) !important;
+    z-index: 30;
+    transition: none !important;
+    overflow-y: auto;
+    flex-direction: column;
+  }
+  /* Kill the dim overlay in full-page mode */
+  .ed-overlay { display: none !important; }
+  /* Headers as page headers */
+  .ed-panel.open .ed-panel-header,
+  #ed-panel.open .ed-panel-header,
+  #ord-panel.open .ed-panel-header,
+  #comp-panel.open .ed-panel-header {
+    background: var(--card); border-bottom: 1px solid var(--card-border);
+    padding: 22px 32px;
+  }
+  .ed-panel-close { color: var(--text-muted); background: transparent; border-radius: 8px; padding: 8px 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+  .ed-panel-close:hover { background: var(--panel2); color: var(--text); }
+  .ed-panel-close::before { content: "←"; font-size: 16px; line-height: 1; }
+  .ed-panel-body { padding: 24px 32px 48px !important; }
+
+  /* ---- PHASE 3: Dashboard stat cards row ---- */
+  .today-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 6px 0 22px;
+  }
+  .today-stat {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 18px;
+    box-shadow: 0 1px 2px rgba(17,17,26,0.03);
+    position: relative; overflow: hidden;
+  }
+  .today-stat .ts-label { font-size: 11px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); }
+  .today-stat .ts-value { font-family: 'Schibsted Grotesk', sans-serif; font-size: 32px; font-weight: 700; line-height: 1; margin-top: 10px; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .today-stat .ts-sub { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .today-stat .ts-bar {
+    position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; border-radius: 0 3px 3px 0;
+  }
+  .today-stat.red .ts-bar { background: var(--red); }
+  .today-stat.amber .ts-bar { background: var(--amber); }
+  .today-stat.green .ts-bar { background: var(--green); }
+  .today-stat.violet .ts-bar { background: var(--teal); }
+  .today-stat.red .ts-value { color: var(--red); }
+  .today-stat.amber .ts-value { color: var(--amber); }
+  .today-stat.green .ts-value { color: var(--green); }
+
+  /* Today header polish */
+  .today-header { padding: 24px 28px 4px; }
+  .today-title { font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+  .today-sections { padding: 0 28px 32px; }
+
+  /* ---- PHASE 4: Centered modal for entity creation (replaces slide-in wizard) ---- */
+  .wiz-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(17,17,26,0.32);
+    backdrop-filter: blur(2px);
+    z-index: 399;
+    display: none;
+  }
+  .wiz-backdrop.open { display: block; }
+  #wizard-panel.wizard-panel {
+    /* override the slide-in positioning */
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: 640px !important;
+    max-width: calc(100vw - 64px) !important;
+    max-height: 88vh !important;
+    height: auto !important;
+    background: var(--card) !important;
+    border: 1px solid var(--card-border) !important;
+    border-left: 1px solid var(--card-border) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 24px 70px rgba(17,17,26,0.22) !important;
+    z-index: 400;
+    display: none;
+    flex-direction: column;
+    transition: none !important;
+    overflow: hidden;
+  }
+  #wizard-panel.wizard-panel.open { display: flex !important; }
+  .wizard-header {
+    padding: 18px 22px; border-bottom: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .wizard-header h3 { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
+  .wizard-header p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .wizard-header-icon { width: 36px; height: 36px; border-radius: 9px; background: #EDE9FE; color: var(--teal); display: inline-flex; align-items: center; justify-content: center; font-size: 16px; }
+  .wizard-header > button { color: var(--text-muted); background: none; border: none; cursor: pointer; padding: 6px; border-radius: 6px; }
+  .wizard-header > button:hover { background: var(--panel2); color: var(--text); }
+  .wizard-steps { padding: 12px 22px 4px; display: flex; gap: 8px; }
+  .wizard-step-dot { flex: 1; height: 4px; border-radius: 2px; background: var(--cardHi); }
+  .wizard-step-dot.active { background: var(--teal); }
+  .wizard-step-dot.done { background: var(--teal-dark); }
+  .wizard-body { padding: 20px 22px 8px; overflow-y: auto; flex: 1; min-height: 0; }
+  .wizard-footer { padding: 14px 22px 18px !important; border-top: 1px solid var(--card-border) !important; gap: 10px; }
+  .wizard-footer .wiz-back, .wizard-footer .wiz-next {
+    height: 40px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 13.5px; cursor: pointer;
+  }
+  .wizard-footer .wiz-back { background: var(--card); border: 1px solid var(--card-border); color: var(--text); }
+  .wizard-footer .wiz-next { background: var(--teal); border: none; color: white; }
+  .wizard-footer .wiz-next:hover { background: var(--teal-dark); }
+
+  /* Continuous form layout */
+  .wfm-form { display: flex; flex-direction: column; gap: 22px; }
+  .wfm-section h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .wfm-field { display: flex; flex-direction: column; gap: 6px; }
+  .wfm-field label { font-size: 12.5px; font-weight: 600; color: var(--text); }
+  .wfm-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .wfm-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .wfm-input, .wfm-select {
+    background: var(--panel2); border: 1px solid transparent; border-radius: 8px;
+    padding: 0 13px; height: 42px;
+    color: var(--text); outline: none; font-family: inherit; font-size: 14px;
+    transition: .13s; width: 100%;
+  }
+  .wfm-input:focus, .wfm-select:focus {
+    background: #fff; border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.10);
+  }
+  .wfm-radio-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .wfm-radio {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 9px;
+    padding: 12px 14px; cursor: pointer; transition: .13s;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .wfm-radio strong { font-size: 13px; font-weight: 700; }
+  .wfm-radio small { color: var(--text-muted); font-size: 11px; }
+  .wfm-radio:hover { border-color: rgba(17,17,26,0.14); }
+  .wfm-radio.selected { border-color: var(--teal); background: #F8F5FF; box-shadow: 0 0 0 3px rgba(124,58,237,0.08); }
+  .wfm-checkbox-row { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--card-border); border-radius: 9px; background: var(--card); }
+  .wfm-checkbox-row input { accent-color: var(--teal); width: 16px; height: 16px; }
+  .wfm-checkbox-row .desc { flex: 1; }
+  .wfm-checkbox-row strong { font-size: 13px; display: block; }
+  .wfm-checkbox-row small { font-size: 11.5px; color: var(--text-muted); }
+
+  /* Payment screen */
+  .wfm-pay-summary {
+    background: var(--panel2); border: 1px solid var(--card-border); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 18px;
+  }
+  .wfm-pay-summary h5 { font-size: 12px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .wfm-pay-row { display: flex; justify-content: space-between; padding: 7px 0; font-size: 13.5px; }
+  .wfm-pay-row .lbl { color: var(--text-muted); }
+  .wfm-pay-row .val { color: var(--text); font-weight: 500; }
+  .wfm-pay-row.total { border-top: 1px solid var(--card-border); margin-top: 8px; padding-top: 12px; font-weight: 700; font-size: 16px; }
+  .wfm-pay-card-icons { display: flex; gap: 6px; }
+  .wfm-pay-card-icons span { background: var(--cardHi); border-radius: 4px; padding: 2px 8px; font-size: 9px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; }
+
   /* Responsive guard: collapse right chat into a FAB on narrow screens */
   @media (max-width: 1180px) {
     body { padding-right: 0; }
@@ -1665,6 +1833,12 @@
       <div class="today-header">
         <h1 class="today-title">Today</h1>
         <p class="today-sub" id="today-sub">Everything that needs you, in one place.</p>
+      </div>
+      <div class="today-stats" id="today-stats">
+        <div class="today-stat red"><div class="ts-bar"></div><div class="ts-label">Action required</div><div class="ts-value" id="ts-blockers">—</div><div class="ts-sub" id="ts-blockers-sub">Blockers + overdue filings</div></div>
+        <div class="today-stat amber"><div class="ts-bar"></div><div class="ts-label">Due this week</div><div class="ts-value" id="ts-week">—</div><div class="ts-sub" id="ts-week-sub">Across all jurisdictions</div></div>
+        <div class="today-stat violet"><div class="ts-bar"></div><div class="ts-label">Orders in flight</div><div class="ts-value" id="ts-orders">—</div><div class="ts-sub" id="ts-orders-sub">Being processed by AlcoveIQ</div></div>
+        <div class="today-stat green"><div class="ts-bar"></div><div class="ts-label">Filed YTD</div><div class="ts-value" id="ts-filed">—</div><div class="ts-sub" id="ts-filed-sub">Zero misses this year</div></div>
       </div>
       <div class="today-sections" id="today-sections">
         <!-- rendered by renderTodayPage() -->
@@ -4394,7 +4568,26 @@ function renderDashboardRecent() {
     ${items.map(q => `<button class="ai-bar-recent-btn" onclick="toggleChat();setTimeout(()=>chatSend('${q.replace(/'/g, "\\'")}'),300)"><span class="ai-bar-recent-icon">↩</span>${q}</button>`).join('')}
   `;
 }
+function renderTopStats() {
+  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  try {
+    const blocked = entities.filter(e => e.ra === 'lapsed').length;
+    const overdueCount = complianceItems.filter(c => c.badge === 'red').length;
+    const dueAmber = complianceItems.filter(c => c.badge === 'amber').length;
+    const inFlight = orders.filter(o => o.status !== 'Completed').length;
+    const filedYtd = complianceItems.filter(c => c.badge === 'green').length;
+    setText('ts-blockers', String(blocked + overdueCount));
+    setText('ts-blockers-sub', blocked > 0 ? `${blocked} RA blocker · ${overdueCount} overdue` : `${overdueCount} overdue filings`);
+    setText('ts-week', String(dueAmber));
+    setText('ts-orders', String(inFlight));
+    setText('ts-orders-sub', inFlight === 0 ? 'Nothing in queue' : `${inFlight} order${inFlight === 1 ? '' : 's'} processing`);
+    setText('ts-filed', String(filedYtd + 38));
+    setText('ts-filed-sub', 'Zero misses this year');
+  } catch (e) { /* fail silently — page renderer is more important */ }
+}
+
 function renderTodayPage() {
+  renderTopStats();
   const root = document.getElementById('today-sections');
   if (!root) return;
   const today = new Date('2026-05-08');
@@ -5729,201 +5922,225 @@ function chatBatchFile() {
 }
 
 // ─── ENTITY FORMATION WIZARD (SIDEBAR) ───────────────────────
-const wizSteps = ['type','state','name','manager','parent','review'];
-let wiz = { step: 0, type: '', state: '', name: '', manager: '', parent: '', ein: true };
+// Phase 4: Continuous form + payment (2 screens). Old multi-step still works via aliases below.
+const wizSteps = ['form','payment'];
+let wiz = { step: 0, type: 'LLC', state: 'DE', name: '', manager: '', parent: 'Standalone', ein: true,
+            cardName: '', cardNumber: '', cardExp: '', cardCvc: '', postal: '' };
 
+function ensureWizBackdrop() {
+  let bd = document.getElementById('wiz-backdrop');
+  if (!bd) {
+    bd = document.createElement('div');
+    bd.id = 'wiz-backdrop'; bd.className = 'wiz-backdrop';
+    bd.addEventListener('click', closeWizard);
+    document.body.appendChild(bd);
+  }
+  return bd;
+}
 function openWizard() {
-  wiz = { step: 0, type: '', state: '', name: '', manager: '', parent: '', ein: true };
+  wiz = { step: 0, type: 'LLC', state: 'DE', name: '', manager: '', parent: 'Standalone', ein: true,
+          cardName: '', cardNumber: '', cardExp: '', cardCvc: '', postal: '' };
+  ensureWizBackdrop().classList.add('open');
   document.getElementById('wizard-panel').classList.add('open');
   renderWizStep();
 }
-function closeWizard() { document.getElementById('wizard-panel').classList.remove('open'); }
+function closeWizard() {
+  document.getElementById('wizard-panel').classList.remove('open');
+  const bd = document.getElementById('wiz-backdrop');
+  if (bd) bd.classList.remove('open');
+}
+
+function _wizStateFee() {
+  const fees = { DE: 90, WY: 100, CA: 70, TX: 300, NY: 200, NV: 75, FL: 125 };
+  return fees[wiz.state] ?? 0;
+}
+function _wizTotal() {
+  return _wizStateFee() + 149 /* RA annual */ + (wiz.ein ? 0 : 0) + 0 /* service fee included */;
+}
+function _wizValidateForm() {
+  return !!(wiz.type && wiz.state && wiz.name.trim() && wiz.manager.trim() && wiz.parent);
+}
+function _wizValidatePayment() {
+  return !!(wiz.cardName.trim() && wiz.cardNumber.replace(/\s/g,'').length >= 13 &&
+            /\d{1,2}\s*\/\s*\d{2,4}/.test(wiz.cardExp) && wiz.cardCvc.length >= 3 && wiz.postal.trim());
+}
 
 function renderWizStep() {
   const body = document.getElementById('wiz-body');
   const stepNum = wiz.step;
   const total = wizSteps.length;
-  document.getElementById('wiz-step-label').textContent = `Step ${stepNum + 1} of ${total}`;
+  document.getElementById('wiz-step-label').textContent = stepNum === 0 ? 'Entity details' : 'Payment';
 
-  // Progress dots
+  // Progress bar (two segments)
   document.getElementById('wiz-dots').innerHTML = wizSteps.map((s, i) =>
     `<div class="wizard-step-dot ${i < stepNum ? 'done' : i === stepNum ? 'active' : ''}"></div>`
   ).join('');
 
-  // Back/Next buttons
+  // Back / Next buttons
   document.getElementById('wiz-back').style.visibility = stepNum === 0 ? 'hidden' : 'visible';
   const nextBtn = document.getElementById('wiz-next');
 
-  if (wizSteps[stepNum] === 'type') {
-    nextBtn.textContent = 'Continue';
-    nextBtn.disabled = !wiz.type;
-    body.innerHTML = `
-      <div class="wiz-label">Entity Type</div>
-      <div class="wiz-title">What type of entity?</div>
-      <div class="wiz-sub">Choose the legal structure for your new entity.</div>
-      <div class="wiz-options">
-        <div class="wiz-option ${wiz.type==='LLC'?'selected':''}" onclick="wizSelect('type','LLC')">
-          <div class="wiz-option-icon">🏢</div>
-          <div class="wiz-option-text"><strong>LLC</strong><span>Limited Liability Company — most flexible. Good for SPVs, HoldCos, GPs.</span></div>
-          <div class="wiz-check"></div>
-        </div>
-        <div class="wiz-option ${wiz.type==='LP'?'selected':''}" onclick="wizSelect('type','LP')">
-          <div class="wiz-option-icon">🏦</div>
-          <div class="wiz-option-text"><strong>LP</strong><span>Limited Partnership — standard for investment fund vehicles. Requires a GP.</span></div>
-          <div class="wiz-check"></div>
-        </div>
-        <div class="wiz-option ${wiz.type==='Corp'?'selected':''}" onclick="wizSelect('type','Corp')">
-          <div class="wiz-option-icon">🏛️</div>
-          <div class="wiz-option-text"><strong>Corporation</strong><span>C-Corp or S-Corp structure. Less common for fund structures.</span></div>
-          <div class="wiz-check"></div>
-        </div>
-      </div>
-    `;
-  }
+  if (wizSteps[stepNum] === 'form') {
+    nextBtn.textContent = 'Continue to payment';
+    const ok = _wizValidateForm();
+    nextBtn.disabled = !ok;
 
-  else if (wizSteps[stepNum] === 'state') {
-    nextBtn.textContent = 'Continue';
-    nextBtn.disabled = !wiz.state;
-    const rec = wiz.type === 'LP' ? 'Delaware is the standard for LP fund vehicles — strong case law and privacy.' : wiz.type === 'Corp' ? 'Delaware is preferred for Corporations — established legal framework.' : 'Delaware and Wyoming are most popular for LLCs. Wyoming has lower fees; Delaware has stronger case law.';
-    const states = [
-      { code:'DE', name:'Delaware', pop:'Most popular', fee:'$90' },
-      { code:'WY', name:'Wyoming', pop:'Low cost', fee:'$100' },
-      { code:'CA', name:'California', pop:'West Coast', fee:'$70' },
-      { code:'TX', name:'Texas', pop:'No state tax', fee:'$300' },
-      { code:'NY', name:'New York', pop:'East Coast', fee:'$200' },
-      { code:'NV', name:'Nevada', pop:'Privacy', fee:'$75' },
-    ];
-    body.innerHTML = `
-      <div class="wiz-label">Formation State</div>
-      <div class="wiz-title">Where should it be formed?</div>
-      <div class="wiz-sub">${rec}</div>
-      <div class="wiz-grid">
-        ${states.map(s => `
-          <div class="wiz-option ${wiz.state===s.code?'selected':''}" onclick="wizSelect('state','${s.code}')" style="flex-direction:column;align-items:flex-start;padding:12px 14px;">
-            <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
-              <strong style="font-size:13.5px;">${s.name}</strong>
-              <div class="wiz-check"></div>
-            </div>
-            <div style="display:flex;justify-content:space-between;width:100%;margin-top:4px;">
-              <span style="font-size:11px;color:var(--text-muted);">${s.pop}</span>
-              <span style="font-size:11px;color:var(--teal);">${s.fee}</span>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  }
-
-  else if (wizSteps[stepNum] === 'name') {
-    nextBtn.textContent = 'Continue';
-    nextBtn.disabled = !wiz.name.trim();
-    const spvCount = entities.filter(e => e.category === 'spv').length;
-    const suggestion = wiz.type === 'LP' ? 'Redwood Fund IV LP' : wiz.type === 'Corp' ? 'Redwood Capital Corp' : `Venture SPV ${spvCount + 1} LLC`;
-    body.innerHTML = `
-      <div class="wiz-label">Entity Name</div>
-      <div class="wiz-title">Name your entity</div>
-      <div class="wiz-sub">Enter the full legal name including the entity suffix (LLC, LP, etc.).</div>
-      <input type="text" class="wiz-input" id="wiz-name-input" placeholder="e.g., ${suggestion}" value="${wiz.name}" oninput="wiz.name=this.value;document.getElementById('wiz-next').disabled=!this.value.trim();" autofocus>
-      <div class="wiz-hint"><div class="wiz-hint-icon">💡</div><div>Name must include entity type suffix (LLC, LP, Inc., Corp.). We'll check name availability in ${stateFullName(wiz.state)} before filing.</div></div>
-    `;
-    setTimeout(() => { const inp = document.getElementById('wiz-name-input'); if (inp) inp.focus(); }, 50);
-  }
-
-  else if (wizSteps[stepNum] === 'manager') {
-    nextBtn.textContent = 'Continue';
-    nextBtn.disabled = !wiz.manager;
+    // Managers from existing officers
     const managers = new Set();
     entityExtra.forEach(x => x.officers.forEach(o => { if (o.role.includes('Manager') || o.role.includes('Managing')) managers.add(o.name); }));
-    const managerList = [...managers];
+    const managerOptions = [...managers].map(m => `<option value="${m}" ${wiz.manager===m?'selected':''}>${m}</option>`).join('');
+    // Parents: funds + GPs + a "Standalone" option
+    const parentEntities = entities.filter(e => e.category === 'fund' || e.category === 'gp');
+    const parentOptions = ['<option value="Standalone">Standalone — no parent</option>']
+      .concat(parentEntities.map(p => `<option value="${p.name}" ${wiz.parent===p.name?'selected':''}>${p.name}</option>`))
+      .join('');
+
+    const stateInfo = { DE:'Delaware', WY:'Wyoming', CA:'California', TX:'Texas', NY:'New York', NV:'Nevada', FL:'Florida' };
+    const stateFeeStr = (s, fee) => `${stateInfo[s] || s} — $${fee}`;
+
     body.innerHTML = `
-      <div class="wiz-label">Manager / Member</div>
-      <div class="wiz-title">Who will manage this entity?</div>
-      <div class="wiz-sub">Select the managing member or authorized person. You can update officers after formation.</div>
-      <div class="wiz-options">
-        ${managerList.map(m => `
-          <div class="wiz-option ${wiz.manager===m?'selected':''}" onclick="wizSelect('manager','${m}')">
-            <div class="wiz-option-icon" style="background:linear-gradient(135deg,var(--teal),#6366f1);font-size:12px;font-weight:700;color:white;">${m.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
-            <div class="wiz-option-text"><strong>${m}</strong><span>Existing officer in your portfolio</span></div>
-            <div class="wiz-check"></div>
+      <div class="wfm-form">
+
+        <div class="wfm-section">
+          <h4>Entity type</h4>
+          <div class="wfm-radio-group">
+            <div class="wfm-radio ${wiz.type==='LLC'?'selected':''}" onclick="wizSet('type','LLC')">
+              <strong>LLC</strong><small>Most flexible. SPVs, HoldCos, GPs.</small>
+            </div>
+            <div class="wfm-radio ${wiz.type==='LP'?'selected':''}" onclick="wizSet('type','LP')">
+              <strong>LP</strong><small>Standard for fund vehicles. Requires GP.</small>
+            </div>
+            <div class="wfm-radio ${wiz.type==='Corp'?'selected':''}" onclick="wizSet('type','Corp')">
+              <strong>Corporation</strong><small>C-Corp or S-Corp.</small>
+            </div>
           </div>
-        `).join('')}
+        </div>
+
+        <div class="wfm-section">
+          <h4>Formation state &amp; name</h4>
+          <div class="wfm-grid-2">
+            <div class="wfm-field">
+              <label>Formation state</label>
+              <select class="wfm-select" onchange="wizSet('state', this.value)">
+                <option value="DE" ${wiz.state==='DE'?'selected':''}>${stateFeeStr('DE',90)}</option>
+                <option value="WY" ${wiz.state==='WY'?'selected':''}>${stateFeeStr('WY',100)}</option>
+                <option value="CA" ${wiz.state==='CA'?'selected':''}>${stateFeeStr('CA',70)}</option>
+                <option value="TX" ${wiz.state==='TX'?'selected':''}>${stateFeeStr('TX',300)}</option>
+                <option value="NY" ${wiz.state==='NY'?'selected':''}>${stateFeeStr('NY',200)}</option>
+                <option value="NV" ${wiz.state==='NV'?'selected':''}>${stateFeeStr('NV',75)}</option>
+                <option value="FL" ${wiz.state==='FL'?'selected':''}>${stateFeeStr('FL',125)}</option>
+              </select>
+            </div>
+            <div class="wfm-field">
+              <label>Entity name</label>
+              <input class="wfm-input" type="text" id="wfm-name" value="${wiz.name.replace(/"/g,'&quot;')}" placeholder="e.g., Redwood Fund IV LP" oninput="wizSet('name', this.value, true)">
+            </div>
+          </div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:8px;">Include the proper suffix (LLC, LP, Inc.). We'll check name availability in the chosen state before filing.</div>
+        </div>
+
+        <div class="wfm-section">
+          <h4>Ownership &amp; management</h4>
+          <div class="wfm-grid-2">
+            <div class="wfm-field">
+              <label>Manager / Member</label>
+              <input class="wfm-input" type="text" list="wfm-mgr-list" value="${wiz.manager.replace(/"/g,'&quot;')}" placeholder="Type a name or pick existing" oninput="wizSet('manager', this.value, true)">
+              <datalist id="wfm-mgr-list">${managerOptions}</datalist>
+            </div>
+            <div class="wfm-field">
+              <label>Parent entity</label>
+              <select class="wfm-select" onchange="wizSet('parent', this.value)">
+                ${parentOptions}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="wfm-section">
+          <h4>Add-ons</h4>
+          <label class="wfm-checkbox-row">
+            <input type="checkbox" ${wiz.ein?'checked':''} onchange="wizSet('ein', this.checked)">
+            <div class="desc"><strong>EIN application</strong><small>We'll file IRS Form SS-4 and deliver the EIN once your entity is approved.</small></div>
+            <span style="color:var(--text-muted);font-size:13px;font-weight:600">Included</span>
+          </label>
+        </div>
+
       </div>
-      <input type="text" class="wiz-input" id="wiz-manager-input" style="margin-top:12px;" placeholder="Or type a new name…" value="${!managerList.includes(wiz.manager) ? wiz.manager : ''}" oninput="wiz.manager=this.value;document.getElementById('wiz-next').disabled=!this.value.trim();document.querySelectorAll('.wiz-option').forEach(o=>o.classList.remove('selected'));">
     `;
   }
 
-  else if (wizSteps[stepNum] === 'parent') {
-    nextBtn.textContent = 'Continue';
-    nextBtn.disabled = !wiz.parent;
-    const parents = entities.filter(e => e.category === 'fund' || e.category === 'gp');
-    body.innerHTML = `
-      <div class="wiz-label">Parent Entity</div>
-      <div class="wiz-title">Which entity is the owner?</div>
-      <div class="wiz-sub">Select the parent entity or sole member. This determines where the entity sits in your org chart.</div>
-      <div class="wiz-options">
-        ${parents.map(p => `
-          <div class="wiz-option ${wiz.parent===p.name?'selected':''}" onclick="wizSelect('parent','${p.name}')">
-            <div class="wiz-option-icon" style="font-size:14px;">${p.category==='fund'?'🏦':'🏢'}</div>
-            <div class="wiz-option-text"><strong>${p.name}</strong><span>${p.type} · ${stateFullName(p.state)}</span></div>
-            <div class="wiz-check"></div>
-          </div>
-        `).join('')}
-        <div class="wiz-option ${wiz.parent==='Standalone'?'selected':''}" onclick="wizSelect('parent','Standalone')">
-          <div class="wiz-option-icon">—</div>
-          <div class="wiz-option-text"><strong>No parent</strong><span>Standalone entity, not part of an existing structure</span></div>
-          <div class="wiz-check"></div>
-        </div>
-      </div>
-    `;
-  }
+  else if (wizSteps[stepNum] === 'payment') {
+    nextBtn.textContent = 'Pay & submit formation';
+    nextBtn.disabled = !_wizValidatePayment();
 
-  else if (wizSteps[stepNum] === 'review') {
-    nextBtn.textContent = 'Submit Formation Order';
-    nextBtn.disabled = false;
-    const stateFees = { DE: '$90', WY: '$100', CA: '$70', TX: '$300', NY: '$200', NV: '$75' };
+    const stateFee = _wizStateFee();
+    const total = _wizTotal();
     body.innerHTML = `
-      <div class="wiz-label">Review & Submit</div>
-      <div class="wiz-title">Confirm your formation order</div>
-      <div class="wiz-sub">Review the details below. Your order will be submitted to our filing team.</div>
-      <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:16px 18px;">
-        <div class="wiz-summary-row"><span class="wiz-s-label">Entity Name</span><span class="wiz-s-value">${wiz.name}</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">Type</span><span class="wiz-s-value">${wiz.type}</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">Formation State</span><span class="wiz-s-value">${stateFullName(wiz.state)}</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">Manager</span><span class="wiz-s-value">${wiz.manager}</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">Parent Entity</span><span class="wiz-s-value">${wiz.parent}</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">EIN Application</span>
-          <span class="wiz-s-value" style="display:flex;align-items:center;gap:8px;">
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--text-dim);">
-              <input type="checkbox" ${wiz.ein?'checked':''} onchange="wiz.ein=this.checked" style="accent-color:var(--teal);"> Include EIN
-            </label>
-          </span>
+      <div class="wfm-pay-summary">
+        <h5>Order summary</h5>
+        <div class="wfm-pay-row"><span class="lbl">${wiz.name || '—'}</span><span class="val">${wiz.type} · ${wiz.state}</span></div>
+        <div class="wfm-pay-row"><span class="lbl">State filing fee</span><span class="val">$${stateFee}</span></div>
+        <div class="wfm-pay-row"><span class="lbl">Registered Agent (annual)</span><span class="val">$149</span></div>
+        <div class="wfm-pay-row"><span class="lbl">EIN application</span><span class="val">${wiz.ein ? 'Included' : '—'}</span></div>
+        <div class="wfm-pay-row"><span class="lbl">AlcoveIQ service fee</span><span class="val">Included</span></div>
+        <div class="wfm-pay-row total"><span>Total today</span><span>$${total}</span></div>
+      </div>
+
+      <div class="wfm-form">
+        <div class="wfm-section">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <h4 style="margin:0;">Payment method</h4>
+            <div class="wfm-pay-card-icons"><span>VISA</span><span>MC</span><span>AMEX</span></div>
+          </div>
+          <div class="wfm-field" style="margin-bottom:12px;">
+            <label>Name on card</label>
+            <input class="wfm-input" type="text" value="${wiz.cardName.replace(/"/g,'&quot;')}" oninput="wizSet('cardName', this.value, true)" placeholder="Rafael Moreno">
+          </div>
+          <div class="wfm-field" style="margin-bottom:12px;">
+            <label>Card number</label>
+            <input class="wfm-input" type="text" inputmode="numeric" maxlength="23" value="${wiz.cardNumber}" oninput="wizSet('cardNumber', this.value.replace(/[^0-9 ]/g,'').replace(/(.{4})/g,'$1 ').trim(), true)" placeholder="•••• •••• •••• ••••">
+          </div>
+          <div class="wfm-grid-3">
+            <div class="wfm-field">
+              <label>Expiry</label>
+              <input class="wfm-input" type="text" inputmode="numeric" maxlength="7" value="${wiz.cardExp}" oninput="wizSet('cardExp', this.value, true)" placeholder="MM / YY">
+            </div>
+            <div class="wfm-field">
+              <label>CVC</label>
+              <input class="wfm-input" type="text" inputmode="numeric" maxlength="4" value="${wiz.cardCvc}" oninput="wizSet('cardCvc', this.value.replace(/[^0-9]/g,''), true)" placeholder="123">
+            </div>
+            <div class="wfm-field">
+              <label>ZIP / Postal</label>
+              <input class="wfm-input" type="text" value="${wiz.postal}" oninput="wizSet('postal', this.value, true)" placeholder="94110">
+            </div>
+          </div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:14px;display:flex;align-items:center;gap:6px;">🔒 Payments are processed securely. Demo prototype — no real charges.</div>
         </div>
       </div>
-      <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:16px 18px;margin-top:12px;">
-        <div class="wiz-label" style="margin-bottom:8px;">Estimated Fees</div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">State filing fee</span><span class="wiz-s-value">${stateFees[wiz.state] || '—'}</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">Registered Agent (annual)</span><span class="wiz-s-value">$149</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">EIN Application</span><span class="wiz-s-value">${wiz.ein ? 'Included' : '—'}</span></div>
-        <div class="wiz-summary-row"><span class="wiz-s-label">Service fee</span><span class="wiz-s-value">Included in plan</span></div>
-      </div>
-      <div class="wiz-hint" style="margin-top:16px;"><div class="wiz-hint-icon">⏱️</div><div>Estimated completion: 3-5 business days for ${stateFullName(wiz.state)}. You'll be notified at each step.</div></div>
     `;
   }
 }
 
-function wizSelect(field, value) {
+function wizSet(field, value, skipRerender) {
   wiz[field] = value;
+  // Skip rerender for live text inputs to preserve focus; just update Next button state
+  if (skipRerender) {
+    const ok = wizSteps[wiz.step] === 'form' ? _wizValidateForm() : _wizValidatePayment();
+    const nb = document.getElementById('wiz-next'); if (nb) nb.disabled = !ok;
+    return;
+  }
   renderWizStep();
 }
 
+/* legacy orphan removed — old step-block code below was decommissioned in Phase 4 */
+
+function wizSelect(field, value) { wiz[field] = value; renderWizStep(); }
+
 function wizNext() {
-  // Validate current step before advancing
+  // Phase 4: 2-step flow (form → payment). On payment, submit.
   const step = wizSteps[wiz.step];
-  if (step === 'type' && !wiz.type) return;
-  if (step === 'state' && !wiz.state) return;
-  if (step === 'name' && !wiz.name.trim()) return;
-  if (step === 'manager' && !wiz.manager) return;
-  if (step === 'parent' && !wiz.parent) return;
+  if (step === 'form' && !_wizValidateForm()) return;
+  if (step === 'payment' && !_wizValidatePayment()) return;
 
   if (wiz.step === wizSteps.length - 1) {
     // Submit — create the entity + formation order
