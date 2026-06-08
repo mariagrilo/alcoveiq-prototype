@@ -3,32 +3,55 @@
 <head>
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AlcoveIQ — Entity Management Platform</title>
 <style>
   :root {
-    --navy: #0f1b2d;
-    --navy-light: #162234;
-    --navy-border: #1e3048;
-    --teal: #0ea5e9;
-    --teal-dark: #0284c7;
-    --teal-dim: rgba(14,165,233,0.12);
-    --green: #10b981;
-    --green-dim: rgba(16,185,129,0.12);
-    --amber: #f59e0b;
-    --amber-dim: rgba(245,158,11,0.12);
-    --red: #ef4444;
-    --red-dim: rgba(239,68,68,0.12);
-    --text: #e2e8f0;
-    --text-muted: #64748b;
-    --text-dim: #94a3b8;
-    --bg: #0b1623;
-    --card: #111d2e;
-    --card-border: #1a2f47;
-    --radius: 10px;
+    /* ===== AlcoveIQ light/purple theme (matches subvisual.github.io/alcove_iq reference) ===== */
+    /* Surfaces */
+    --bg: #F6F7F9;
+    --card: #FFFFFF;
+    --card-border: rgba(17,17,26,0.08);
+    --panel2: #F1F2F6;
+    --cardHi: #EEF0F5;
+    /* "Navy" used to be sidebar/topbar dark. Repurpose as white panels in light theme. */
+    --navy: #FFFFFF;
+    --navy-light: #F1F2F6;
+    --navy-border: rgba(17,17,26,0.08);
+    /* Accent (originally teal/cyan) → cobalt/violet from reference */
+    --teal: #7C3AED;
+    --teal-dark: #6D28D9;
+    --teal-dim: rgba(124,58,237,0.10);
+    /* Status colors stay semantic but match reference */
+    --green: #0EA371;
+    --green-dim: rgba(14,163,113,0.12);
+    --amber: #B5790A;
+    --amber-dim: rgba(181,121,10,0.12);
+    --red: #DC2A2A;
+    --red-dim: rgba(220,42,42,0.10);
+    /* Text */
+    --text: #0E0E12;
+    --text-muted: #5B6273;
+    --text-dim: #8A91A0;
+    --radius: 12px;
+    /* Sidebar / chat layout */
+    --sb-w: 236px;
+    --chat-w: 380px;
+    --chat-gap: 16px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; font-size: 14px; }
+  body {
+    font-family: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: radial-gradient(1000px 520px at 50% -6%, rgba(124,58,237,0.06), transparent 62%), var(--bg);
+    color: var(--text);
+    display: flex; height: 100vh; overflow: hidden;
+    font-size: 14px;
+    font-feature-settings: "ss01", "cv11", "tnum";
+    letter-spacing: -0.1px;
+  }
   .body-row { display: flex; flex: 1; min-height: 0; overflow: hidden; width: 100%; }
 
   /* MAIN-COLUMN TOPBAR (only over the right content area) */
@@ -1147,6 +1170,311 @@
   .progress-ring-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
   .progress-ring-label { position: absolute; text-align: center; }
 
+  /* ============================================================================
+     V3 OVERRIDES — light/purple theme + left sidebar + right-rail chat
+     ========================================================================== */
+
+  /* ---- Body layout: sidebar | main + reserved right gutter for chat ---- */
+  body { padding-right: var(--chat-w); }
+  .body-row { width: 100%; }
+
+  /* ---- LEFT SIDEBAR ---- */
+  .aiq-sidebar {
+    width: var(--sb-w); flex: none;
+    background: var(--navy);
+    border-right: 1px solid var(--navy-border);
+    display: flex; flex-direction: column;
+    padding: 16px 12px;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .aiq-brand {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 8px 16px;
+    cursor: pointer;
+  }
+  .aiq-brand .aiq-logo {
+    width: 30px; height: 30px; border-radius: 7px;
+    background: var(--teal);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700;
+  }
+  .aiq-brand .aiq-logo img { width: 18px; height: 18px; filter: brightness(0) invert(1); }
+  .aiq-brand strong { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+  .aiq-nav { display: flex; flex-direction: column; gap: 2px; }
+  .aiq-nav-section-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1px;
+    color: var(--text-dim); text-transform: uppercase;
+    padding: 14px 11px 6px;
+  }
+  .aiq-nav-item {
+    display: flex; align-items: center; gap: 11px;
+    padding: 9px 11px; border-radius: 7px;
+    color: var(--text-muted); font-weight: 500;
+    font-size: 13.5px;
+    background: none; border: none; cursor: pointer;
+    text-align: left; font-family: inherit;
+    transition: background .12s, color .12s;
+  }
+  .aiq-nav-item:hover { background: var(--panel2); color: var(--text); }
+  .aiq-nav-item.active { background: var(--panel2); color: var(--text); font-weight: 600; }
+  .aiq-nav-item svg { color: var(--text-dim); flex-shrink: 0; }
+  .aiq-nav-item.active svg { color: var(--teal); }
+  .aiq-nav-item .aiq-nav-count {
+    margin-left: auto;
+    font-size: 11px; font-weight: 600;
+    background: var(--cardHi); color: var(--text-muted);
+    padding: 1px 8px; border-radius: 20px;
+    min-width: 22px; text-align: center;
+  }
+  .aiq-nav-item.has-alert .aiq-nav-count { background: var(--red-dim); color: var(--red); }
+  .aiq-userchip {
+    margin-top: auto;
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 10px; border-radius: 9px;
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+  }
+  .aiq-userchip:hover { background: var(--panel2); }
+  .aiq-userchip .av {
+    width: 32px; height: 32px; border-radius: 7px;
+    background: #EDE9FE; color: var(--teal);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+  }
+  .aiq-userchip .uname { font-size: 13px; font-weight: 600; }
+  .aiq-userchip .uplan { font-size: 11px; color: var(--text-muted); }
+
+  /* ---- TOPBAR (now: search + new-order + account only) ---- */
+  .main-topbar {
+    background: var(--navy);
+    border-bottom: 1px solid var(--navy-border);
+    height: 62px;
+    padding: 0 22px;
+    gap: 14px;
+  }
+  .topbar-h-nav { display: none !important; } /* nav moved to sidebar */
+
+  /* New search-pill look from reference */
+  .topbar-search {
+    background: var(--panel2); border: 1px solid transparent;
+    border-radius: 8px; height: 38px; padding: 0 13px;
+    flex: 1; max-width: 430px;
+    display: flex !important; align-items: center; gap: 9px;
+    transition: .13s;
+  }
+  .topbar-search.open, .topbar-search:focus-within {
+    background: #fff; border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.10);
+    max-width: 430px;
+  }
+  .topbar-search-btn { color: var(--text-dim); }
+  .topbar-search-input {
+    width: 100%; background: transparent; border: none; outline: none;
+    color: var(--text); font-size: 13.5px;
+    font-family: inherit;
+  }
+  .topbar-search-input::placeholder { color: var(--text-dim); }
+
+  /* Topbar buttons */
+  .main-topbar .btn { height: 38px; border-radius: 10px; }
+  .main-topbar .btn-secondary, .main-topbar .btn.btn-secondary {
+    background: var(--teal); color: #fff;
+    border: none; padding: 0 15px; font-weight: 600; font-size: 13.5px;
+    box-shadow: 0 1px 2px rgba(17,17,26,0.16);
+  }
+  .main-topbar .btn-secondary:hover { background: var(--teal-dark); }
+
+  .org-avatar-btn { width: 38px; height: 38px; border-radius: 9px; border: 1px solid var(--card-border); background: var(--card); padding: 0; display: flex; align-items: center; justify-content: center; }
+  .org-avatar { width: 26px; height: 26px; border-radius: 6px; background: var(--teal); color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+
+  /* ---- RIGHT-RAIL CHAT (re-skin existing #left-chat as fixed right column) ---- */
+  .left-chat, #left-chat, .left-chat.dash-chat {
+    position: fixed !important;
+    top: var(--chat-gap) !important;
+    right: var(--chat-gap) !important;
+    bottom: var(--chat-gap) !important;
+    width: calc(var(--chat-w) - var(--chat-gap) * 2) !important;
+    left: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    background: linear-gradient(180deg, #F8F5FF 0%, #FFFFFF 42%);
+    border: 1px solid rgba(124,58,237,0.16);
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(17,17,26,0.08), 0 2px 6px rgba(17,17,26,0.04);
+    z-index: 100;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .left-chat-resize { display: none !important; } /* fixed width on right rail */
+
+  /* Chat header polish */
+  .dash-chat-header {
+    background: transparent;
+    border-bottom: 1px solid var(--card-border);
+    padding: 15px 17px;
+    display: flex; align-items: center; gap: 11px;
+  }
+  .dash-chat-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .dash-chat-sub { font-size: 11.5px; color: var(--text-muted); }
+  .chat-ai-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 3px rgba(14,163,113,0.14);
+  }
+  .chat-brand .logo-mark img { filter: none; }
+  .dash-chat-menu, .dash-chat-menu-btn {
+    color: var(--text-muted);
+  }
+  .dash-chat-menu {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 8px 24px rgba(17,17,26,0.12);
+    color: var(--text);
+  }
+  .dash-chat-menu-item { color: var(--text); }
+  .dash-chat-menu-item:hover { background: var(--panel2); }
+
+  /* Chat messages */
+  .dash-chat-messages {
+    flex: 1; overflow-y: auto;
+    padding: 16px 17px;
+    display: flex; flex-direction: column; gap: 12px;
+    background: transparent;
+  }
+  /* Bubbles — preserve existing classes, recolor */
+  .dash-chat-msg.ai, .chat-bub-ai, .bub.ai {
+    align-self: flex-start;
+    background: var(--panel2);
+    color: var(--text);
+    border-radius: 10px;
+    border-top-left-radius: 3px;
+    padding: 11px 14px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 14.6px; line-height: 1.56;
+    max-width: 90%;
+  }
+  .dash-chat-msg.user, .chat-bub-me, .bub.me {
+    align-self: flex-end;
+    background: var(--teal);
+    color: #fff;
+    border-radius: 10px;
+    border-top-right-radius: 3px;
+    padding: 11px 14px;
+    font-size: 13.8px; line-height: 1.5;
+    max-width: 90%;
+  }
+
+  /* Input row */
+  .dash-chat-input-wrap {
+    border-top: 1px solid var(--card-border);
+    background: var(--card);
+    padding: 12px 13px;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .dash-chat-input {
+    flex: 1;
+    background: var(--panel2);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    height: 42px; padding: 0 14px;
+    color: var(--text); outline: none;
+    font-family: inherit; font-size: 13.8px;
+    transition: .13s;
+  }
+  .dash-chat-input:focus {
+    background: #fff;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.10);
+  }
+  .dash-chat-attach, .dash-chat-send {
+    width: 42px; height: 42px; border-radius: 8px;
+    border: none; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: .13s;
+  }
+  .dash-chat-attach { background: var(--panel2); color: var(--text-muted); }
+  .dash-chat-attach:hover { background: var(--cardHi); color: var(--text); }
+  .dash-chat-send { background: var(--teal); color: #fff; }
+  .dash-chat-send:hover { background: var(--teal-dark); }
+
+  /* ---- Cards / generic surfaces — light-mode overrides ---- */
+  .card, .stat-card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); box-shadow: 0 1px 2px rgba(17,17,26,0.03); }
+  /* Tables — light theme */
+  table { color: var(--text); }
+  thead, table thead { background: var(--panel2); }
+  table th { color: var(--text-muted); font-weight: 600; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 1px solid var(--card-border); }
+  table tr:not(:last-child) td { border-bottom: 1px solid var(--card-border); }
+
+  /* Buttons — primary uses violet now */
+  .btn.btn-primary { background: var(--teal); color: #fff; }
+  .btn.btn-primary:hover { background: var(--teal-dark); }
+  .btn.btn-ghost { background: var(--card); border: 1px solid var(--card-border); color: var(--text); }
+  .btn.btn-ghost:hover { background: var(--panel2); border-color: rgba(17,17,26,0.14); }
+
+  /* Filter chips */
+  .filter-btn { background: var(--card); border: 1px solid var(--card-border); color: var(--text-muted); }
+  .filter-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+  /* Today / dashboard — task priority rows */
+  .today-title { font-family: 'Schibsted Grotesk', sans-serif; color: var(--text); }
+  .today-sub, .today-section-subtitle { color: var(--text-muted); }
+  .today-section-title { color: var(--text-muted); }
+  .today-row { background: var(--card); border: 1px solid var(--card-border); }
+  .today-row:hover { background: var(--panel2); }
+
+  /* Right slide-in detail panels (entity/order/compliance) — light surfaces */
+  .ed-panel, #ed-panel, #ord-panel, #comp-panel {
+    background: var(--card) !important;
+    border-left: 1px solid var(--card-border);
+    color: var(--text);
+  }
+  .ed-panel-header { background: var(--panel2); border-bottom: 1px solid var(--card-border); }
+
+  /* Org menu (account dropdown) */
+  .org-menu { background: var(--card); border: 1px solid var(--card-border); box-shadow: 0 12px 32px rgba(17,17,26,0.12); color: var(--text); }
+  .org-menu-item { color: var(--text); }
+  .org-menu-item:hover { background: var(--panel2); }
+  .org-menu-divider { background: var(--card-border); }
+
+  /* Borders that were dark-only */
+  .border-soft, .filter-bar, .doc-filters { border-color: var(--card-border) !important; }
+
+  /* Inputs/selects */
+  input[type="text"], input[type="search"], select, .form-control {
+    background: var(--panel2); color: var(--text); border: 1px solid transparent;
+  }
+  input[type="text"]:focus, input[type="search"]:focus, select:focus, .form-control:focus {
+    background: #fff; border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.10);
+    outline: none;
+  }
+
+  /* Wizard panel — light theme */
+  .wizard-panel { background: var(--card); border-left: 1px solid var(--card-border); }
+  .wiz-input { background: var(--panel2); color: var(--text); border: 1px solid transparent; }
+
+  /* Modal */
+  .modal-backdrop, .modal-overlay { background: rgba(17,17,26,0.32); backdrop-filter: blur(2px); }
+  .modal, .modal-content {
+    background: var(--card); border: 1px solid var(--card-border);
+    box-shadow: 0 24px 70px rgba(17,17,26,0.22);
+    color: var(--text);
+  }
+
+  /* Responsive guard: collapse right chat into a FAB on narrow screens */
+  @media (max-width: 1180px) {
+    body { padding-right: 0; }
+    .left-chat, #left-chat {
+      width: 56px !important; right: 12px !important; top: auto !important;
+      bottom: 12px !important; height: 56px !important; border-radius: 50% !important;
+      padding: 0; overflow: hidden;
+    }
+    .left-chat .dash-chat-header,
+    .left-chat .dash-chat-messages,
+    .left-chat .dash-chat-input-wrap { display: none; }
+  }
+
   /* Tabs */
   .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--card-border); margin-bottom: 20px; }
   .tab { padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; margin-bottom: -1px; }
@@ -1156,10 +1484,60 @@
 </head>
 <body class="on-dashboard">
 
-<!-- BODY ROW: left chat + main content -->
+<!-- BODY ROW: left sidebar + main content (right chat is fixed-position) -->
 <div class="body-row">
 
-<!-- LEFT CHAT PANEL (always visible, owns its column from top) -->
+<!-- LEFT SIDEBAR — primary navigation -->
+<aside class="aiq-sidebar">
+  <div class="aiq-brand" onclick="navigate('dashboard')">
+    <div class="aiq-logo"><img src="logo.svg" alt=""></div>
+    <strong>AlcoveIQ</strong>
+  </div>
+  <nav class="aiq-nav">
+    <button class="aiq-nav-item active" id="sb-dashboard" onclick="navigate('dashboard')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+      Today
+    </button>
+    <button class="aiq-nav-item" id="sb-entities" onclick="navigate('entities')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+      Entities <span class="aiq-nav-count" id="sb-count-entities">47</span>
+    </button>
+    <button class="aiq-nav-item" id="sb-orgchart" onclick="navigate('orgchart')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4"/><path d="M5 16v-2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"/></svg>
+      Org Chart
+    </button>
+    <button class="aiq-nav-item has-alert" id="sb-compliance" onclick="navigate('compliance')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+      Compliance <span class="aiq-nav-count" id="sb-count-compliance">2</span>
+    </button>
+    <button class="aiq-nav-item" id="sb-documents" onclick="navigate('documents')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+      Documents
+    </button>
+    <button class="aiq-nav-item" id="sb-orders" onclick="navigate('orders')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+      Orders <span class="aiq-nav-count" id="sb-count-orders" style="display:none"></span>
+    </button>
+    <div class="aiq-nav-section-label">Workspace</div>
+    <button class="aiq-nav-item" id="sb-team" onclick="navigate('team')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Team & users
+    </button>
+    <button class="aiq-nav-item" id="sb-billing" onclick="navigate('billing')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+      Billing
+    </button>
+  </nav>
+  <button class="aiq-userchip" onclick="toggleOrgMenu(event)">
+    <div class="av">RC</div>
+    <div style="flex:1;text-align:left;min-width:0">
+      <div class="uname" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Redwood Capital</div>
+      <div class="uplan">Professional · 47 entities</div>
+    </div>
+  </button>
+</aside>
+
+<!-- LEFT CHAT PANEL (gets re-positioned to right rail via CSS overrides) -->
 <aside class="left-chat dash-chat dash-chat-hero" id="left-chat">
   <div class="dash-chat-header">
     <div class="chat-brand" onclick="navigate('dashboard')" title="AlcoveIQ">
@@ -2139,8 +2517,10 @@ let currentView = 'dashboard';
 function navigate(view) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.nav-item-h').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.aiq-nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('view-' + view)?.classList.add('active');
   document.querySelector(`.nav-item-h[onclick*="${view}"]`)?.classList.add('active');
+  document.getElementById('sb-' + view)?.classList.add('active');
   currentView = view;
   if (view === 'dashboard') { renderTodayPage(); dashChatRenderThread(dashChatGetCurrent()); }
   if (view === 'entities') renderEntities('all');
