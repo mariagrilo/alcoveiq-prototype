@@ -1342,6 +1342,40 @@
     display: flex; flex-direction: column; gap: 12px;
     background: transparent;
   }
+  /* Override dark-theme bubble styles on the .dash-chat-hero variant */
+  .dash-chat.dash-chat-hero .dash-msg.ai .dash-bubble {
+    background: #FFFFFF !important;
+    color: var(--text) !important;
+    border: 1px solid var(--card-border);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 14.6px; line-height: 1.56;
+  }
+  .dash-chat.dash-chat-hero .dash-msg.user .dash-bubble {
+    background: var(--teal) !important;
+    color: #fff !important;
+  }
+  .dash-chat.dash-chat-hero .dash-chips button {
+    background: var(--card) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text) !important;
+    font-size: 12.5px; padding: 7px 12px; border-radius: 8px;
+    transition: .12s;
+  }
+  .dash-chat.dash-chat-hero .dash-chips button:hover {
+    background: var(--panel2) !important;
+    border-color: var(--teal) !important;
+    color: var(--text) !important;
+  }
+  /* The .dash-bubble base style also targets non-hero variant */
+  .dash-msg.ai .dash-bubble {
+    background: #FFFFFF; color: var(--text);
+    border: 1px solid var(--card-border);
+    border-bottom-left-radius: 4px;
+  }
+  .dash-msg.user .dash-bubble {
+    background: var(--teal); color: #fff;
+  }
+
   /* Bubbles — preserve existing classes, recolor */
   .dash-chat-msg.ai, .chat-bub-ai, .bub.ai {
     align-self: flex-start;
