@@ -1474,19 +1474,21 @@
     align-items: stretch !important;
     gap: 8px !important;
     padding: 14px 18px 16px !important;
-    background: linear-gradient(180deg, #FFFFFF, #FBFAFD);
+    background: transparent;
     border-top: 1px solid var(--card-border);
   }
-  /* Unified composer row — input + actions live inside one shell */
+  /* Single composer shell — no outline at rest, just a soft tint */
   .dash-chat-input-row {
     display: flex; align-items: center; gap: 8px;
-    background: #FFFFFF;
-    border: 1.5px solid var(--card-border);
-    border-radius: 14px;
+    background: #FAFAFC;
+    border: 1px solid transparent;
+    border-radius: 12px;
     padding: 6px 6px 6px 14px;
-    transition: border-color .15s, box-shadow .15s;
+    transition: background .15s, border-color .15s, box-shadow .15s;
   }
+  .dash-chat-input-row:hover { background: #F6F5F9; }
   .dash-chat-input-row:focus-within {
+    background: #FFFFFF;
     border-color: var(--teal);
     box-shadow: 0 0 0 4px rgba(124,58,237,0.12);
   }
