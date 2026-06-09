@@ -1483,13 +1483,15 @@
     border-top: 1px solid var(--card-border) !important;
     border-top-color: var(--card-border) !important;
   }
-  /* Single composer shell — white inside, hairline edge for definition */
+  /* Single composer shell — white inside, hairline edge for definition.
+     align-items:flex-end so attach + send anchor to the bottom-right
+     as the textarea grows up to its max height. */
   .dash-chat-input-row {
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: flex-end; gap: 8px;
     background: #FFFFFF;
     border: 1px solid #E5E1ED;
     border-radius: 12px;
-    padding: 6px 6px 6px 14px;
+    padding: 8px 8px 8px 14px;
     transition: border-color .15s, box-shadow .15s;
   }
   .dash-chat-input-row:hover { border-color: #D3CCE0; }
@@ -1497,25 +1499,36 @@
     border-color: var(--teal);
     box-shadow: 0 0 0 4px rgba(124,58,237,0.12);
   }
-  /* Input — confident size, dark text, mid-gray placeholder for legibility */
-  .dash-chat-input {
+  /* Textarea — multi-line, auto-grows up to 160px then scrolls internally */
+  textarea.dash-chat-input, .dash-chat-input {
     flex: 1;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    height: 44px !important;
-    padding: 0 !important;
-    font-size: 15px !important;
+    outline: none !important;
+    height: auto !important;
+    min-height: 28px !important;
+    max-height: 160px !important;
+    padding: 6px 0 !important;
+    margin: 0 !important;
+    font-size: 14.5px !important;
+    line-height: 1.45 !important;
     font-weight: 400 !important;
+    font-family: inherit !important;
     color: var(--text) !important;
     letter-spacing: -0.1px;
+    resize: none !important;
+    overflow-y: auto;
   }
   .dash-chat-input::placeholder {
-    color: #6b6e72 !important;  /* darker than --text-dim for actual legibility */
+    color: #6b6e72 !important;
     opacity: 1;
     font-weight: 400;
   }
   .dash-chat-input:focus { background: transparent !important; box-shadow: none !important; }
+  /* Fade keyboard hint while typing — less ambient noise */
+  .dash-chat-hint { transition: opacity .15s; }
+  .dash-chat-input-wrap:focus-within .dash-chat-hint { opacity: 0.35; }
   /* Attach — demoted to a quiet icon button inside the input shell */
   .dash-chat-attach {
     width: 36px !important; height: 36px !important;
@@ -2335,13 +2348,14 @@
   <div class="dash-chat-input-wrap left-chat-collapsed-hide">
     <div id="dash-chat-attachments" class="dash-chat-attachments"></div>
     <div class="dash-chat-input-row">
-      <input
+      <textarea
         class="dash-chat-input"
-        type="text"
         id="dash-chat-input"
+        rows="1"
         placeholder="Ask anything — compliance, filings, orders…"
         autocomplete="off"
-        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();dashChatSend()}">
+        oninput="dashChatAutogrow(this)"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();dashChatSend()}"></textarea>
       <input type="file" id="dash-chat-file" multiple style="display:none;" onchange="dashChatAttachFiles(this.files)">
       <button class="dash-chat-attach" onclick="document.getElementById('dash-chat-file').click()" aria-label="Attach files" title="Attach files">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
@@ -6064,12 +6078,22 @@ function dashChatAttachmentsHtml(atts) {
   return `<div class="dash-bubble-attachments">${atts.map(a => `<span class="dash-bubble-attach">📎 ${a.name}</span>`).join('')}</div>`;
 }
 
+function dashChatAutogrow(el) {
+  if (!el) return;
+  el.style.height = 'auto';
+  // cap at the CSS max-height (160). scrollHeight includes top/bottom padding.
+  const next = Math.min(el.scrollHeight, 160);
+  el.style.height = next + 'px';
+}
+
 function dashChatSend(text) {
   const inputEl = document.getElementById('dash-chat-input');
   if (!text) text = inputEl.value.trim();
   if (!text && dashChatStagedAttachments.length === 0) return;
   if (!text && dashChatStagedAttachments.length > 0) text = 'Here are some files for you to look at';
   inputEl.value = '';
+  // Reset textarea height back to one row
+  if (inputEl.tagName === 'TEXTAREA') { inputEl.style.height = 'auto'; }
   const attachments = dashChatStagedAttachments.slice();
   dashChatStagedAttachments = [];
   dashChatRenderAttachments();
