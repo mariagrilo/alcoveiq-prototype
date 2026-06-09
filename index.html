@@ -1176,7 +1176,13 @@
 
   /* ---- Body layout: sidebar | main + reserved right gutter for chat ---- */
   body { padding-right: var(--chat-w); }
-  .body-row { width: 100%; }
+  .body-row { width: 100%; min-height: 0; }
+  /* Ensure the scroll container can actually scroll inside a flex parent */
+  .main { min-height: 0; }
+  .content { min-height: 0; overflow-y: auto; padding-bottom: 48px; }
+  /* Bento children must not collapse the inner scroll */
+  .db-bento { min-height: 0; }
+  .db-priority { overflow: visible; }
 
   /* ---- LEFT SIDEBAR ---- */
   .aiq-sidebar {
@@ -2215,9 +2221,8 @@
     <!-- DASHBOARD VIEW -->
     <div id="view-dashboard" class="view active">
       <div class="today-header">
-        <div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">Today</div>
-        <h1 class="today-title" id="db-workspace">Redwood Capital</h1>
-        <p class="today-sub" id="today-sub">Welcome back, Maria.</p>
+        <h1 class="today-title">Today</h1>
+        <p class="today-sub" id="today-sub">Welcome back, Maria — everything that needs you, in one place.</p>
       </div>
 
       <!-- Welcome banner -->
