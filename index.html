@@ -1698,9 +1698,41 @@
     background: var(--card); border-bottom: 1px solid var(--card-border);
     padding: 22px 32px;
   }
-  .ed-panel-close { color: var(--text-muted); background: transparent; border-radius: 8px; padding: 8px 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
-  .ed-panel-close:hover { background: var(--panel2); color: var(--text); }
-  .ed-panel-close::before { content: "←"; font-size: 16px; line-height: 1; }
+  /* Back link — left-aligned, labeled, replaces the close X */
+  .ed-back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent; border: none;
+    color: var(--text-muted);
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    padding: 4px 8px 4px 0; margin-bottom: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: color .12s, transform .14s;
+    align-self: flex-start;
+  }
+  .ed-back-link:hover { color: var(--teal); }
+  .ed-back-link:hover svg { transform: translateX(-2px); }
+  .ed-back-link svg { transition: transform .14s; color: currentColor; }
+  /* Header layout — left-anchored back link above the title row */
+  .ed-panel.open .ed-panel-header,
+  #ed-panel.open .ed-panel-header,
+  #ord-panel.open .ed-panel-header,
+  #comp-panel.open .ed-panel-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 18px 32px 18px !important;
+  }
+  .ed-title-row {
+    display: flex; align-items: center;
+    gap: 14px;
+  }
+  .ed-title-block { flex: 1; min-width: 0; }
+  /* Status badge inline with title, vertically centered */
+  .ed-status-inline {
+    flex: none;
+  }
+  /* Old close button is removed from DOM, but rule kept defensive for any legacy renders */
+  .ed-panel-close { display: none !important; }
   .ed-panel-body { padding: 24px 32px 48px !important; }
 
   /* ============================================================================
@@ -2945,18 +2977,21 @@
 <div class="ed-overlay" id="ed-overlay" onclick="closeEntityPanel()"></div>
 <div class="ed-panel" id="ed-panel">
   <div class="ed-panel-header">
-    <div>
-      <div class="ed-panel-name" id="ed-name">Entity Name</div>
-      <div class="ed-panel-sub" id="ed-subtitle">LLC · Delaware</div>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <span id="ed-status-badge"></span>
-      <button class="ed-panel-close" onclick="closeEntityPanel()">✕</button>
+    <button class="ed-back-link" onclick="closeEntityPanel()" aria-label="Back to Entities">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Entities
+    </button>
+    <div class="ed-title-row">
+      <div class="ed-title-block">
+        <div class="ed-panel-name" id="ed-name">Entity Name</div>
+        <div class="ed-panel-sub" id="ed-subtitle">LLC · Delaware</div>
+      </div>
+      <span id="ed-status-badge" class="ed-status-inline"></span>
     </div>
   </div>
   <div class="ed-panel-actions">
-    <button class="btn btn-secondary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
-    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>
+    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit entity</button>
   </div>
   <div class="tabs" style="padding:0 24px;margin-bottom:0;">
     <div class="tab active" onclick="edTab(this,'overview')">Overview</div>
@@ -2994,13 +3029,16 @@
 <div class="ed-overlay" id="ord-overlay" onclick="closeOrderPanel()"></div>
 <div class="ed-panel" id="ord-panel">
   <div class="ed-panel-header">
-    <div>
-      <div class="ed-panel-name" id="ord-detail-id">ORDER-10043</div>
-      <div class="ed-panel-sub" id="ord-detail-sub">Annual Report · Redwood Fund II LP</div>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <span id="ord-detail-status"></span>
-      <button class="ed-panel-close" onclick="closeOrderPanel()">✕</button>
+    <button class="ed-back-link" onclick="closeOrderPanel()" aria-label="Back to Orders">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Orders
+    </button>
+    <div class="ed-title-row">
+      <div class="ed-title-block">
+        <div class="ed-panel-name" id="ord-detail-id">ORDER-10043</div>
+        <div class="ed-panel-sub" id="ord-detail-sub">Annual Report · Redwood Fund II LP</div>
+      </div>
+      <span id="ord-detail-status" class="ed-status-inline"></span>
     </div>
   </div>
   <div class="ed-panel-body">
@@ -3012,13 +3050,16 @@
 <div class="ed-overlay" id="comp-overlay" onclick="closeCompPanel()"></div>
 <div class="ed-panel" id="comp-panel">
   <div class="ed-panel-header">
-    <div>
-      <div class="ed-panel-name" id="comp-detail-title">Annual Report</div>
-      <div class="ed-panel-sub" id="comp-detail-sub">Redwood Fund II LP · Delaware</div>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <span id="comp-detail-badge"></span>
-      <button class="ed-panel-close" onclick="closeCompPanel()">✕</button>
+    <button class="ed-back-link" onclick="closeCompPanel()" aria-label="Back to Compliance">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Compliance
+    </button>
+    <div class="ed-title-row">
+      <div class="ed-title-block">
+        <div class="ed-panel-name" id="comp-detail-title">Annual Report</div>
+        <div class="ed-panel-sub" id="comp-detail-sub">Redwood Fund II LP · Delaware</div>
+      </div>
+      <span id="comp-detail-badge" class="ed-status-inline"></span>
     </div>
   </div>
   <div class="ed-panel-body">
@@ -4807,8 +4848,8 @@ function openEntityDetail(idx) {
     t.style.opacity = ''; t.style.pointerEvents = '';
   });
   document.querySelector('.ed-panel-actions').innerHTML = `
-    <button class="btn btn-secondary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
-    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>`;
+    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit entity</button>`;
   document.getElementById('ed-name').textContent = e.name;
 
   // Reset to overview tab
@@ -4986,8 +5027,8 @@ function saveEntityEdit() {
   });
   // Restore action buttons
   document.querySelector('.ed-panel-actions').innerHTML = `
-    <button class="btn btn-secondary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
-    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit Entity</button>`;
+    <button class="btn btn-primary btn-sm" onclick="closeEntityPanel();openModal('new-order')">+ New order</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleEntityEdit()">Edit entity</button>`;
 
   openEntityDetail(edEditIdx);
 
