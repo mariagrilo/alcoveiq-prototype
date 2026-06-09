@@ -1720,7 +1720,22 @@
   #comp-panel.open .ed-panel-header {
     flex-direction: column !important;
     align-items: stretch !important;
-    padding: 18px 32px 18px !important;
+    padding: 18px 32px 14px !important;
+    border-bottom: none !important;
+  }
+  /* Unify the white zone: header + action row + tabs all share var(--card)
+     and the only divider lives under the tab row */
+  .ed-panel.open .ed-panel-actions,
+  #ed-panel.open .ed-panel-actions {
+    background: var(--card);
+    padding: 0 32px 16px !important;
+  }
+  .ed-panel.open .tabs,
+  #ed-panel.open .tabs {
+    background: var(--card);
+    padding: 0 32px !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid var(--card-border);
   }
   .ed-title-row {
     display: flex; align-items: center;
