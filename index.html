@@ -1712,34 +1712,33 @@
   }
   /* ============================================================
      System-wide modal rule: pin header + footer, body scrolls.
-     Applies to:
-       .modal-overlay > .modal           (standard modals)
-       #wizard-panel.wizard-panel        (entity-creation flow)
-       Any future modal with .modal + .modal-header/.modal-body/.modal-footer
+     Applies ONLY when the modal is open:
+       .modal-overlay.open > .modal       (standard modals)
+       #wizard-panel.wizard-panel.open    (entity-creation flow)
      ============================================================ */
-  .modal-overlay .modal,
-  #wizard-panel.wizard-panel {
+  .modal-overlay.open .modal,
+  #wizard-panel.wizard-panel.open {
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
   }
   /* Pin all header-like and footer-like rows */
-  .modal-overlay .modal .modal-header,
-  .modal-overlay .modal .modal-steps,
-  #wizard-panel.wizard-panel .wizard-header,
-  #wizard-panel.wizard-panel .wizard-steps {
+  .modal-overlay.open .modal .modal-header,
+  .modal-overlay.open .modal .modal-steps,
+  #wizard-panel.wizard-panel.open .wizard-header,
+  #wizard-panel.wizard-panel.open .wizard-steps {
     flex: none;
   }
   /* The body owns the scroll */
-  .modal-overlay .modal .modal-body,
-  #wizard-panel.wizard-panel .wizard-body {
+  .modal-overlay.open .modal .modal-body,
+  #wizard-panel.wizard-panel.open .wizard-body {
     flex: 1 1 auto;
     overflow-y: auto;
     min-height: 0;
   }
   /* Footer always visible at the bottom */
-  .modal-overlay .modal .modal-footer,
-  #wizard-panel.wizard-panel .wizard-footer {
+  .modal-overlay.open .modal .modal-footer,
+  #wizard-panel.wizard-panel.open .wizard-footer {
     flex: none;
     background: var(--card);
     /* subtle shadow above to hint that body content scrolls behind */
