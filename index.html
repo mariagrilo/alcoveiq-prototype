@@ -1483,18 +1483,17 @@
     border-top: 1px solid var(--card-border) !important;
     border-top-color: var(--card-border) !important;
   }
-  /* Single composer shell — no outline at rest, just a soft tint */
+  /* Single composer shell — white inside, hairline edge for definition */
   .dash-chat-input-row {
     display: flex; align-items: center; gap: 8px;
-    background: #FAFAFC;
-    border: 1px solid transparent;
+    background: #FFFFFF;
+    border: 1px solid #E5E1ED;
     border-radius: 12px;
     padding: 6px 6px 6px 14px;
-    transition: background .15s, border-color .15s, box-shadow .15s;
+    transition: border-color .15s, box-shadow .15s;
   }
-  .dash-chat-input-row:hover { background: #F6F5F9; }
+  .dash-chat-input-row:hover { border-color: #D3CCE0; }
   .dash-chat-input-row:focus-within {
-    background: #FFFFFF;
     border-color: var(--teal);
     box-shadow: 0 0 0 4px rgba(124,58,237,0.12);
   }
