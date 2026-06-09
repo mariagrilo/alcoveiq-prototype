@@ -1682,6 +1682,205 @@
   .ed-panel-close::before { content: "←"; font-size: 16px; line-height: 1; }
   .ed-panel-body { padding: 24px 32px 48px !important; }
 
+  /* ============================================================================
+     V3 DASHBOARD: bento + infographics (post-critique)
+     ========================================================================== */
+
+  /* Welcome banner — dismissible, friendly, with primary CTA */
+  .db-banner {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; margin-bottom: 16px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #F6F2FF, #FCFBFF);
+    border: 1px solid rgba(124,58,237,0.18);
+  }
+  .db-banner-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: #EDE9FE;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--teal);
+    flex: none;
+  }
+  .db-banner-body { flex: 1; min-width: 0; }
+  .db-banner-title { font-weight: 600; font-size: 14px; color: var(--text); }
+  .db-banner-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+  .db-banner-close {
+    color: var(--text-muted); background: transparent; border: none; cursor: pointer;
+    padding: 4px 8px; border-radius: 6px;
+  }
+  .db-banner-close:hover { background: var(--panel2); color: var(--text); }
+
+  /* Bento grid: priority list (left, hero) + widget column (right) */
+  .db-bento {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 18px;
+    align-items: start;
+  }
+  @media (max-width: 1280px) {
+    .db-bento { grid-template-columns: 1fr; }
+  }
+  .db-main { min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+  .db-side { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+
+  /* Priority panel — gets the violet left edge */
+  .db-priority {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(17,17,26,0.03);
+    position: relative;
+    padding: 4px 0;
+  }
+  .db-priority::before {
+    content: ""; position: absolute;
+    left: 0; top: 14px; bottom: 14px; width: 3px;
+    border-radius: 3px;
+    background: var(--teal);
+  }
+  .db-priority-head {
+    padding: 14px 20px 8px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .db-priority-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--text);
+  }
+  /* The legacy task sections render inside this panel */
+  .db-priority .today-sections { padding: 0 16px 12px !important; }
+  .db-priority .today-section { border: none !important; border-radius: 0 !important; box-shadow: none !important; padding: 0 !important; }
+
+  /* Generic widget card */
+  .viz-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(17,17,26,0.03);
+    padding: 14px 16px;
+  }
+  .viz-card.tight { padding: 0; }
+  .viz-card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .viz-card-title { font-size: 13.5px; font-weight: 600; color: var(--text); letter-spacing: -0.1px; }
+  .viz-card-eyebrow {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .viz-card .view-all {
+    margin-top: auto;
+    border-top: 1px solid var(--card-border);
+    padding: 11px 16px;
+    font-size: 12.5px; color: var(--teal); font-weight: 500;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    background: transparent; border-left: none; border-right: none; border-bottom: none; width: 100%; text-align: left; font-family: inherit;
+  }
+  .viz-card .view-all:hover { background: var(--panel2); }
+
+  /* Stat list — compact vertical (replaces big stat tiles) */
+  .stat-list { padding: 4px 0; }
+  .stat-list .sl-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 14px;
+    border-top: 1px solid var(--card-border);
+    cursor: pointer; transition: background .12s;
+    background: transparent; border-left: none; border-right: none; border-bottom: none; width: 100%; text-align: left; font-family: inherit;
+  }
+  .stat-list .sl-row:first-child { border-top: none; }
+  .stat-list .sl-row:hover { background: var(--panel2); }
+  .sl-icon {
+    width: 32px; height: 32px; border-radius: 9px;
+    background: var(--cardHi);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--teal);
+    flex: none;
+  }
+  .sl-val {
+    font-variant-numeric: tabular-nums;
+    font-size: 18px; font-weight: 600; letter-spacing: -0.3px;
+    color: var(--text); line-height: 1;
+  }
+  .sl-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .sl-body { flex: 1; min-width: 0; }
+  .sl-chev { color: var(--text-dim); flex: none; }
+
+  /* Horizontal bar chart (Jurisdiction) */
+  .viz-bars { display: flex; flex-direction: column; gap: 10px; }
+  .viz-bar-row { display: flex; align-items: center; gap: 12px; }
+  .viz-bar-label { width: 70px; font-size: 12.5px; font-weight: 500; color: var(--text); }
+  .viz-bar-track { flex: 1; height: 8px; background: var(--cardHi); border-radius: 4px; overflow: hidden; }
+  .viz-bar-fill { height: 100%; border-radius: 4px; transition: width .35s cubic-bezier(.2,.7,.2,1); }
+  .viz-bar-n { width: 22px; text-align: right; font-variant-numeric: tabular-nums; font-size: 12.5px; font-weight: 600; color: var(--text); }
+
+  /* Donut chart (Compliance health) */
+  .viz-donut-wrap { display: flex; align-items: center; gap: 16px; }
+  .viz-donut { width: 92px; height: 92px; flex: none; }
+  .viz-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .viz-donut-center {
+    font-family: 'Schibsted Grotesk', sans-serif;
+    font-variant-numeric: tabular-nums;
+    fill: var(--text);
+    font-size: 22px; font-weight: 600;
+    text-anchor: middle; dominant-baseline: middle;
+  }
+  .viz-donut-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; }
+  .viz-donut-legend-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .viz-donut-dot { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+  .viz-donut-legend-row .lbl { color: var(--text-muted); flex: 1; min-width: 0; }
+  .viz-donut-legend-row .n { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
+
+  /* Sparkline */
+  .viz-spark-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .viz-spark { flex: 1; min-width: 0; height: 38px; }
+  .viz-spark svg { width: 100%; height: 100%; }
+  .viz-spark-num { font-family: 'Schibsted Grotesk', sans-serif; font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; letter-spacing: -0.4px; line-height: 1; color: var(--text); }
+  .viz-spark-delta { font-size: 11.5px; font-weight: 600; color: var(--green); display: inline-flex; align-items: center; gap: 4px; }
+  .viz-spark-delta.neg { color: var(--red); }
+
+  /* Quick actions */
+  .quick-actions { display: flex; flex-direction: column; gap: 6px; }
+  .qa-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    background: transparent;
+    border: 1px solid var(--card-border);
+    border-radius: 9px;
+    padding: 10px 13px;
+    font-size: 13px; font-weight: 500; color: var(--text);
+    cursor: pointer; font-family: inherit;
+    transition: .12s;
+  }
+  .qa-btn:hover { background: var(--panel2); border-color: rgba(17,17,26,0.14); }
+  .qa-btn .arr { color: var(--text-dim); transition: transform .14s; }
+  .qa-btn:hover .arr { transform: translateX(2px); color: var(--teal); }
+
+  /* Recent orders feed */
+  .recent-feed { display: flex; flex-direction: column; }
+  .recent-feed .rf-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px;
+    border-top: 1px solid var(--card-border);
+    cursor: pointer; transition: background .12s;
+    background: transparent; border-left: none; border-right: none; border-bottom: none; width: 100%; text-align: left; font-family: inherit;
+  }
+  .recent-feed .rf-row:first-child { border-top: none; }
+  .recent-feed .rf-row:hover { background: var(--panel2); }
+  .rf-body { flex: 1; min-width: 0; }
+  .rf-title { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rf-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rf-pill {
+    font-size: 11px; font-weight: 600;
+    padding: 3px 9px; border-radius: 6px;
+    flex: none;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .rf-pill.complete { background: rgba(14,163,113,0.10); color: var(--green); }
+  .rf-pill.in_progress, .rf-pill.submitted { background: rgba(124,58,237,0.10); color: var(--teal); }
+  .rf-pill.paused, .rf-pill.needs_input { background: rgba(181,121,10,0.10); color: var(--amber); }
+
+  /* Hide the legacy stat tile row (replaced by stat-list on the right) */
+  .today-stats.legacy-hide { display: none !important; }
+
   /* ---- PHASE 3: Dashboard stat cards row ---- */
   .today-stats {
     display: grid;
@@ -2016,17 +2215,101 @@
     <!-- DASHBOARD VIEW -->
     <div id="view-dashboard" class="view active">
       <div class="today-header">
-        <h1 class="today-title">Today</h1>
-        <p class="today-sub" id="today-sub">Everything that needs you, in one place.</p>
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">Today</div>
+        <h1 class="today-title" id="db-workspace">Redwood Capital</h1>
+        <p class="today-sub" id="today-sub">Welcome back, Maria.</p>
       </div>
-      <div class="today-stats" id="today-stats">
-        <div class="today-stat red"><div class="ts-bar"></div><div class="ts-label">Action required</div><div class="ts-value" id="ts-blockers">—</div><div class="ts-sub" id="ts-blockers-sub">Blockers + overdue filings</div></div>
-        <div class="today-stat amber"><div class="ts-bar"></div><div class="ts-label">Due this week</div><div class="ts-value" id="ts-week">—</div><div class="ts-sub" id="ts-week-sub">Across all jurisdictions</div></div>
-        <div class="today-stat violet"><div class="ts-bar"></div><div class="ts-label">Orders in flight</div><div class="ts-value" id="ts-orders">—</div><div class="ts-sub" id="ts-orders-sub">Being processed by AlcoveIQ</div></div>
-        <div class="today-stat green"><div class="ts-bar"></div><div class="ts-label">Filed YTD</div><div class="ts-value" id="ts-filed">—</div><div class="ts-sub" id="ts-filed-sub">Zero misses this year</div></div>
+
+      <!-- Welcome banner -->
+      <div class="db-banner" id="db-banner">
+        <div class="db-banner-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+        </div>
+        <div class="db-banner-body">
+          <div class="db-banner-title">Your workspace is ready</div>
+          <div class="db-banner-sub">Form an entity, schedule a filing, or just ask the assistant.</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openWizard()">+ Form an entity</button>
+        <button class="db-banner-close" onclick="dismissDashboardBanner()" aria-label="Dismiss">✕</button>
       </div>
-      <div class="today-sections" id="today-sections">
-        <!-- rendered by renderTodayPage() -->
+
+      <!-- Bento grid -->
+      <div class="db-bento">
+        <!-- LEFT (hero): priority task list -->
+        <div class="db-main">
+          <div class="db-priority">
+            <div class="db-priority-head">
+              <div class="db-priority-title">What needs you</div>
+              <div style="font-size:11.5px;color:var(--text-muted);">Sorted by urgency</div>
+            </div>
+            <div class="today-sections" id="today-sections">
+              <!-- rendered by renderTodayPage() -->
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT (side): widgets -->
+        <div class="db-side">
+          <!-- Stat list -->
+          <div class="viz-card tight">
+            <div class="stat-list" id="db-statlist"></div>
+          </div>
+
+          <!-- Compliance health donut -->
+          <div class="viz-card">
+            <div class="viz-card-head">
+              <div class="viz-card-title">Compliance health</div>
+              <div class="viz-card-eyebrow">PORTFOLIO</div>
+            </div>
+            <div class="viz-donut-wrap" id="db-donut"></div>
+          </div>
+
+          <!-- Jurisdiction breakdown -->
+          <div class="viz-card">
+            <div class="viz-card-head">
+              <div class="viz-card-title">By jurisdiction</div>
+              <div class="viz-card-eyebrow">ENTITIES</div>
+            </div>
+            <div class="viz-bars" id="db-jurisdictions"></div>
+          </div>
+
+          <!-- Fees YTD sparkline -->
+          <div class="viz-card" id="db-fees-card">
+            <div class="viz-card-head">
+              <div class="viz-card-title">Fees YTD</div>
+              <div class="viz-card-eyebrow">2026</div>
+            </div>
+            <div class="viz-spark-row">
+              <div>
+                <div class="viz-spark-num" id="db-fees-num">$0</div>
+                <div class="viz-spark-delta" id="db-fees-delta"></div>
+              </div>
+              <div class="viz-spark" id="db-fees-spark"></div>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="viz-card">
+            <div class="viz-card-head">
+              <div class="viz-card-title">Quick actions</div>
+            </div>
+            <div class="quick-actions">
+              <button class="qa-btn" onclick="openWizard()">Form an entity <span class="arr">→</span></button>
+              <button class="qa-btn" onclick="navigate('compliance')">File an annual report <span class="arr">→</span></button>
+              <button class="qa-btn" onclick="navigate('compliance')">Order good standing <span class="arr">→</span></button>
+              <button class="qa-btn" onclick="navigate('compliance')">Change registered agent <span class="arr">→</span></button>
+            </div>
+          </div>
+
+          <!-- Recent orders -->
+          <div class="viz-card tight" style="display:flex;flex-direction:column;">
+            <div class="viz-card-head" style="margin:0;padding:14px 16px;border-bottom:1px solid var(--card-border);">
+              <div class="viz-card-title">Recent orders</div>
+            </div>
+            <div class="recent-feed" id="db-recent"></div>
+            <button class="view-all" onclick="navigate('orders')">View all orders <span>→</span></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -4754,6 +5037,7 @@ function renderDashboardRecent() {
   `;
 }
 function renderTopStats() {
+  // Legacy stat-tile updates retained but tiles are hidden via .legacy-hide; safe no-ops if elements missing.
   const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
   try {
     const blocked = entities.filter(e => e.ra === 'lapsed').length;
@@ -4768,11 +5052,190 @@ function renderTopStats() {
     setText('ts-orders-sub', inFlight === 0 ? 'Nothing in queue' : `${inFlight} order${inFlight === 1 ? '' : 's'} processing`);
     setText('ts-filed', String(filedYtd + 38));
     setText('ts-filed-sub', 'Zero misses this year');
-  } catch (e) { /* fail silently — page renderer is more important */ }
+  } catch (e) { /* fail silently */ }
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Dashboard widgets — bento panels
+// ──────────────────────────────────────────────────────────────────────
+
+function dismissDashboardBanner() {
+  const el = document.getElementById('db-banner');
+  if (el) el.style.display = 'none';
+  try { localStorage.setItem('aiq-banner-dismissed', '1'); } catch(e){}
+}
+function maybeHideDashboardBanner() {
+  try { if (localStorage.getItem('aiq-banner-dismissed') === '1') {
+    const el = document.getElementById('db-banner'); if (el) el.style.display = 'none';
+  }} catch(e){}
+}
+
+function renderDashboardStatList() {
+  const root = document.getElementById('db-statlist'); if (!root) return;
+  const active = entities.filter(e => e.status === 'active').length;
+  const pending = entities.filter(e => e.status !== 'active').length;
+  const openOrders = orders.filter(o => o.status !== 'Completed').length;
+  const docsCount = (typeof documents !== 'undefined') ? documents.length : 0;
+  const states = new Set(entities.map(e => e.state)).size;
+
+  const rows = [
+    { icon: '◧',  label: 'Entities',      val: entities.length, to: 'entities' },
+    { icon: '●',  label: 'Active',        val: active,          to: 'entities' },
+    { icon: '◷',  label: 'Pending',       val: pending,         to: 'entities' },
+    { icon: '☷',  label: 'Open orders',   val: openOrders,      to: 'orders' },
+    { icon: '⎙',  label: 'Documents',     val: docsCount,       to: 'documents' },
+    { icon: '⌖',  label: 'Jurisdictions', val: states,          to: 'entities' },
+  ];
+  root.innerHTML = rows.map(r => `
+    <button class="sl-row" onclick="navigate('${r.to}')">
+      <div class="sl-icon">${r.icon}</div>
+      <div class="sl-body"><div class="sl-val">${r.val}</div><div class="sl-lbl">${r.label}</div></div>
+      <div class="sl-chev">›</div>
+    </button>
+  `).join('');
+}
+
+function renderDashboardDonut() {
+  const root = document.getElementById('db-donut'); if (!root) return;
+  // Compute compliance health buckets
+  const good = entities.filter(e => e.compliance === 'good').length;
+  const warn = entities.filter(e => e.compliance === 'warn').length;
+  const bad  = entities.filter(e => e.compliance === 'bad' || e.compliance === 'danger').length;
+  const total = good + warn + bad || entities.length || 1;
+
+  const colors = { good: '#0EA371', warn: '#B5790A', bad: '#DC2A2A' };
+  const segs = [['good', good, colors.good], ['warn', warn, colors.warn], ['bad', bad, colors.bad]];
+
+  // SVG donut — circle with stroke-dasharray
+  const R = 40, C = 2 * Math.PI * R;
+  let offset = 0;
+  const arcs = segs.map(([_k, v, col]) => {
+    if (v <= 0) return '';
+    const len = (v / total) * C;
+    const arc = `<circle cx="50" cy="50" r="${R}" fill="none" stroke="${col}" stroke-width="12"
+                  stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-offset}"/>`;
+    offset += len;
+    return arc;
+  }).join('');
+
+  const healthPct = Math.round((good / total) * 100);
+  root.innerHTML = `
+    <div class="viz-donut">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="${R}" fill="none" stroke="${'#EEF0F5'}" stroke-width="12"/>
+        ${arcs}
+        <text class="viz-donut-center" x="50" y="51" transform="rotate(90 50 50)">${healthPct}%</text>
+      </svg>
+    </div>
+    <div class="viz-donut-legend">
+      <div class="viz-donut-legend-row"><span class="viz-donut-dot" style="background:${colors.good}"></span><span class="lbl">Good standing</span><span class="n">${good}</span></div>
+      <div class="viz-donut-legend-row"><span class="viz-donut-dot" style="background:${colors.warn}"></span><span class="lbl">Due soon</span><span class="n">${warn}</span></div>
+      <div class="viz-donut-legend-row"><span class="viz-donut-dot" style="background:${colors.bad}"></span><span class="lbl">Action needed</span><span class="n">${bad}</span></div>
+    </div>
+  `;
+}
+
+function renderDashboardJurisdictions() {
+  const root = document.getElementById('db-jurisdictions'); if (!root) return;
+  const counts = {};
+  entities.forEach(e => { counts[e.state] = (counts[e.state] || 0) + 1; });
+  const stateName = { CA:'California', DE:'Delaware', WY:'Wyoming', FL:'Florida', NY:'New York', TX:'Texas', NV:'Nevada' };
+  const arr = Object.entries(counts).map(([st, n]) => ({ st, n })).sort((a,b) => b.n - a.n).slice(0, 6);
+  if (arr.length === 0) { root.innerHTML = '<div style="color:var(--text-muted);font-size:12.5px;">No entities yet.</div>'; return; }
+  const max = Math.max(...arr.map(x => x.n), 1);
+  const palette = ['#7C3AED', '#A78BFA', '#C4B5FD', '#8B5CF6', '#6366F1', '#94A3B8'];
+  root.innerHTML = arr.map((x, i) => `
+    <div class="viz-bar-row">
+      <div class="viz-bar-label">${stateName[x.st] || x.st}</div>
+      <div class="viz-bar-track"><div class="viz-bar-fill" style="width:${(x.n / max) * 100}%;background:${palette[i % palette.length]};"></div></div>
+      <div class="viz-bar-n">${x.n}</div>
+    </div>
+  `).join('');
+}
+
+function renderDashboardFees() {
+  const sparkEl = document.getElementById('db-fees-spark');
+  const numEl = document.getElementById('db-fees-num');
+  const deltaEl = document.getElementById('db-fees-delta');
+  if (!sparkEl) return;
+
+  // Synthesize monthly fees (Jan–May 2026). In a real build, sum from orders/compliance per month.
+  // Use entity count as a scale so empty demo doesn't look weird.
+  const scale = Math.max(entities.length, 6);
+  const monthly = [0.6, 0.9, 1.4, 1.1, 1.8].map(m => Math.round(m * scale * 35));
+  const ytd = monthly.reduce((a,b) => a+b, 0);
+  const lastDelta = monthly[monthly.length-1] - monthly[monthly.length-2];
+  const pctDelta = monthly[monthly.length-2] > 0 ? Math.round((lastDelta / monthly[monthly.length-2]) * 100) : 0;
+
+  numEl.textContent = '$' + ytd.toLocaleString();
+  const isUp = pctDelta >= 0;
+  deltaEl.className = 'viz-spark-delta' + (isUp ? '' : ' neg');
+  deltaEl.innerHTML = `${isUp ? '▲' : '▼'} ${Math.abs(pctDelta)}% vs prior month`;
+
+  // Draw sparkline
+  const w = 120, h = 38, pad = 3;
+  const max = Math.max(...monthly), min = Math.min(...monthly);
+  const span = max - min || 1;
+  const pts = monthly.map((v, i) => {
+    const x = pad + (i / (monthly.length - 1)) * (w - pad * 2);
+    const y = h - pad - ((v - min) / span) * (h - pad * 2);
+    return [x, y];
+  });
+  const pathD = pts.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(' ');
+  const areaD = pathD + ` L ${pts[pts.length-1][0]} ${h} L ${pts[0][0]} ${h} Z`;
+  sparkEl.innerHTML = `
+    <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="spark-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(124,58,237,0.25)"/>
+          <stop offset="100%" stop-color="rgba(124,58,237,0)"/>
+        </linearGradient>
+      </defs>
+      <path d="${areaD}" fill="url(#spark-grad)"/>
+      <path d="${pathD}" stroke="#7C3AED" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="2.5" fill="#7C3AED"/>
+    </svg>
+  `;
+}
+
+function renderDashboardRecentOrders() {
+  const root = document.getElementById('db-recent'); if (!root) return;
+  const recent = [...orders].sort((a,b) => (a.status === 'Completed') - (b.status === 'Completed')).slice(0, 4);
+  if (recent.length === 0) { root.innerHTML = '<div class="empty-state" style="padding:18px;color:var(--text-muted);font-size:12.5px;">No orders yet — start one above.</div>'; return; }
+  const statusClass = (s) => {
+    const k = (s || '').toLowerCase().replace(/\s+/g, '_');
+    if (k.includes('complete') || k.includes('filed')) return 'complete';
+    if (k.includes('paus') || k.includes('input')) return 'paused';
+    return 'in_progress';
+  };
+  const statusLabel = (o) => {
+    if (o.status === 'Completed' || o.status === 'Filed') return 'Filed';
+    if (o.needsInput) return 'Paused';
+    return o.status || 'In progress';
+  };
+  root.innerHTML = recent.map(o => `
+    <button class="rf-row" onclick="openOrderDetail('${o.id}')">
+      <div class="rf-body">
+        <div class="rf-title">${o.service || o.kind || 'Order'}</div>
+        <div class="rf-sub">${o.entity || ''}</div>
+      </div>
+      <span class="rf-pill ${statusClass(o.status)}">${statusLabel(o)}</span>
+    </button>
+  `).join('');
+}
+
+function renderDashboardWidgets() {
+  try { renderDashboardStatList(); } catch(e) { console.warn('statlist render failed', e); }
+  try { renderDashboardDonut(); } catch(e) { console.warn('donut render failed', e); }
+  try { renderDashboardJurisdictions(); } catch(e) { console.warn('jurisdictions render failed', e); }
+  try { renderDashboardFees(); } catch(e) { console.warn('fees render failed', e); }
+  try { renderDashboardRecentOrders(); } catch(e) { console.warn('recent render failed', e); }
+  maybeHideDashboardBanner();
 }
 
 function renderTodayPage() {
   renderTopStats();
+  renderDashboardWidgets();
   const root = document.getElementById('today-sections');
   if (!root) return;
   const today = new Date('2026-05-08');
