@@ -1183,6 +1183,21 @@
   /* Bento children must not collapse the inner scroll */
   .db-bento { min-height: 0; }
   .db-priority { overflow: visible; }
+  /* Override legacy dashboard layout: it forced height:100% + overflow:hidden
+     to scroll the task column internally. Let the whole .content scroll
+     naturally so the bento works. */
+  #view-dashboard.active {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  #view-dashboard .today-sections {
+    overflow: visible !important;
+    flex: none !important;
+    min-height: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+  }
 
   /* ---- LEFT SIDEBAR ---- */
   .aiq-sidebar {
@@ -1691,6 +1706,28 @@
   /* ============================================================================
      V3 DASHBOARD: bento + infographics (post-critique)
      ========================================================================== */
+
+  /* Editorial header — eyebrow + serif greeting + sub */
+  .db-header { padding: 4px 4px 22px !important; }
+  .db-header .db-eyebrow {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .db-header .db-greeting {
+    font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+    font-size: 38px; line-height: 1.05; font-weight: 500;
+    letter-spacing: -1.4px;
+    color: var(--text);
+  }
+  .db-header .today-sub {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px; line-height: 1.3; font-weight: 400;
+    letter-spacing: -0.3px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
 
   /* Welcome banner — dismissible, friendly, with primary CTA */
   .db-banner {
@@ -2220,9 +2257,10 @@
 
     <!-- DASHBOARD VIEW -->
     <div id="view-dashboard" class="view active">
-      <div class="today-header">
-        <h1 class="today-title">Today</h1>
-        <p class="today-sub" id="today-sub">Welcome back, Maria — everything that needs you, in one place.</p>
+      <div class="today-header db-header">
+        <div class="db-eyebrow">Today</div>
+        <h1 class="db-greeting" id="db-greeting">Good morning, Maria.</h1>
+        <p class="today-sub" id="today-sub">Here's what's on your plate.</p>
       </div>
 
       <!-- Welcome banner -->
@@ -5229,7 +5267,15 @@ function renderDashboardRecentOrders() {
   `).join('');
 }
 
+function renderDashboardGreeting() {
+  const el = document.getElementById('db-greeting'); if (!el) return;
+  const h = new Date().getHours();
+  const part = h < 5 ? 'Hey' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  el.textContent = `${part}, Maria.`;
+}
+
 function renderDashboardWidgets() {
+  try { renderDashboardGreeting(); } catch(e) {}
   try { renderDashboardStatList(); } catch(e) { console.warn('statlist render failed', e); }
   try { renderDashboardDonut(); } catch(e) { console.warn('donut render failed', e); }
   try { renderDashboardJurisdictions(); } catch(e) { console.warn('jurisdictions render failed', e); }
