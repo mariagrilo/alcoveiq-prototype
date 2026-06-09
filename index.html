@@ -1469,13 +1469,19 @@
      inviting. The composer is the chat panel's primary interaction;
      it should read as "talk to your copilot," not "search field."
      ============================================================ */
+  /* Override the legacy dark-theme rule (.dash-chat.dash-chat-hero
+     .dash-chat-input-wrap had background: rgba(0,0,0,0.2)) and any
+     other higher-specificity ancestors */
+  .left-chat .dash-chat-input-wrap,
+  .dash-chat.dash-chat-hero .dash-chat-input-wrap,
   .dash-chat-input-wrap {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 8px !important;
     padding: 14px 18px 16px !important;
-    background: transparent;
-    border-top: 1px solid var(--card-border);
+    background: transparent !important;
+    border-top: 1px solid var(--card-border) !important;
+    border-top-color: var(--card-border) !important;
   }
   /* Single composer shell — no outline at rest, just a soft tint */
   .dash-chat-input-row {
