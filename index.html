@@ -1630,6 +1630,24 @@
     box-shadow: 0 24px 70px rgba(17,17,26,0.22);
     color: var(--text);
   }
+  /* Pin modal footer at the bottom; only the body scrolls */
+  .modal-overlay .modal {
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .modal-overlay .modal .modal-header { flex: none; }
+  .modal-overlay .modal .modal-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .modal-overlay .modal .modal-footer {
+    flex: none;
+    background: var(--card);
+    /* subtle shadow above to hint that body content scrolls behind */
+    box-shadow: 0 -8px 12px -8px rgba(17,17,26,0.06);
+  }
 
   /* ---- Org chart nodes: light-theme override ---- */
   .oc-node {
