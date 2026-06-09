@@ -1610,6 +1610,43 @@
     color: var(--text);
   }
 
+  /* ---- Org chart nodes: light-theme override ---- */
+  .oc-node {
+    background: var(--card) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: 0 1px 2px rgba(17,17,26,0.04);
+  }
+  .oc-node:hover { box-shadow: 0 8px 24px rgba(17,17,26,0.08) !important; }
+  .oc-node.mgmt     { background: linear-gradient(135deg, #FFFFFF, #F3EEFF) !important; }
+  .oc-node.gp       { background: linear-gradient(135deg, #FFFFFF, #EFE9FE) !important; }
+  .oc-node.fund     { background: linear-gradient(135deg, #FFFFFF, #EEF0FF) !important; }
+  .oc-node.portfolio{ background: linear-gradient(135deg, #FFFFFF, #E7F6EE) !important; }
+  .oc-node.spv      { background: linear-gradient(135deg, #FFFFFF, #FBF1DE) !important; }
+  .oc-node .oc-name { color: var(--text) !important; }
+  .oc-node .oc-state { color: var(--text-muted) !important; }
+  .oc-node .oc-pct { color: var(--text-muted) !important; }
+  /* role accent colors retuned for light bg */
+  .oc-node.mgmt::before     { background: #8B5CF6 !important; }
+  .oc-node.gp::before       { background: var(--teal) !important; }
+  .oc-node.fund::before     { background: #6366F1 !important; }
+  .oc-node.portfolio::before{ background: var(--green) !important; }
+  .oc-node.spv::before      { background: var(--amber) !important; }
+  .oc-node.mgmt .oc-type     { color: #7C3AED !important; }
+  .oc-node.gp .oc-type       { color: var(--teal-dark) !important; }
+  .oc-node.fund .oc-type     { color: #4F46E5 !important; }
+  .oc-node.portfolio .oc-type{ color: var(--green) !important; }
+  .oc-node.spv .oc-type      { color: var(--amber) !important; }
+  /* jurisdiction badge */
+  .oc-node .oc-juris {
+    background: var(--cardHi) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text-muted) !important;
+  }
+  /* compliance status dot — keep colored, add a subtle white ring for contrast */
+  .oc-node .oc-compliance {
+    box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px rgba(17,17,26,0.08) !important;
+  }
+
   /* ---- PHASE 3: Full-page entity / order / compliance views (no slide-in) ---- */
   .ed-panel, #ed-panel, #ord-panel, #comp-panel { display: none !important; }
   .ed-panel.open, #ed-panel.open, #ord-panel.open, #comp-panel.open {
